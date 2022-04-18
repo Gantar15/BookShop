@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookShop
+namespace BookShop.Views
 {
-    public partial class MainWindow
+    /// <summary>
+    /// Логика взаимодействия для Contacts.xaml
+    /// </summary>
+    public partial class Contacts : Page
     {
-        public MainWindow()
+        public Contacts()
         {
             InitializeComponent();
         }

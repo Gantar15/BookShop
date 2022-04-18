@@ -1,0 +1,94 @@
+﻿<Page x:Class="BookShop.Views.PageParts.Header"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookShop.Views.PageParts"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Header">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <TextBlock FontSize="13">
+                    <Hyperlink NavigateUri="Contacts.xaml" TextDecorations="None" Foreground="Black">Контакты</Hyperlink>
+            </TextBlock>
+            <TextBlock Margin="15 0 0 0" FontSize="13">
+                    <Hyperlink NavigateUri="DeliveryInfo.xaml" TextDecorations="None" Foreground="Black">Условия доставки</Hyperlink>
+            </TextBlock>
+        </StackPanel>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="350"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="0">
+                <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
+                <TextBlock FontSize="25" VerticalAlignment="Center" Margin="10 0 0 0">
+                        <Run Foreground="Green" FontWeight="Bold">BOOK</Run>
+                        SHOP
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <TextBox BorderBrush="LightGray" FontSize="15" Width="300" Height="45" Padding="5 10 40 10"/>
+                <Button Margin="-40 0 0 0" BorderThickness="0" Background="Transparent" Panel.ZIndex="1"/>
+                <Image Source="/Imgs/Search.png" Width="25" Height="25" Margin="-40 0 0 0"/>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal">
+                <Image Source="/Imgs/shopping-cart.png" Width="25" Height="25" 
+                           VerticalAlignment="Center" Margin="0 0 -50 0" 
+                           Panel.ZIndex="1"/>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="35.17$" Background="Transparent" 
+                                        FontWeight="Bold" FontSize="15" 
+                                        VerticalAlignment="Center" Padding="70 15 15 15"
+                                        BorderBrush="LightGray"/>
+                    <TextBlock Text="4" VerticalAlignment="Center" FontSize="15" Margin="-95 -17 0 0" Foreground="Red" FontWeight="Bold"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2" Background="Green" Margin="0 10 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="145"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="170"/>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0" BorderBrush="White" BorderThickness="1" VerticalAlignment="Center" Margin="10 0 0 0">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Imgs/burger.png" Width="25" Height="25" Margin="0 0 -45 0" Panel.ZIndex="1"/>
+                    <Button Padding="45 10 20 10" FontSize="16" Foreground="White" Background="Transparent">Категории</Button>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Margin="20 0 0 0">
+                <TextBlock>
+                        <Hyperlink NavigateUri="Stock.xaml" TextDecorations="None" FontSize="16" Foreground="White">Акция</Hyperlink>
+                </TextBlock>
+                <TextBlock Margin="10 0 0 0">
+                        <Hyperlink NavigateUri="Newest.xaml" TextDecorations="None" FontSize="16" Foreground="White">Новинки</Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <Image Source="/Imgs/phone.png" Width="30" Height="30"/>
+                <StackPanel Margin="10 0 0 0">
+                    <TextBlock FontSize="16" Foreground="White">Телефон</TextBlock>
+                    <TextBlock FontSize="16" Foreground="White">+375293651860</TextBlock>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,56 @@
+﻿<Page x:Class="BookShop.Views.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BookShop.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Home">
+    <Grid HorizontalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Frame Source="PageParts/Header.xaml" Grid.Row="0"/>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <ListView x:Name="phonesList" 
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel MaxWidth="300" Margin="10" Background="WhiteSmoke">
+                            <Image Width="100" Height="75" Source="{Binding Path=Image}" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                <TextBlock FontSize="16" Text="{Binding Path=Company}" />
+                                <TextBlock FontSize="16" Text="{Binding Path=Title}" Margin="5 0 0 0" />
+                            </StackPanel>
+                            <TextBlock FontSize="12" 
+                                           Text="{Binding Path=Description}" 
+                                           HorizontalAlignment="Center" 
+                                           Margin="0 10 0 0" />
+                            <StackPanel Margin="0 5 0 0">
+                                <TextBlock VerticalAlignment="Center" 
+                                               FontSize="12" Text="{Binding StringFormat=Рейтинг: {0:F1}, Path=Rating}" 
+                                               HorizontalAlignment="Left"/>
+                                <TextBlock FontSize="12" Text="{Binding StringFormat=Цена: {0:C2}, Path=Price}" />
+                                <TextBlock FontSize="12" Text="{Binding StringFormat=В наличии: {0}, Path=InStock}"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel/>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

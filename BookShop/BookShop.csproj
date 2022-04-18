@@ -7,12 +7,34 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Imgs\burger.png" />
+    <None Remove="Imgs\logo.png" />
+    <None Remove="Imgs\phone.png" />
+    <None Remove="Imgs\search.png" />
+    <None Remove="Imgs\shopping-cart.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Infrastructure\" />
     <Folder Include="Services\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\" />
     <Folder Include="Data\" />
     <Folder Include="ViewModels\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Imgs\burger.png" />
+    <Resource Include="Imgs\logo.png" />
+    <Resource Include="Imgs\phone.png" />
+    <Resource Include="Imgs\search.png" />
+    <Resource Include="Imgs\shopping-cart.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="Views\RegisterPage.xaml">
+      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 
 </Project>
