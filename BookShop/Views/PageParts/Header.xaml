@@ -5,9 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookShop.Views.PageParts"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
       Title="Header">
-
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
@@ -26,8 +24,8 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="300"/>
-                <ColumnDefinition Width="350"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
@@ -39,13 +37,13 @@
                 </TextBlock>
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="1">
+            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Column="1">
                 <TextBox BorderBrush="LightGray" FontSize="15" Width="300" Height="45" Padding="5 10 40 10"/>
-                <Button Margin="-40 0 0 0" BorderThickness="0" Background="Transparent" Panel.ZIndex="1"/>
+                <Button Margin="-40 0 0 0" BorderThickness="0" Background="Transparent" Style="{StaticResource baseButtonStyle}"/>
                 <Image Source="/Imgs/Search.png" Width="25" Height="25" Margin="-40 0 0 0"/>
             </StackPanel>
 
-            <StackPanel Grid.Column="2" Orientation="Horizontal">
+            <StackPanel HorizontalAlignment="Right" Grid.Column="2" Orientation="Horizontal">
                 <Image Source="/Imgs/shopping-cart.png" Width="25" Height="25" 
                            VerticalAlignment="Center" Margin="0 0 -50 0" 
                            Panel.ZIndex="1"/>
@@ -53,7 +51,8 @@
                     <Button Content="35.17$" Background="Transparent" 
                                         FontWeight="Bold" FontSize="15" 
                                         VerticalAlignment="Center" Padding="70 15 15 15"
-                                        BorderBrush="LightGray"/>
+                                        BorderBrush="LightGray"
+                                        Style="{StaticResource baseButtonStyle}"/>
                     <TextBlock Text="4" VerticalAlignment="Center" FontSize="15" Margin="-95 -17 0 0" Foreground="Red" FontWeight="Bold"/>
                 </StackPanel>
             </StackPanel>
@@ -63,13 +62,15 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="145"/>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="170"/>
+                <ColumnDefinition Width="165"/>
             </Grid.ColumnDefinitions>
 
             <Border Grid.Column="0" BorderBrush="White" BorderThickness="1" VerticalAlignment="Center" Margin="10 0 0 0">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/Imgs/burger.png" Width="25" Height="25" Margin="0 0 -45 0" Panel.ZIndex="1"/>
-                    <Button Padding="45 10 20 10" FontSize="16" Foreground="White" Background="Transparent">Категории</Button>
+                    <Image Source="/Imgs/burger.png" Width="25" Height="25" Margin="0 0 -45 0"/>
+                    <Button Padding="45 10 20 10" FontSize="16" Foreground="White" Background="Transparent" Style="{StaticResource baseButtonStyle}">
+                        Категории
+                    </Button>
                 </StackPanel>
             </Border>
 
@@ -83,10 +84,10 @@
             </StackPanel>
 
             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
-                <Image Source="/Imgs/phone.png" Width="30" Height="30"/>
-                <StackPanel Margin="10 0 0 0">
-                    <TextBlock FontSize="16" Foreground="White">Телефон</TextBlock>
-                    <TextBlock FontSize="16" Foreground="White">+375293651860</TextBlock>
+                <Image Source="/Imgs/phone.png" Width="25" Height="25"/>
+                <StackPanel Margin="6 0 0 0">
+                    <TextBlock FontSize="13" Foreground="White">Телефон</TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Bold" Foreground="White">+375293651860</TextBlock>
                 </StackPanel>
             </StackPanel>
         </Grid>

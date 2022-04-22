@@ -3,18 +3,24 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:BookShop.Views"
+      xmlns:local="clr-namespace:BookShop"
+      xmlns:vm="clr-namespace:BookShop.ViewModels"
+      xmlns:cmd="clr-namespace:BookShop.Infrastructure.Commands"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="Home">
+      d:DesignHeight="450" d:DesignWidth="1900"
+      WindowWidth="1900"
+      Title="{Binding Title}">
+    <Page.DataContext>
+        <vm:HomeViewModel/>
+    </Page.DataContext>
     <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Frame Source="PageParts/Header.xaml" Grid.Row="0"/>
-
+        <Frame Source="PageParts/Header.xaml" Grid.Row="0" MinWidth="800"/>
+        
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
