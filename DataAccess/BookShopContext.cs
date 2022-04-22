@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace DataAccess
 {
     public partial class BookShopContext : DbContext
     {
+        StreamWriter FileLog = new StreamWriter("Log.txt", true);
         public BookShopContext()
         {
         }
@@ -15,7 +18,6 @@ namespace DataAccess
             : base(options)
         {
         }
-
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<BasketProduct> BasketProducts { get; set; }
@@ -33,8 +35,12 @@ namespace DataAccess
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=localhost; Database=BookShop; Trusted_Connection=True; Encrypt=False; TrustServerCertificate=True");
+                IConfigurationRoot configuration = new ConfigurationBuilder()
+                    .SetBasePath(System.IO.Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .Build();
+                optionsBuilder.UseSqlServer(configuration["connectionStrings:DefaultConnection"]);
+                optionsBuilder.LogTo(FileLog.WriteLine, LogLevel.Error);
             }
         }
 
@@ -278,5 +284,11 @@ namespace DataAccess
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+        public override async ValueTask DisposeAsync()
+        {
+            await base.DisposeAsync();
+            await FileLog.DisposeAsync();
+        }
     }
 }
