@@ -12,7 +12,7 @@ namespace DataAccess
         StreamWriter FileLog = new StreamWriter(Directory.GetCurrentDirectory() + @"\Log.txt", true);
         public BookShopContext()
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -90,8 +90,6 @@ namespace DataAccess
                     .HasMaxLength(30)
                     .IsUnicode(false)
                     .HasColumnName("ageRestriction");
-
-                entity.Property(e => e.AuthorId).HasColumnName("authorId");
 
                 entity.Property(e => e.CategoryId).HasColumnName("categoryId");
 

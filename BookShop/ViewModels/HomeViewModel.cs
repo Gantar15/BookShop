@@ -9,7 +9,6 @@ namespace BookShop.ViewModels
     {
         UnitOfWork unitOfWork = new UnitOfWork();
 
-
         private string _Title;
         public string Title
         {

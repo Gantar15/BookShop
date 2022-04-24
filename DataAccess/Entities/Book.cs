@@ -13,7 +13,6 @@ namespace DataAccess
         public string Format { get; set; }
         public int? PagesCount { get; set; }
         public int? PublicationYear { get; set; }
-        public int? AuthorId { get; set; }
         public int? ProductId { get; set; }
         public int? CategoryId { get; set; }
 
