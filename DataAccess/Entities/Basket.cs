@@ -5,15 +5,10 @@ namespace DataAccess
 {
     public partial class Basket
     {
-        public Basket()
-        {
-            BasketProducts = new HashSet<BasketProduct>();
-        }
-
         public int Id { get; set; }
         public int? UserId { get; set; }
 
-        public virtual User User { get; set; }
-        public virtual ICollection<BasketProduct> BasketProducts { get; set; }
+        public User User { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>();
     }
 }

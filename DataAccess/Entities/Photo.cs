@@ -9,6 +9,6 @@ namespace DataAccess
         public int? BookId { get; set; }
         public string Source { get; set; }
 
-        public virtual Book Book { get; set; }
+        public Book Book { get; set; }
     }
 }

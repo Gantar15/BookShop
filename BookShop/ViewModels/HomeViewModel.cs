@@ -1,17 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BookShop.ViewModels.Base;
+using DataAccess;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookShop.ViewModels.Base;
+using System.Windows;
 
 namespace BookShop.ViewModels
 {
     internal class HomeViewModel : ViewModel
     {
+        UnitOfWork unitOfWork = new UnitOfWork();
+
+
         private string _Title;
         public string Title
-        { 
+        {
             get => _Title; 
             set => Set(ref _Title, value);
         }

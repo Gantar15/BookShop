@@ -5,15 +5,10 @@ namespace DataAccess
 {
     public partial class Author
     {
-        public Author()
-        {
-            BookAuthors = new HashSet<BookAuthor>();
-        }
-
         public int Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
 
-        public virtual ICollection<BookAuthor> BookAuthors { get; set; }
+        public List<Book> Books { get; set; } = new List<Book>();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace DataAccess.Interfaces
 {
-    interface IRepository<T> : IDisposable
+    internal interface IRepository<T> : IDisposable
         where T : class
     {
         IEnumerable<T> GetBookList(); // получение всех объектов

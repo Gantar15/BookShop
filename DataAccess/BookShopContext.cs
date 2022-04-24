@@ -9,23 +9,23 @@ namespace DataAccess
 {
     public partial class BookShopContext : DbContext
     {
-        StreamWriter FileLog = new StreamWriter("Log.txt", true);
+        StreamWriter FileLog = new StreamWriter(Directory.GetCurrentDirectory() + @"\Log.txt", true);
         public BookShopContext()
         {
+            Database.EnsureDeleted();
+            Database.EnsureCreated();
         }
 
         public BookShopContext(DbContextOptions<BookShopContext> options)
             : base(options)
         {
         }
+
         public virtual DbSet<Author> Authors { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
-        public virtual DbSet<BasketProduct> BasketProducts { get; set; }
         public virtual DbSet<Book> Books { get; set; }
-        public virtual DbSet<BookAuthor> BookAuthors { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderProduct> OrderProducts { get; set; }
         public virtual DbSet<Photo> Photos { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
@@ -35,8 +35,7 @@ namespace DataAccess
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configuration = new ConfigurationBuilder()
-                    .SetBasePath(System.IO.Directory.GetCurrentDirectory())
+                var configuration = new ConfigurationBuilder()
                     .AddJsonFile("appsettings.json")
                     .Build();
                 optionsBuilder.UseSqlServer(configuration["connectionStrings:DefaultConnection"]);
@@ -71,31 +70,14 @@ namespace DataAccess
 
                 entity.Property(e => e.UserId).HasColumnName("userId");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Baskets)
-                    .HasForeignKey(d => d.UserId)
+                entity.HasOne(b => b.User)
+                    .WithOne(u => u.Basket)
+                    .HasForeignKey<Basket>(d => d.UserId)
                     .HasConstraintName("FK_Basket_User");
-            });
 
-            modelBuilder.Entity<BasketProduct>(entity =>
-            {
-                entity.ToTable("BasketProduct");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.BasketId).HasColumnName("basketId");
-
-                entity.Property(e => e.ProductId).HasColumnName("productId");
-
-                entity.HasOne(d => d.Basket)
-                    .WithMany(p => p.BasketProducts)
-                    .HasForeignKey(d => d.BasketId)
-                    .HasConstraintName("FK_BasketProduct_Basket");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.BasketProducts)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_BasketProduct_Product");
+                entity.HasMany(b => b.Products)
+                    .WithMany(p => p.Baskets)
+                    .UsingEntity(j => j.ToTable("BasketProduct"));
             });
 
             modelBuilder.Entity<Book>(entity =>
@@ -136,11 +118,6 @@ namespace DataAccess
                     .IsUnicode(false)
                     .HasColumnName("title");
 
-                entity.HasOne(d => d.Author)
-                    .WithMany(p => p.Books)
-                    .HasForeignKey(d => d.AuthorId)
-                    .HasConstraintName("FK_Book_BookAuthor");
-
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Books)
                     .HasForeignKey(d => d.CategoryId)
@@ -150,22 +127,10 @@ namespace DataAccess
                     .WithMany(p => p.Books)
                     .HasForeignKey(d => d.ProductId)
                     .HasConstraintName("FK_Book_Product");
-            });
 
-            modelBuilder.Entity<BookAuthor>(entity =>
-            {
-                entity.ToTable("BookAuthor");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.AuthorId).HasColumnName("authorId");
-
-                entity.Property(e => e.BookId).HasColumnName("bookId");
-
-                entity.HasOne(d => d.Author)
-                    .WithMany(p => p.BookAuthors)
-                    .HasForeignKey(d => d.AuthorId)
-                    .HasConstraintName("FK_BookAuthor_Author");
+                entity.HasMany(d => d.Authors)
+                    .WithMany(p => p.Books)
+                    .UsingEntity(j => j.ToTable("BookAuthor"));
             });
 
             modelBuilder.Entity<Category>(entity =>
@@ -187,27 +152,10 @@ namespace DataAccess
                     .HasMaxLength(200)
                     .IsUnicode(false)
                     .HasColumnName("address");
-            });
 
-            modelBuilder.Entity<OrderProduct>(entity =>
-            {
-                entity.ToTable("OrderProduct");
-
-                entity.Property(e => e.Id).HasColumnName("id");
-
-                entity.Property(e => e.OrderId).HasColumnName("orderId");
-
-                entity.Property(e => e.ProductId).HasColumnName("productId");
-
-                entity.HasOne(d => d.Order)
-                    .WithMany(p => p.OrderProducts)
-                    .HasForeignKey(d => d.OrderId)
-                    .HasConstraintName("FK_OrderProduct_Order");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.OrderProducts)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_OrderProduct_Product");
+                entity.HasMany(o => o.Products)
+                    .WithMany(p => p.Orders)
+                    .UsingEntity(j => j.ToTable("OrderProduct"));
             });
 
             modelBuilder.Entity<Photo>(entity =>

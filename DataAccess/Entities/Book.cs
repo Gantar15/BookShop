@@ -5,11 +5,6 @@ namespace DataAccess
 {
     public partial class Book
     {
-        public Book()
-        {
-            Photos = new HashSet<Photo>();
-        }
-
         public int Id { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
@@ -22,9 +17,9 @@ namespace DataAccess
         public int? ProductId { get; set; }
         public int? CategoryId { get; set; }
 
-        public virtual BookAuthor Author { get; set; }
-        public virtual Category Category { get; set; }
-        public virtual Product Product { get; set; }
-        public virtual ICollection<Photo> Photos { get; set; }
+        public Category Category { get; set; }
+        public Product Product { get; set; }
+        public List<Author> Authors { get; set; } = new List<Author>();
+        public List<Photo> Photos { get; set; } = new List<Photo>();
     }
 }
