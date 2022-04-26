@@ -12,7 +12,7 @@ namespace DataAccess
         StreamWriter FileLog = new StreamWriter(Directory.GetCurrentDirectory() + @"\Log.txt", true);
         public BookShopContext()
         {
-            //Database.EnsureDeleted();
+            Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
@@ -72,7 +72,7 @@ namespace DataAccess
 
                 entity.HasOne(b => b.User)
                     .WithOne(u => u.Basket)
-                    .HasForeignKey<Basket>(d => d.UserId)
+                    .HasForeignKey<Basket>(b => b.UserId)
                     .HasConstraintName("FK_Basket_User");
 
                 entity.HasMany(b => b.Products)
@@ -116,17 +116,17 @@ namespace DataAccess
                     .IsUnicode(false)
                     .HasColumnName("title");
 
-                entity.HasOne(d => d.Category)
+                entity.HasOne(b => b.Category)
                     .WithMany(p => p.Books)
-                    .HasForeignKey(d => d.CategoryId)
+                    .HasForeignKey(b => b.CategoryId)
                     .HasConstraintName("FK_Book_Category");
-
-                entity.HasOne(d => d.Product)
+                
+                entity.HasOne(b => b.Product)
                     .WithMany(p => p.Books)
-                    .HasForeignKey(d => d.ProductId)
+                    .HasForeignKey(b => b.ProductId)
                     .HasConstraintName("FK_Book_Product");
 
-                entity.HasMany(d => d.Authors)
+                entity.HasMany(b => b.Authors)
                     .WithMany(p => p.Books)
                     .UsingEntity(j => j.ToTable("BookAuthor"));
             });
@@ -153,7 +153,22 @@ namespace DataAccess
 
                 entity.HasMany(o => o.Products)
                     .WithMany(p => p.Orders)
-                    .UsingEntity(j => j.ToTable("OrderProduct"));
+                    .UsingEntity<OrderProduct>(
+                        j => j
+                            .HasOne(op => op.Product)
+                            .WithMany(t => t.OrderProducts)
+                            .HasForeignKey(op => op.ProductId),
+                        j => j
+                            .HasOne(op => op.Order)
+                            .WithMany(p => p.OrderProducts)
+                            .HasForeignKey(op => op.OrderId),
+                        j =>
+                        {
+                            j.Property(op => op.Count).HasDefaultValue(0);
+                            j.HasKey(t => new { t.ProductId, t.OrderId});
+                            j.ToTable("OrderProduct");
+                        }
+                    );
             });
 
             modelBuilder.Entity<Photo>(entity =>

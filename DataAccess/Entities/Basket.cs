@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DataAccess.Entities.Base;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccess
 {
-    public partial class Basket
+    public partial class Basket : Entity
     {
         public int Id { get; set; }
         public int? UserId { get; set; }

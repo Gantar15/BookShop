@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DataAccess.Entities.Base;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccess
 {
-    public partial class Role
+    public partial class Role : Entity
     {
         public int Id { get; set; }
         public string Role1 { get; set; }

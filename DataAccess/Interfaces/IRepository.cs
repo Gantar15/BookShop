@@ -1,16 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace DataAccess.Interfaces
 {
-    internal interface IRepository<T> : IDisposable
-        where T : class
+    public interface IRepository<T> where T : class, IEntity, new()
     {
-        IEnumerable<T> GetBookList(); // получение всех объектов
-        T GetBook(int id); // получение одного объекта по id
-        void Create(T item); // создание объекта
-        void Update(T item); // обновление объекта
-        void Delete(int id); // удаление объекта по id
-        void Save();  // сохранение изменений
+        IQueryable<T> Items { get; }
+
+        T Get(int id);
+        Task<T> GetAsync(int id, CancellationToken Cancel = default);
+
+        T Add(T item);
+        Task<T> AddAsync(T item, CancellationToken Cancel = default);
+
+        void Update(T item);
+        Task UpdateAsync(T item, CancellationToken Cancel = default);
+
+        void Remove(int id);
+        Task RemoveAsync(int id, CancellationToken Cancel = default);
     }
 }

@@ -1,9 +1,10 @@
-﻿using System;
+﻿using DataAccess.Entities.Base;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccess
 {
-    public partial class Category
+    public partial class Category : Entity
     {
         public int Id { get; set; }
         public string Title { get; set; }
