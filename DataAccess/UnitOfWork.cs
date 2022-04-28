@@ -5,7 +5,7 @@ namespace DataAccess
 {
     public class UnitOfWork : IDisposable
     {
-        private BookShopContext db = new BookShopContext();
+        private readonly BookShopContext db = new BookShopContext();
         private BookRepository bookRepository;
 
         public BookRepository Books

@@ -12,6 +12,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Imgs\burger.png" />
+    <None Remove="Imgs\logo.ico" />
     <None Remove="Imgs\logo.png" />
     <None Remove="Imgs\phone.png" />
     <None Remove="Imgs\search.png" />
@@ -23,6 +24,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Imgs\burger.png" />
+    <Resource Include="Imgs\logo.ico" />
     <Resource Include="Imgs\logo.png" />
     <Resource Include="Imgs\phone.png" />
     <Resource Include="Imgs\search.png" />
@@ -35,6 +37,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.310801">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

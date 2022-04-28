@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookShop"
         mc:Ignorable="d"
-        Title="Регистрация" Height="450" Width="800"
+        Title="Регистрация" WindowHeight="550" WindowWidth="600" 
         ShowsNavigationUI="False">
     <Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
@@ -31,7 +31,10 @@
                     Пароль
                 </Label>
                 <TextBox x:Name="PasswordBox" Padding="5"/>
-                <Button Margin="0 25 0 0" FontSize="15" Background="Green" Foreground="White" Padding="5 10" FontWeight="Bold">
+                <Button Margin="0 25 0 0" FontSize="15" Background="Green" 
+                        Foreground="White" FontWeight="Bold"
+                        Height="40"
+                        Style="{StaticResource DefaultButton}">
                     Зарегестрироваться
                 </Button>
             </StackPanel>

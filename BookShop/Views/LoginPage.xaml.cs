@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 namespace BookShop
 {
-    public partial class LoginPage
+    public partial class LoginPage : Page
     {
         public LoginPage()
         {            

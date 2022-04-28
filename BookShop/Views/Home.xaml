@@ -7,8 +7,8 @@
       xmlns:vm="clr-namespace:BookShop.ViewModels"
       xmlns:cmd="clr-namespace:BookShop.Infrastructure.Commands"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1900"
-      WindowWidth="1900"
+      d:DesignHeight="450" d:DesignWidth="800"
+      WindowWidth="1200"
       Title="{Binding Title}">
     <Page.DataContext>
         <vm:HomeViewModel/>
@@ -19,7 +19,7 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Frame Source="PageParts/Header.xaml" Grid.Row="0" MinWidth="800"/>
+        <Frame Source="PageParts/Header.xaml" Grid.Row="0" MinWidth="900"/>
         
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -31,24 +31,7 @@
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel MaxWidth="300" Margin="10" Background="WhiteSmoke">
-                            <Image Width="100" Height="75" Source="{Binding Path=Image}" />
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                <TextBlock FontSize="16" Text="{Binding Path=Company}" />
-                                <TextBlock FontSize="16" Text="{Binding Path=Title}" Margin="5 0 0 0" />
-                            </StackPanel>
-                            <TextBlock FontSize="12" 
-                                           Text="{Binding Path=Description}" 
-                                           HorizontalAlignment="Center" 
-                                           Margin="0 10 0 0" />
-                            <StackPanel Margin="0 5 0 0">
-                                <TextBlock VerticalAlignment="Center" 
-                                               FontSize="12" Text="{Binding StringFormat=Рейтинг: {0:F1}, Path=Rating}" 
-                                               HorizontalAlignment="Left"/>
-                                <TextBlock FontSize="12" Text="{Binding StringFormat=Цена: {0:C2}, Path=Price}" />
-                                <TextBlock FontSize="12" Text="{Binding StringFormat=В наличии: {0}, Path=InStock}"/>
-                            </StackPanel>
-                        </StackPanel>
+                        
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.ItemsPanel>

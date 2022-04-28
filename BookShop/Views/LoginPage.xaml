@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookShop"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" WindowHeight="550" WindowWidth="600" 
         ShowsNavigationUI="False">
     <Grid>
+        <TextBlock Margin="0 5 0 0">
+                    <Hyperlink NavigateUri="Home.xaml" Click="Hyperlink_Click">
+                        Home
+                    </Hyperlink>
+        </TextBlock>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
@@ -25,7 +30,10 @@
                     Пароль
                 </Label>
                 <PasswordBox x:Name="PasswordBox" Padding="5"/>
-                <Button Margin="0 25 0 0" FontSize="15" Background="Green" Foreground="White" Padding="5 10" FontWeight="Bold">
+                <Button Margin="0 25 0 0" FontSize="15" Background="Green" 
+                        Foreground="White" FontWeight="Bold"
+                        Height="40"
+                        Style="{StaticResource DefaultButton}">
                     Войти
                 </Button>
             </StackPanel>
@@ -33,8 +41,5 @@
                 Первый раз здесь? <Hyperlink NavigateUri="RegisterPage.xaml">Регистрация</Hyperlink>
             </TextBlock>
         </StackPanel>
-        <TextBlock Margin="0 5 0 0">
-                <Hyperlink NavigateUri="Home.xaml">Home</Hyperlink>
-        </TextBlock>
     </Grid>
 </Page>
