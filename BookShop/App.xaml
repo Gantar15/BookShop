@@ -2,9 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BookShop"
+             xmlns:vm="clr-namespace:BookShop.ViewModels"
+             xmlns:v="clr-namespace:BookShop.Views.UserControls"
              StartupUri="Views/LoginPage.xaml">
     <Application.Resources>
         <ResourceDictionary>
+            <DataTemplate DataType="{x:Type vm:HomeContentViewModel}">
+                <v:HomeContent/>
+            </DataTemplate>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Views/Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

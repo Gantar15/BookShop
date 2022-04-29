@@ -3,7 +3,7 @@ using System.Windows.Input;
 
 namespace BookShop.Infrastructure.Commands.Base
 {
-    internal abstract class Command : ICommand
+    public abstract class Command : ICommand
     {
         public event EventHandler CanExecuteChanged
         {

@@ -3,13 +3,15 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:bh="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
         xmlns:local="clr-namespace:BookShop"
+        xmlns:common="clr-namespace:BookShop.ViewModels.Common"
         mc:Ignorable="d"
-        Title="MainWindow" WindowHeight="550" WindowWidth="600" 
+        Title="Вход" WindowHeight="550" WindowWidth="600" 
         ShowsNavigationUI="False">
     <Grid>
         <TextBlock Margin="0 5 0 0">
-                    <Hyperlink NavigateUri="Home.xaml" Click="Hyperlink_Click">
+                    <Hyperlink NavigateUri="Home.xaml">
                         Home
                     </Hyperlink>
         </TextBlock>
@@ -29,7 +31,11 @@
                 <Label Target="{Binding PasswordBox}" Margin="0 10 0 0" FontSize="13">
                     Пароль
                 </Label>
-                <PasswordBox x:Name="PasswordBox" Padding="5"/>
+                <PasswordBox x:Name="PasswordBox" Padding="5">
+                    <bh:Interaction.Behaviors>
+                        <common:PasswordBehavior Password="{Binding Path=Form.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                    </bh:Interaction.Behaviors>
+                </PasswordBox>
                 <Button Margin="0 25 0 0" FontSize="15" Background="Green" 
                         Foreground="White" FontWeight="Bold"
                         Height="40"

@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookShop.Views.PageParts
+namespace BookShop.Views.UserControls
 {
     /// <summary>
-    /// Логика взаимодействия для Header.xaml
+    /// Логика взаимодействия для HomeContent.xaml
     /// </summary>
-    public partial class Header : Page
+    public partial class HomeContent : UserControl
     {
-        public Header()
+        public HomeContent()
         {
             InitializeComponent();
         }
