@@ -1,0 +1,33 @@
+﻿<UserControl x:Class="BookShop.Views.UserControls.ContentControls.DeliveryInfoContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
+             mc:Ignorable="d">
+    <Grid>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock FontWeight="Bold" FontSize="20">УСЛОВИЯ ДОСТАВКИ</TextBlock>
+            <TextBlock FontSize="20">Доставка по Беларуси</TextBlock>
+            <TextBlock FontWeight="Bold">Почта Беларуси</TextBlock>
+            <TextBlock FontWeight="Bold">Бандероль Почта Беларуси</TextBlock>
+
+            <TextBlock>При весе посылки до 500 гр, цена от 5р., срок доставки 8-10 дней</TextBlock>
+
+            <TextBlock FontWeight="Bold">Посылка Почта Беларуси</TextBlock>
+
+            <TextBlock>При весе посылки > 500 гр, цена от 10р., срок доставки 8-10 дней</TextBlock>
+
+            <TextBlock FontWeight="Bold">Транспортная Компания</TextBlock>
+                        <TextBlock FontWeight="Bold">CDEK</TextBlock>
+
+            <TextBlock>Любой объем, цена от 23р., срок доставки 4-6 дней.</TextBlock>
+
+            <TextBlock FontSize="20">Доставка по Минску</TextBlock>
+            <TextBlock FontWeight="Bold">Самовывоз</TextBlock>
+            <TextBlock>Бесплатно.</TextBlock>
+            <TextBlock FontWeight="Bold">Курьер</TextBlock>
+            <TextBlock>15р. (включается в сумму заказа).</TextBlock>
+        </StackPanel>
+    </Grid>
+</UserControl>

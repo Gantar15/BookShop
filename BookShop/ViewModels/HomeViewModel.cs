@@ -23,6 +23,12 @@ namespace BookShop.ViewModels
                     case "home":
                         ShowingViewModel = new HomeContentViewModel(this);
                         break;
+                    case "contacts":
+                        ShowingViewModel = new ContactsVeiwModel();
+                        break;
+                    case "deliveryInfo":
+                        ShowingViewModel = new DeliveryInfoVeiwModel();
+                        break;
                 }
             });
         }

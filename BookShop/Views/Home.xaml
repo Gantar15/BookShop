@@ -26,11 +26,21 @@
             </Grid.RowDefinitions>
 
             <StackPanel Orientation="Horizontal" Grid.Row="0">
-                <TextBlock FontSize="13">
-                    <Hyperlink NavigateUri="Contacts.xaml" TextDecorations="None" Foreground="Black">Контакты</Hyperlink>
+                <TextBlock FontSize="13" Cursor="Hand" Foreground="Black">
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding Path=ChangeCommand}"
+                                          CommandParameter="contacts"/>
+                    </TextBlock.InputBindings>
+                    Контакты
                 </TextBlock>
-                <TextBlock Margin="15 0 0 0" FontSize="13">
-                    <Hyperlink NavigateUri="DeliveryInfo.xaml" TextDecorations="None" Foreground="Black">Условия доставки</Hyperlink>
+                <TextBlock Margin="15 0 0 0" FontSize="13" Cursor="Hand" Foreground="Black">
+                    <TextBlock.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding Path=ChangeCommand}"
+                                          CommandParameter="deliveryInfo"/>
+                    </TextBlock.InputBindings>
+                    Условия доставки
                 </TextBlock>
             </StackPanel>
 
@@ -42,6 +52,11 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <StackPanel.InputBindings>
+                        <MouseBinding MouseAction="LeftClick"
+                                          Command="{Binding Path=ChangeCommand}"
+                                          CommandParameter="home"/>
+                    </StackPanel.InputBindings>
                     <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
                     <TextBlock FontSize="25" VerticalAlignment="Center" Margin="10 0 0 0">
                         <Run Foreground="Green" FontWeight="Bold">BOOK</Run>

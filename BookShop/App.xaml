@@ -3,14 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BookShop"
              xmlns:vm="clr-namespace:BookShop.ViewModels"
-             xmlns:v="clr-namespace:BookShop.Views.UserControls"
+             xmlns:v="clr-namespace:BookShop.Views.UserControls.ContentControls"
              StartupUri="Views/LoginPage.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type vm:HomeContentViewModel}">
                 <v:HomeContent/>
             </DataTemplate>
-            
+            <DataTemplate DataType="{x:Type vm:ContactsVeiwModel}">
+                <v:ContactsContent/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:DeliveryInfoVeiwModel}">
+                <v:DeliveryInfoContent/>
+            </DataTemplate>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/Views/Resources/Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>

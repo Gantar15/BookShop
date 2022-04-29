@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookShop.Views
+namespace BookShop.Views.UserControls.ContentControls
 {
     /// <summary>
-    /// Логика взаимодействия для DeliveryInfo.xaml
+    /// Логика взаимодействия для Contacts.xaml
     /// </summary>
-    public partial class DeliveryInfo : Page
+    public partial class ContactsContent : UserControl
     {
-        public DeliveryInfo()
+        public ContactsContent()
         {
             InitializeComponent();
         }

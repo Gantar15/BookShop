@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BookShop.Views.UserControls
+namespace BookShop.Views.UserControls.ContentControls
 {
     /// <summary>
     /// Логика взаимодействия для HomeContent.xaml
