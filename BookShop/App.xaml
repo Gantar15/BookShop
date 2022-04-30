@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:BookShop"
              xmlns:vm="clr-namespace:BookShop.ViewModels"
-             xmlns:v="clr-namespace:BookShop.Views.UserControls.ContentControls"
-             StartupUri="Views/LoginPage.xaml">
+             xmlns:v="clr-namespace:BookShop.Views.UserControls.ContentControls">
     <Application.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type vm:HomeContentViewModel}">

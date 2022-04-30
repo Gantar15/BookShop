@@ -248,8 +248,14 @@ namespace DataAccess
 
         public override async ValueTask DisposeAsync()
         {
-            await base.DisposeAsync();
             await FileLog.DisposeAsync();
+            await base.DisposeAsync();
+        }
+
+        public override void Dispose()
+        {
+            FileLog.Dispose();
+            base.Dispose();
         }
     }
 }

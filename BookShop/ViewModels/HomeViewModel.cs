@@ -1,20 +1,22 @@
 ﻿using BookShop.Infrastructure.Commands;
 using BookShop.ViewModels.Base;
 using DataAccess;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+using System;
 
 namespace BookShop.ViewModels
 {
     public class HomeViewModel : ViewModel
     {
         private ViewModel _ShowingViewModel;
-        private string _Title;
-        UnitOfWork unitOfWork = new UnitOfWork();
+        private readonly UnitOfWork _unitOfWork;
 
-        public HomeViewModel()
+        public HomeViewModel(UnitOfWork unitOfWork = null)
         {
+            if (unitOfWork == null)
+                _unitOfWork = new UnitOfWork();
+            else
+                _unitOfWork = unitOfWork;
+
             ShowingViewModel = new HomeContentViewModel(this);
             ChangeCommand = new LambdaCommand((name) =>
             {
@@ -32,13 +34,10 @@ namespace BookShop.ViewModels
                 }
             });
         }
-        public LambdaCommand ChangeCommand { get; set; }
 
-        public string Title
-        {
-            get => _Title; 
-            set => Set(ref _Title, value);
-        }
+        public LambdaCommand ChangeCommand { get; set; }
+        public UnitOfWork db { get => _unitOfWork; }
+        public Action CloseAction { get; set; }
         public ViewModel ShowingViewModel
         {
             get { return _ShowingViewModel; }

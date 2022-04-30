@@ -1,21 +1,23 @@
 ﻿using BookShop.ViewModels;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace BookShop.Views
 {
     /// <summary>
-    /// Логика взаимодействия для Home.xaml
+    /// Логика взаимодействия для AuthWindow.xaml
     /// </summary>
-    public partial class Home : Window
+    public partial class AuthWindow : Window
     {
-        public Home(HomeViewModel vm)
+        private readonly AuthViewModel _vm;
+        public AuthWindow(AuthViewModel vm)
         {
             DataContext = vm;
             if (vm.CloseAction == null)
                 vm.CloseAction = new Action(() => Close());
+            _vm = vm;
             InitializeComponent();
         }
+        public AuthViewModel VM { get { return _vm; } }
     }
 }

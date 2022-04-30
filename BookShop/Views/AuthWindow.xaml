@@ -1,0 +1,90 @@
+﻿<Window x:Class="BookShop.Views.AuthWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:bh="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
+        xmlns:local="clr-namespace:BookShop.Views"
+        xmlns:common="clr-namespace:BookShop.ViewModels.Common"
+        mc:Ignorable="d"
+        Title="AuthWindow" Height="550" Width="600"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow" FontFamily="Corbel">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Вход">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
+                        <TextBlock FontSize="25" VerticalAlignment="Center" Margin="10 0 0 0">
+                                <Run Foreground="{DynamicResource MainContrastColor}" FontWeight="Bold">BOOK</Run>
+                                SHOP
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="250">
+                        <Label Target="{Binding LoginLoginBox}" FontSize="13">
+                            Логин
+                        </Label>
+                        <TextBox x:Name="LoginLoginBox" Text="{Binding LoginFormModel.Login}"  Padding="5"/>
+                        <Label Target="{Binding LoginPasswordBox}" Margin="0 10 0 0" FontSize="13">
+                            Пароль
+                        </Label>
+                        <PasswordBox x:Name="LoginPasswordBox" Padding="5">
+                            <bh:Interaction.Behaviors>
+                                <common:PasswordBehavior Password="{Binding Path=LoginForm.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                            </bh:Interaction.Behaviors>
+                        </PasswordBox>
+                        <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
+                            Foreground="White" FontWeight="Bold"
+                            Height="40"
+                            Style="{StaticResource DefaultButton}" Cursor="Hand">
+                            Войти
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Margin="0 5 0 0">
+                        Первый раз здесь? <Run Cursor="Hand" Foreground="DarkBlue">Регистрация</Run>
+                    </TextBlock>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Регистрация">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
+                        <TextBlock FontSize="23" VerticalAlignment="Center" Margin="10 0 0 0">
+                            <Run Foreground="{DynamicResource MainContrastColor}" FontWeight="Bold">BOOK</Run>
+                            SHOP
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="250">
+                        <Label Target="{Binding RegisterLoginBox}" FontSize="13">
+                            Логин
+                        </Label>
+                        <TextBox x:Name="RegisterLoginBox" Text="{Binding RegisterFormModel.Login}" Padding="5"/>
+
+                        <Label Target="{Binding RegisterEmailBox}" Margin="0 10 0 0" FontSize="13">
+                            Почта
+                        </Label>
+                        <TextBox x:Name="RegisterEmailBox" Text="{Binding RegisterFormModel.Email}" Padding="5"/>
+
+                        <Label Target="{Binding RegisterPasswordBox}" Margin="0 10 0 0" FontSize="13">
+                            Пароль
+                        </Label>
+                        <PasswordBox x:Name="RegisterPasswordBox" Padding="5">
+                            <bh:Interaction.Behaviors>
+                                <common:PasswordBehavior Password="{Binding Path=RegisterFormModel.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                            </bh:Interaction.Behaviors>
+                        </PasswordBox>
+                        <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
+                                Foreground="White" FontWeight="Bold"
+                                Height="40"
+                                Style="{StaticResource DefaultButton}">
+                            Зарегестрироваться
+                        </Button>
+                    </StackPanel>
+                    <TextBlock Margin="0 5 0 0">
+                        Уже есть аккаунт? <Run Cursor="Hand" Foreground="DarkBlue">Вход</Run>
+                    </TextBlock>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

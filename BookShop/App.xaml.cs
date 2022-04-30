@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BookShop.ViewModels;
+using BookShop.Views;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace BookShop
 {
@@ -14,13 +9,24 @@ namespace BookShop
     /// </summary>
     public partial class App : Application
     {
-        public App()
+        protected override void OnStartup(StartupEventArgs e)
         {
-            //Uri iconUri = new Uri("pack://application:,,,/imgs/logo.ico", UriKind.RelativeOrAbsolute);
-            //foreach (Window window in this.Windows)
+            base.OnStartup(e);
+            Current.MainWindow = new AuthWindow(new AuthViewModel());
+            Current.MainWindow.Closing += AuthWindow_Closing;
+            Current.MainWindow.Show();
+        }
+
+        private void AuthWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var view = Current.MainWindow as AuthWindow;
+            //if (view is null || !view.VM.IsLoggedIn)
             //{
-            //    window.Icon = BitmapFrame.Create(iconUri);
+            //    return;
             //}
+            Current.MainWindow.Closing -= AuthWindow_Closing;
+            Current.MainWindow = new Home(new HomeViewModel(view.VM.db));
+            Current.MainWindow.Show();
         }
     }
 }
