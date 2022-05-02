@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
              mc:Ignorable="d">
-    <Grid>
-        <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Grid Margin="0 50 0 0" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel Orientation="Vertical">
             <TextBlock FontWeight="Bold" FontSize="20">УСЛОВИЯ ДОСТАВКИ</TextBlock>
             <TextBlock FontSize="20">Доставка по Беларуси</TextBlock>
             <TextBlock FontWeight="Bold">Почта Беларуси</TextBlock>

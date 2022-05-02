@@ -7,84 +7,103 @@
         xmlns:local="clr-namespace:BookShop.Views"
         xmlns:common="clr-namespace:BookShop.ViewModels.Common"
         mc:Ignorable="d"
-        Title="AuthWindow" Height="550" Width="600"
-        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow" FontFamily="Corbel">
+        Title="AuthWindow" Height="600" Width="800"
+        WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Views/Resources/AuthStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
     <Grid>
-        <TabControl>
-            <TabItem Header="Вход">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
-                        <TextBlock FontSize="25" VerticalAlignment="Center" Margin="10 0 0 0">
+        <Grid.Background>
+            <ImageBrush ImageSource="/Imgs/bg.jpg" Stretch="UniformToFill" AlignmentX="Left" Opacity="0.4">
+                <ImageBrush.RelativeTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="1.2"></ScaleTransform>
+                    </TransformGroup>
+                </ImageBrush.RelativeTransform>
+            </ImageBrush>
+        </Grid.Background>
+
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="400" Height="450" Background="White">
+            <Grid.Effect>
+                <DropShadowEffect BlurRadius="35" ShadowDepth="10" Color="#E5E5E5" Opacity="0.4"/>
+            </Grid.Effect>
+            <TabControl>
+                <TabControl.Resources>
+                    <Style TargetType="TabItem" BasedOn="{StaticResource MenuTabItem}"/>
+                </TabControl.Resources>
+                <TabItem Header="Вход">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
+                            <TextBlock FontSize="25" VerticalAlignment="Center" Margin="10 0 0 0">
                                 <Run Foreground="{DynamicResource MainContrastColor}" FontWeight="Bold">BOOK</Run>
                                 SHOP
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="250">
-                        <Label Target="{Binding LoginLoginBox}" FontSize="13">
-                            Логин
-                        </Label>
-                        <TextBox x:Name="LoginLoginBox" Text="{Binding LoginFormModel.Login}"  Padding="5"/>
-                        <Label Target="{Binding LoginPasswordBox}" Margin="0 10 0 0" FontSize="13">
-                            Пароль
-                        </Label>
-                        <PasswordBox x:Name="LoginPasswordBox" Padding="5">
-                            <bh:Interaction.Behaviors>
-                                <common:PasswordBehavior Password="{Binding Path=LoginForm.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=TwoWay}"/>
-                            </bh:Interaction.Behaviors>
-                        </PasswordBox>
-                        <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="250">
+                            <Label Target="{Binding LoginLoginBox}" FontSize="13">
+                                Логин
+                            </Label>
+                            <TextBox x:Name="LoginLoginBox" Text="{Binding LoginFormModel.Login}"  Padding="5"/>
+                            <Label Target="{Binding LoginPasswordBox}" Margin="0 10 0 0" FontSize="13">
+                                Пароль
+                            </Label>
+                            <PasswordBox x:Name="LoginPasswordBox" Padding="5">
+                                <bh:Interaction.Behaviors>
+                                    <common:PasswordBehavior Password="{Binding Path=LoginForm.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                                </bh:Interaction.Behaviors>
+                            </PasswordBox>
+                            <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
                             Foreground="White" FontWeight="Bold"
                             Height="40"
                             Style="{StaticResource DefaultButton}" Cursor="Hand">
-                            Войти
-                        </Button>
+                                Войти
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
-                    <TextBlock Margin="0 5 0 0">
-                        Первый раз здесь? <Run Cursor="Hand" Foreground="DarkBlue">Регистрация</Run>
-                    </TextBlock>
-                </StackPanel>
-            </TabItem>
-            <TabItem Header="Регистрация">
-                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                        <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
-                        <TextBlock FontSize="23" VerticalAlignment="Center" Margin="10 0 0 0">
+                </TabItem>
+                <TabItem Header="Регистрация">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
+                            <TextBlock FontSize="23" VerticalAlignment="Center" Margin="10 0 0 0">
                             <Run Foreground="{DynamicResource MainContrastColor}" FontWeight="Bold">BOOK</Run>
                             SHOP
-                        </TextBlock>
-                    </StackPanel>
-                    <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="250">
-                        <Label Target="{Binding RegisterLoginBox}" FontSize="13">
-                            Логин
-                        </Label>
-                        <TextBox x:Name="RegisterLoginBox" Text="{Binding RegisterFormModel.Login}" Padding="5"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="250">
+                            <Label Target="{Binding RegisterLoginBox}" FontSize="13">
+                                Логин
+                            </Label>
+                            <TextBox x:Name="RegisterLoginBox" Text="{Binding RegisterFormModel.Login}" Padding="5"/>
 
-                        <Label Target="{Binding RegisterEmailBox}" Margin="0 10 0 0" FontSize="13">
-                            Почта
-                        </Label>
-                        <TextBox x:Name="RegisterEmailBox" Text="{Binding RegisterFormModel.Email}" Padding="5"/>
+                            <Label Target="{Binding RegisterEmailBox}" Margin="0 10 0 0" FontSize="13">
+                                Почта
+                            </Label>
+                            <TextBox x:Name="RegisterEmailBox" Text="{Binding RegisterFormModel.Email}" Padding="5"/>
 
-                        <Label Target="{Binding RegisterPasswordBox}" Margin="0 10 0 0" FontSize="13">
-                            Пароль
-                        </Label>
-                        <PasswordBox x:Name="RegisterPasswordBox" Padding="5">
-                            <bh:Interaction.Behaviors>
-                                <common:PasswordBehavior Password="{Binding Path=RegisterFormModel.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=TwoWay}"/>
-                            </bh:Interaction.Behaviors>
-                        </PasswordBox>
-                        <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
+                            <Label Target="{Binding RegisterPasswordBox}" Margin="0 10 0 0" FontSize="13">
+                                Пароль
+                            </Label>
+                            <PasswordBox x:Name="RegisterPasswordBox" Padding="5">
+                                <bh:Interaction.Behaviors>
+                                    <common:PasswordBehavior Password="{Binding Path=RegisterFormModel.Password, UpdateSourceTrigger=PropertyChanged, ValidatesOnExceptions=True, Mode=TwoWay}"/>
+                                </bh:Interaction.Behaviors>
+                            </PasswordBox>
+                            <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
                                 Foreground="White" FontWeight="Bold"
                                 Height="40"
                                 Style="{StaticResource DefaultButton}">
-                            Зарегестрироваться
-                        </Button>
+                                Зарегестрироваться
+                            </Button>
+                        </StackPanel>
                     </StackPanel>
-                    <TextBlock Margin="0 5 0 0">
-                        Уже есть аккаунт? <Run Cursor="Hand" Foreground="DarkBlue">Вход</Run>
-                    </TextBlock>
-                </StackPanel>
-            </TabItem>
-        </TabControl>
+                </TabItem>
+            </TabControl>
+        </Grid>
     </Grid>
 </Window>

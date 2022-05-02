@@ -5,13 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
              mc:Ignorable="d" >
-    <Grid>
+    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <ListBox x:Name="phonesList" 
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Grid.Row="0"
+                        Orientation="Vertical">
+                <TextBlock Text="Книги в библиотеке"
+                               FontSize="19"/>
+                <Rectangle Margin="0 5 0 0" Width="175" Height="3" Fill="{DynamicResource MainContrastColor}"/>
+            </StackPanel>
+            <ListBox x:Name="booksList" 
                          VirtualizingPanel.ScrollUnit="Pixel" 
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
                          ScrollViewer.VerticalScrollBarVisibility="Hidden" 
@@ -23,113 +37,129 @@
                          BorderBrush="{x:Null}" 
                          Grid.Row="1" 
                          SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" 
-                         ItemsSource="{Binding Path=AllMovies, UpdateSourceTrigger=PropertyChanged}">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListBoxItem">
-                                <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
+                         ItemsSource="{Binding Path=AllBooks, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ListBoxItem">
+                                    <Border BorderThickness="{TemplateBinding Border.BorderThickness}"
                                       Padding="{TemplateBinding Control.Padding}"
                                       BorderBrush="{TemplateBinding Border.BorderBrush}"
                                       Background="{TemplateBinding Panel.Background}"
                                       Name="Bd"
                                       SnapsToDevicePixels="True">
-                                    <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
+                                        <ContentPresenter Content="{TemplateBinding ContentControl.Content}"
                                                    ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
                                                    ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
                                                    HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
                                                    VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
                                                    SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
-                                </Border>
-                                <ControlTemplate.Triggers>
-
-                                    <Trigger Property="UIElement.IsMouseOver" Value="True">
-                                        <Setter Property="Panel.Background" TargetName="Bd" 
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="UIElement.IsMouseOver" Value="True">
+                                            <Setter Property="Panel.Background" TargetName="Bd" 
                                                     Value="Transparent"/>
-                                        <Setter Property="Border.BorderBrush" TargetName="Bd">
-                                            <Setter.Value>
-                                                <SolidColorBrush>Transparent</SolidColorBrush>
-                                            </Setter.Value>
-                                        </Setter>
-                                        <Trigger.EnterActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Duration="0:0:0.250" To="0.8" Storyboard.TargetProperty="Opacity" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.EnterActions>
-                                        <Trigger.ExitActions>
-                                            <BeginStoryboard>
-                                                <Storyboard>
-                                                    <DoubleAnimation Duration="0:0:0.150" To="1" Storyboard.TargetProperty="Opacity" />
-                                                </Storyboard>
-                                            </BeginStoryboard>
-                                        </Trigger.ExitActions>
-                                    </Trigger>
-                                    <Trigger Property="UIElement.IsEnabled" Value="False">
-                                        <Setter Property="TextElement.Foreground" TargetName="Bd">
-                                            <Setter.Value>
-                                                <DynamicResource ResourceKey="{x:Static SystemColors.GrayTextBrushKey}" />
-                                            </Setter.Value>
-                                        </Setter>
-                                    </Trigger>
-                                </ControlTemplate.Triggers>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand" Margin="20,10,20,50">
-                        <Image Source="{Binding Image}" Stretch="Fill" Width="224" Height="320" Cursor="Hand">
-                            <Image.InputBindings>
-                                <MouseBinding MouseAction="LeftClick" 
-                                                      Command="{Binding Path=DataContext.BuyTicketsCommand, ElementName=allMovies}"
-                                                      CommandParameter="{Binding}"/>
-                            </Image.InputBindings>
-                        </Image>
-                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top" Height="120">
-                            <TextBlock Foreground="#FAFAFA" 
-                                               FontSize="18"
+                                            <Setter Property="Border.BorderBrush" TargetName="Bd">
+                                                <Setter.Value>
+                                                    <SolidColorBrush>Transparent</SolidColorBrush>
+                                                </Setter.Value>
+                                            </Setter>
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.250" To="0.8" Storyboard.TargetProperty="Opacity" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                            <Trigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.150" To="1" Storyboard.TargetProperty="Opacity" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.ExitActions>
+                                        </Trigger>
+                                        <Trigger Property="UIElement.IsEnabled" Value="False">
+                                            <Setter Property="TextElement.Foreground" TargetName="Bd">
+                                                <Setter.Value>
+                                                    <DynamicResource ResourceKey="{x:Static SystemColors.GrayTextBrushKey}" />
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
+                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,10,20,50">
+                                <Image Source="{Binding Photos[0].Source}" Stretch="Fill" Width="224" Height="320" Cursor="Hand">
+                                    <Image.InputBindings>
+                                        <MouseBinding MouseAction="LeftClick" 
+                                                      Command="{Binding ElementName=booksList, Path=DataContext.ShowBookPage}"
+                                                      CommandParameter="{Binding SelectedItem}"/>
+                                    </Image.InputBindings>
+                                </Image>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                    <TextBlock FontSize="14"
                                                FontWeight="Bold"
-                                               Text="{Binding Path=Title}"
+                                               Text="{Binding Path=Price, Converter={StaticResource MoneyConverter}}"
                                                TextWrapping="Wrap"
                                                Width="180"
                                                Margin="0,5">
-                            </TextBlock>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Foreground="#9E9E9E" FontSize="14" Text="{Binding Path=Duration, StringFormat='{}{0} |', Converter={StaticResource TimeConverter}}" VerticalAlignment="Center"></TextBlock>
-                                <Image Width="25" Height="25" 
-                                               Source="{Binding Path=AgeLimit.Image}" 
-                                               ToolTip="{Binding Path=AgeLimit.AgeLimitName}"
-                                               VerticalAlignment="Center">
-                                </Image>
-                            </StackPanel>
-                            <TextBlock Foreground="#9E9E9E"
+                                    </TextBlock>
+                                    <TextBlock FontSize="15"
+                                               Text="{Binding Path=Title}"
+                                               TextWrapping="Wrap"
+                                               Width="180"
+                                               Margin="0,5"
+                                               Cursor="Hand">
+                                        <TextBlock.InputBindings>
+                                            <MouseBinding MouseAction="LeftClick" 
+                                                      Command="{Binding ElementName=booksList, Path=DataContext.ShowBookPage}"
+                                                      CommandParameter="{Binding SelectedItem}"/>
+                                        </TextBlock.InputBindings>
+                                    </TextBlock>
+                                    <TextBlock Foreground="LightGray" 
                                                FontSize="14"
-                                               Text="{Binding Path=StartDate, StringFormat='Показ с {0}', Converter={StaticResource DateConverter}}">
-                            </TextBlock>
-                        </StackPanel>
-                        <Button Style="{StaticResource BackgroundButton}"
-                                        Width="120"
-                                        Height="30"
-                                        Margin="0,15,0,0"
-                                        HorizontalAlignment="Left"
-                                        Content="В корзину"
-                                        FontSize="14"
-                                        Command="{Binding Path=DataContext.BuyTicketsCommand, ElementName=allMovies}"
-                                        CommandParameter="{Binding}">
-                        </Button>
-                    </StackPanel>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-            <ListBox.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel />
-                </ItemsPanelTemplate>
-            </ListBox.ItemsPanel>
-        </ListBox>
+                                               Text="{Binding Path=Authors, Converter={StaticResource AuthorsConverter}}"
+                                               TextWrapping="Wrap"
+                                               Width="180"
+                                               Margin="0,5">
+                                    </TextBlock>
+                                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                            <Ellipse Width="10" Height="10" 
+                                                     Fill="{Binding InStock, Converter={StaticResource InStockToColorConverter}}"/>
+                                            <TextBlock FontSize="13" Margin="5 0 0 0"
+                                                       Text="{Binding InStock, Converter={StaticResource InStockToStringConverter}}"/>
+                                        </StackPanel>
+                                        <Button Style="{StaticResource BackgroundButton}"
+                                            Width="120"
+                                            Height="30"
+                                            Margin="0,15,0,0"
+                                            HorizontalAlignment="Right"
+                                            Content="В корзину"
+                                            FontSize="14"
+                                            Command="{Binding Path=DataContext.AddToCart, ElementName=booksList}"
+                                            CommandParameter="{Binding SelectedItem}">
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
     </Grid>
 </UserControl>

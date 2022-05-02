@@ -5,8 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
              mc:Ignorable="d">
-    <Grid>
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Vertical">
+    <Grid VerticalAlignment="Top" Margin="0 50 0 0" HorizontalAlignment="Center" >
+        <StackPanel Orientation="Vertical">
             <TextBlock FontSize="20" FontWeight="Bold">КОНТАКТЫ</TextBlock>
             <TextBlock FontWeight="Bold">Тел: <Run FontWeight="Normal">+375 (29) 389-01-79</Run></TextBlock>
             <TextBlock FontWeight="Bold">E-mail: <Run FontWeight="Normal">bookshop@inbox.ru</Run></TextBlock>

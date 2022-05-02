@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ namespace DataAccess
         StreamWriter FileLog = new StreamWriter(Directory.GetCurrentDirectory() + @"\Log.txt", true);
         public BookShopContext()
         {
-            Database.EnsureDeleted();
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
