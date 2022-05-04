@@ -58,9 +58,10 @@
                                 </bh:Interaction.Behaviors>
                             </PasswordBox>
                             <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
-                            Foreground="White" FontWeight="Bold"
-                            Height="40"
-                            Style="{StaticResource DefaultButton}" Cursor="Hand">
+                                Foreground="White" FontWeight="Bold"
+                                Height="40"
+                                Style="{StaticResource DefaultButton}"
+                                Command="{Binding LoginCommand}">
                                 Войти
                             </Button>
                         </StackPanel>
@@ -71,8 +72,8 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                             <Image Source="/Imgs/logo.png" Width="40" Height="40"/>
                             <TextBlock FontSize="23" VerticalAlignment="Center" Margin="10 0 0 0">
-                            <Run Foreground="{DynamicResource MainContrastColor}" FontWeight="Bold">BOOK</Run>
-                            SHOP
+                                <Run Foreground="{DynamicResource MainContrastColor}" FontWeight="Bold">BOOK</Run>
+                                SHOP
                             </TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Margin="0 30 0 0" Width="250">
@@ -97,7 +98,8 @@
                             <Button Margin="0 25 0 0" FontSize="15" Background="{DynamicResource MainContrastColor}" 
                                 Foreground="White" FontWeight="Bold"
                                 Height="40"
-                                Style="{StaticResource DefaultButton}">
+                                Style="{StaticResource DefaultButton}"
+                                Command="{Binding RegisterCommand}">
                                 Зарегестрироваться
                             </Button>
                         </StackPanel>

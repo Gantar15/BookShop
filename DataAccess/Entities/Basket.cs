@@ -11,5 +11,6 @@ namespace DataAccess
 
         public User User { get; set; }
         public List<Product> Products { get; set; } = new List<Product>();
+        public List<BasketProduct> BasketProducts { get; set; } = new();
     }
 }

@@ -8,7 +8,7 @@
     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="600"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1">
@@ -22,9 +22,10 @@
                         Grid.Row="0"
                         Orientation="Vertical">
                 <TextBlock Text="Книги в библиотеке"
-                               FontSize="19"/>
-                <Rectangle Margin="0 5 0 0" Width="175" Height="3" Fill="{DynamicResource MainContrastColor}"/>
+                               FontSize="17"/>
+                <Rectangle Margin="0 5 0 0" Width="157" Height="3" Fill="{DynamicResource MainContrastColor}"/>
             </StackPanel>
+            
             <ListBox x:Name="booksList" 
                          VirtualizingPanel.ScrollUnit="Pixel" 
                          ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
@@ -35,7 +36,7 @@
                          VerticalContentAlignment="Top"
                          HorizontalContentAlignment="Center"
                          BorderBrush="{x:Null}" 
-                         Grid.Row="1" 
+                         Grid.Row="1"
                          SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" 
                          ItemsSource="{Binding Path=AllBooks, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
@@ -95,9 +96,9 @@
                 </ListBox.ItemContainerStyle>
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <Border BorderThickness="1" BorderBrush="LightGray" Padding="10">
-                            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,10,20,50">
-                                <Image Source="{Binding Photos[0].Source}" Stretch="Fill" Width="224" Height="320" Cursor="Hand">
+                        <Border BorderThickness="1" BorderBrush="LightGray">
+                            <StackPanel Orientation="Vertical" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30,20,30,30">
+                                <Image Source="{Binding Photos[0].Source}"  Stretch="Fill" Width="250" Height="320" Cursor="Hand">
                                     <Image.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" 
                                                       Command="{Binding ElementName=booksList, Path=DataContext.ShowBookPage}"
@@ -106,16 +107,16 @@
                                 </Image>
                                 <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
                                     <TextBlock FontSize="14"
-                                               FontWeight="Bold"
-                                               Text="{Binding Path=Price, Converter={StaticResource MoneyConverter}}"
+                                               FontWeight="Medium"
+                                               Text="{Binding Path=Product.Price, Converter={StaticResource MoneyConverter}}"
                                                TextWrapping="Wrap"
-                                               Width="180"
+                                               HorizontalAlignment="Left"
                                                Margin="0,5">
                                     </TextBlock>
-                                    <TextBlock FontSize="15"
+                                    <TextBlock FontSize="18"
                                                Text="{Binding Path=Title}"
                                                TextWrapping="Wrap"
-                                               Width="180"
+                                               HorizontalAlignment="Left"
                                                Margin="0,5"
                                                Cursor="Hand">
                                         <TextBlock.InputBindings>
@@ -124,27 +125,27 @@
                                                       CommandParameter="{Binding SelectedItem}"/>
                                         </TextBlock.InputBindings>
                                     </TextBlock>
-                                    <TextBlock Foreground="LightGray" 
+                                    <TextBlock Foreground="#ABABAB" 
                                                FontSize="14"
                                                Text="{Binding Path=Authors, Converter={StaticResource AuthorsConverter}}"
                                                TextWrapping="Wrap"
-                                               Width="180"
                                                Margin="0,5">
                                     </TextBlock>
-                                    <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <StackPanel Margin="0 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Horizontal">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                                             <Ellipse Width="10" Height="10" 
                                                      Fill="{Binding InStock, Converter={StaticResource InStockToColorConverter}}"/>
-                                            <TextBlock FontSize="13" Margin="5 0 0 0"
+                                            <TextBlock FontSize="13" Margin="5 0 0 3"
                                                        Text="{Binding InStock, Converter={StaticResource InStockToStringConverter}}"/>
                                         </StackPanel>
                                         <Button Style="{StaticResource BackgroundButton}"
-                                            Width="120"
+                                            Width="80"
                                             Height="30"
-                                            Margin="0,15,0,0"
+                                            Margin="90,0,0,0"
                                             HorizontalAlignment="Right"
                                             Content="В корзину"
                                             FontSize="14"
+                                            Foreground="Black"
                                             Command="{Binding Path=DataContext.AddToCart, ElementName=booksList}"
                                             CommandParameter="{Binding SelectedItem}">
                                         </Button>

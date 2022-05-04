@@ -83,7 +83,7 @@
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="/Imgs/shopping-cart.png" Width="25" Height="25"/>
-                                    <TextBlock Text="4" VerticalAlignment="Center" FontSize="15" Margin="1 -17 0 0" Foreground="Red" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding BasketCount}" VerticalAlignment="Center" FontSize="15" Margin="1 -17 0 0" Foreground="Red" FontWeight="Bold"/>
                                     <TextBlock Margin="10 0 0 0">35.17$</TextBlock>
                                 </StackPanel>
                             </Button.Content>

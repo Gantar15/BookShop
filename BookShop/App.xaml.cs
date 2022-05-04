@@ -20,10 +20,10 @@ namespace BookShop
         private void AuthWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var view = Current.MainWindow as AuthWindow;
-            //if (view is null || !view.VM.IsLoggedIn)
-            //{
-            //    return;
-            //}
+            if (view is null || !view.VM.IsLoggedIn)
+            {
+                return;
+            }
             Current.MainWindow.Closing -= AuthWindow_Closing;
             Current.MainWindow = new Home(new HomeViewModel(view.VM.db));
             Current.MainWindow.Show();

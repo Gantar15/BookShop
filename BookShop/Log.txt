@@ -14,3 +14,11 @@ fail: 02.05.2022 02:28:03.114 RelationalEventId.CommandError[20102] (Microsoft.E
           [surname] varchar(50) NULL,
           CONSTRAINT [PK_Author] PRIMARY KEY ([id])
       );
+fail: 04.05.2022 14:07:52.302 RelationalEventId.CommandError[20102] (Microsoft.EntityFrameworkCore.Database.Command) 
+      Failed executing DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+      CREATE TABLE [Author] (
+          [id] int NOT NULL IDENTITY,
+          [name] varchar(50) NULL,
+          [surname] varchar(50) NULL,
+          CONSTRAINT [PK_Author] PRIMARY KEY ([id])
+      );

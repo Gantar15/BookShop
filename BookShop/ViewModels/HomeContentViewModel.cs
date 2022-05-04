@@ -3,6 +3,7 @@ using BookShop.ViewModels.Base;
 using System.Linq;
 using DataAccess;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace BookShop.ViewModels
 {

@@ -23,9 +23,6 @@
     <None Remove="Imgs\wallet.png" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Imgs\bg.jpg" />
     <Resource Include="Imgs\book.png" />
     <Resource Include="Imgs\burger.png" />

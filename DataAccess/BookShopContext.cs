@@ -76,7 +76,22 @@ namespace DataAccess
 
                 entity.HasMany(b => b.Products)
                     .WithMany(p => p.Baskets)
-                    .UsingEntity(j => j.ToTable("BasketProduct"));
+                    .UsingEntity<BasketProduct>(
+                        j => j
+                            .HasOne(bp => bp.Product)
+                            .WithMany(t => t.BasketProducts)
+                            .HasForeignKey(bp => bp.ProductId),
+                        j => j
+                            .HasOne(bp => bp.Basket)
+                            .WithMany(p => p.BasketProducts)
+                            .HasForeignKey(bp => bp.BasketId),
+                        j =>
+                        {
+                            j.Property(bp => bp.Count).HasDefaultValue(0);
+                            j.HasKey(t => t.Id);
+                            j.ToTable("BasketProduct");
+                        }
+                    );
             });
 
             modelBuilder.Entity<Book>(entity =>
@@ -164,7 +179,7 @@ namespace DataAccess
                         j =>
                         {
                             j.Property(op => op.Count).HasDefaultValue(0);
-                            j.HasKey(t => new { t.ProductId, t.OrderId});
+                            j.HasKey(t => t.Id);
                             j.ToTable("OrderProduct");
                         }
                     );

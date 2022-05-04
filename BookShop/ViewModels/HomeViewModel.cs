@@ -1,5 +1,6 @@
 ﻿using BookShop.Infrastructure.Commands;
 using BookShop.ViewModels.Base;
+using BookShop.ViewModels.Common;
 using DataAccess;
 using System;
 
@@ -35,6 +36,23 @@ namespace BookShop.ViewModels
             });
         }
 
+        public int BasketCount
+        {
+            get
+            {
+                var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)?[0];
+                if (loggedinUserBasket == null) return 0;
+                return db.BasketProducts.Get(loggedinUserBasket.Id).Count;
+            }
+            set
+            {
+                var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)?[0];
+                if (loggedinUserBasket == null) return;
+                var basketProduct = db.BasketProducts.Get(loggedinUserBasket.Id);
+                basketProduct.Count++;
+                db.BasketProducts.UpdateAsync(basketProduct);
+            }
+        }
         public LambdaCommand ChangeCommand { get; set; }
         public UnitOfWork db { get => _unitOfWork; }
         public Action CloseAction { get; set; }

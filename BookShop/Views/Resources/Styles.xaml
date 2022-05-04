@@ -74,12 +74,12 @@
                             <ColorAnimation Storyboard.TargetProperty="Background.Color"
                                             Duration="0:0:0.2"
                                             From="{x:Null}"
-                                            To="#DA0037">
+                                            To="#1DAD00">
                             </ColorAnimation>
                             <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.2"
-                                            From="#FAFAFA"
-                                            To="#212121">
+                                            Duration="0:0:0.1"
+                                            From="Black"
+                                            To="#FAFAFA">
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>
@@ -88,14 +88,14 @@
                     <BeginStoryboard>
                         <Storyboard>
                             <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            Duration="0:0:0.4"
-                                            From="#DA0037"
+                                            Duration="0:0:0.2"
+                                            From="#1DAD00"
                                             To="{x:Null}">
                             </ColorAnimation>
                             <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.4" 
-                                            From="#212121"
-                                            To="#FAFAFA">
+                                            Duration="0:0:0.1" 
+                                            From="#FAFAFA"
+                                            To="Black">
                             </ColorAnimation>
                         </Storyboard>
                     </BeginStoryboard>

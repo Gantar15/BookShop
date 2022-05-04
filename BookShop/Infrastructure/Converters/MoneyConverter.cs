@@ -10,7 +10,7 @@ namespace BookShop.Infrastructure.Converters
         public object Convert(object value, System.Type targetType, object parameter, CultureInfo culture)
         {
             var money = (Decimal)value;
-            return String.Format("{0,C2}", money);
+            return String.Format("{0:C1}", money);
         }
 
         public object ConvertBack(object value, System.Type targetType, object parameter, CultureInfo culture)

@@ -2,6 +2,7 @@
 using DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -28,6 +29,13 @@ namespace DataAccess.Repositories
         public async Task<T> GetAsync(int id, CancellationToken Cancel = default) => await Items
            .SingleOrDefaultAsync(item => item.Id == id, Cancel)
            .ConfigureAwait(false);
+
+        public List<T> Get(Func<T, bool> filter) {
+            var results = Items.TakeWhile(filter);
+            if (results.Count() == 0)
+                return null;
+            return results.ToList();
+        }
 
         public T Add(T item)
         {
@@ -76,6 +84,20 @@ namespace DataAccess.Repositories
         public async Task RemoveAsync(int id, CancellationToken Cancel = default)
         {
             _db.Remove(new T { Id = id });
+            if (AutoSaveChanges)
+                await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
+        }
+
+        public void Remove(Func<T, bool> filter)
+        {
+            _db.Remove(filter);
+
+            if (AutoSaveChanges)
+                _db.SaveChanges();
+        }
+        public async Task RemoveAsync(Predicate<T> filter, CancellationToken Cancel = default)
+        {
+            _db.Remove(filter);
             if (AutoSaveChanges)
                 await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
         }
