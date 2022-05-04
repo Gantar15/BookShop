@@ -224,6 +224,11 @@ namespace DataAccess
                 entity.Property(e => e.Role1)
                     .HasMaxLength(100)
                     .HasColumnName("role");
+
+                entity.HasData(
+                    new Role { Id = 1, Role1 = "User" },
+                    new Role { Id = 2, Role1 = "Admin" }
+                );
             });
 
             modelBuilder.Entity<User>(entity =>

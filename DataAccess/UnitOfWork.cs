@@ -10,6 +10,7 @@ namespace DataAccess
         private BasketRepository basketRepository;
         private BasketProductRepository basketProductRepository;
         private UserRepository userRepository;
+        private RoleRepository roleRepository;
 
         public BookRepository Books
         {
@@ -45,6 +46,15 @@ namespace DataAccess
                 if (userRepository == null)
                     userRepository = new UserRepository(db);
                 return userRepository;
+            }
+        }
+        public RoleRepository Roles
+        {
+            get
+            {
+                if (roleRepository == null)
+                    roleRepository = new RoleRepository(db);
+                return roleRepository;
             }
         }
 

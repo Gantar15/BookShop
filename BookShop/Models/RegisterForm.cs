@@ -9,8 +9,8 @@ namespace BookShop.Models
         private string _email;
         private string _password;
 
-        [Required]
-        [RegularExpression(@"^[a-z0-9_-]{3,16}$", ErrorMessage = "Буквы, цифры, дефисы и подчёркивания, от 3 до 16 символов")]
+        [Required(ErrorMessage = "Логин обязателен")]
+        [RegularExpression(@"^[А-Яа-яA-Za-z0-9_-]{3,16}$", ErrorMessage = "Буквы, цифры, дефисы и подчёркивания, от 3 до 16 символов")]
         public string Login
         {
             get { return _login; }
@@ -20,8 +20,8 @@ namespace BookShop.Models
                 OnPropertyChanged(nameof(Login));
             }
         }
-        [Required]
-        [RegularExpression(@"^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$", ErrorMessage = "Невалидный Email")]
+        [Required(ErrorMessage = "Почта обязательна")]
+        [RegularExpression(@"^([A-Za-z0-9_\.-]+)@([A-Za-z0-9_\.-]+)\.([A-Za-z\.]{2,6})$", ErrorMessage = "Некорректная почта")]
         public string Email
         {
             get { return _email; }
@@ -31,7 +31,7 @@ namespace BookShop.Models
                 OnPropertyChanged(nameof(Email));
             }
         }
-        [Required]
+        [Required(ErrorMessage = "Пароль обязателен")]
         [RegularExpression(@"^[a-z0-9_-]{3,16}$", ErrorMessage = "Буквы, цифры, дефисы и подчёркивания, от 3 до 16 символов")]
         public string Password
         {

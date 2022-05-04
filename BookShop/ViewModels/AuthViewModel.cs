@@ -19,6 +19,7 @@ namespace BookShop.ViewModels
         public AuthViewModel()
         {
             _unitOfWork = new UnitOfWork();
+            _messageBoxService = new MessageBoxService();
         }
         public Action CloseAction { get; set; }
         public bool IsLoggedIn { get; set; } = false;
@@ -33,7 +34,7 @@ namespace BookShop.ViewModels
             {
                 return _loginCommand ?? (_loginCommand = new LambdaCommand((o) =>
                 {
-                    var client = db.Users.Get(c => c.Login == LoginFormModel.Login)[0];
+                    var client = db.Users.Get(c => c.Login == LoginFormModel.Login)?[0];
 
                     if (client is null)
                     {
@@ -75,7 +76,7 @@ namespace BookShop.ViewModels
                 {
                     if (!string.IsNullOrEmpty(RegisterFormModel.Login) && !string.IsNullOrEmpty(RegisterFormModel.Email))
                     {
-                        var client = db.Users.Get(c => c.Login == RegisterFormModel.Login);
+                        var client = db.Users.Get(c => c.Login == RegisterFormModel.Login)?[0];
 
                         if (client != null)
                         {
@@ -87,10 +88,20 @@ namespace BookShop.ViewModels
                         }
                         else
                         {
+                            var emailCandidat = db.Users.Get(c => c.Email == RegisterFormModel.Email);
+                            if(emailCandidat != null)
+                                _messageBoxService.ShowMessageBox(
+                                        "Register",
+                                        "Пользователь с такой почтой уже существует",
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
+
                             var clientNew = new User
                             {
                                 Login = RegisterFormModel.Login,
                                 RegistrationDate = DateTime.Now,
+                                Email = RegisterFormModel.Email,
+                                Role = db.Roles.Get(r => r.Role1 == "User")[0],
                                 Image = "/Imgs/bg.jpg",
                                 Password = BCrypt.Net.BCrypt.HashPassword(RegisterFormModel.Password)
                             };
@@ -104,12 +115,14 @@ namespace BookShop.ViewModels
 
                             _messageBoxService.ShowMessageBox(
                                         "Register",
-                                        "Зарегистрирован",
+                                        "Вы успешно зарегестрировались",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
+                            IsLoggedIn = true;
+                            CloseAction();
                         }
                     }
-                }, (o) => !RegisterFormModel.HasErrors));
+                }, (o) => true));
             }
         }
     }

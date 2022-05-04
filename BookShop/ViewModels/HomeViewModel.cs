@@ -42,13 +42,19 @@ namespace BookShop.ViewModels
             {
                 var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)?[0];
                 if (loggedinUserBasket == null) return 0;
-                return db.BasketProducts.Get(loggedinUserBasket.Id).Count;
+                var basketProducts = db.BasketProducts.Get(loggedinUserBasket.Id);
+                if (basketProducts == null)
+                    return 0;
+                return basketProducts.Count;
             }
             set
             {
                 var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)?[0];
-                if (loggedinUserBasket == null) return;
+                if (loggedinUserBasket == null) 
+                    return;
                 var basketProduct = db.BasketProducts.Get(loggedinUserBasket.Id);
+                if (basketProduct == null)
+                    return;
                 basketProduct.Count++;
                 db.BasketProducts.UpdateAsync(basketProduct);
             }

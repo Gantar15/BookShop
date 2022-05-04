@@ -9,7 +9,8 @@
       mc:Ignorable="d"
       Width="1200"
       Height="700"
-      Title="BookShop" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanResize" WindowStyle="SingleBorderWindow">
+      Title="BookShop" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanResize" WindowStyle="SingleBorderWindow"
+      Icon="/Imgs/logo.png">
     <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="160"/>

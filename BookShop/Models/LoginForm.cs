@@ -13,7 +13,7 @@ namespace BookShop.Models
             Login = string.Empty;
         }
 
-        [Required]
+        [Required(ErrorMessage = "Логин обязателен")]
         public string Login
         {
             get { return _login; }
@@ -23,7 +23,7 @@ namespace BookShop.Models
                 OnPropertyChanged(nameof(Login));
             }
         }
-        [Required]
+        [Required(ErrorMessage = "Пароль обязателен")]
         public string Password
         {
             get { return _password; }
