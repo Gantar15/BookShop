@@ -37,7 +37,6 @@
                          HorizontalContentAlignment="Center"
                          BorderBrush="{x:Null}" 
                          Grid.Row="1"
-                         SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay}" 
                          ItemsSource="{Binding Path=AllBooks, UpdateSourceTrigger=PropertyChanged}">
                 <ListBox.ItemContainerStyle>
                     <Style TargetType="{x:Type ListBoxItem}">
@@ -102,37 +101,61 @@
                                     <Image.InputBindings>
                                         <MouseBinding MouseAction="LeftClick" 
                                                       Command="{Binding ElementName=booksList, Path=DataContext.ShowBookPage}"
-                                                      CommandParameter="{Binding SelectedItem}"/>
+                                                      CommandParameter="{Binding}"/>
                                     </Image.InputBindings>
                                 </Image>
-                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left" 
+                                            VerticalAlignment="Top">
                                     <TextBlock FontSize="14"
+                                               Grid.Column="0"
                                                FontWeight="Medium"
                                                Text="{Binding Path=Product.Price, Converter={StaticResource MoneyConverter}}"
                                                TextWrapping="Wrap"
                                                HorizontalAlignment="Left"
-                                               Margin="0,5">
-                                    </TextBlock>
-                                    <TextBlock FontSize="18"
+                                               VerticalAlignment="Top"/>
+                                    
+                                    <Grid VerticalAlignment="Top" Width="250" Margin="0 5 0 0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*"/>
+                                            <ColumnDefinition Width="3*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock FontSize="20"
+                                               Grid.Column="0"
                                                Text="{Binding Path=Title}"
                                                TextWrapping="Wrap"
                                                HorizontalAlignment="Left"
                                                Margin="0,5"
                                                Cursor="Hand">
-                                        <TextBlock.InputBindings>
-                                            <MouseBinding MouseAction="LeftClick" 
+                                            <TextBlock.InputBindings>
+                                                <MouseBinding MouseAction="LeftClick" 
                                                       Command="{Binding ElementName=booksList, Path=DataContext.ShowBookPage}"
-                                                      CommandParameter="{Binding SelectedItem}"/>
-                                        </TextBlock.InputBindings>
-                                    </TextBlock>
+                                                      CommandParameter="{Binding}"/>
+                                            </TextBlock.InputBindings>
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1" 
+                                                    HorizontalAlignment="Right" VerticalAlignment="Top"
+                                                    Margin="0 9 0 0">
+                                            <Image Source="/Imgs/star.png" Width="17" Height="17"/>
+                                            <TextBlock FontSize="14"
+                                               FontWeight="Medium"
+                                               Margin="3 0 0 0"
+                                               Text="{Binding Path=Rating, StringFormat={}{0:F1}}"/>
+                                        </StackPanel>
+                                    </Grid>
+
                                     <TextBlock Foreground="#ABABAB" 
                                                FontSize="14"
                                                Text="{Binding Path=Authors, Converter={StaticResource AuthorsConverter}}"
-                                               TextWrapping="Wrap"
-                                               Margin="0,5">
+                                               TextWrapping="Wrap">
                                     </TextBlock>
-                                    <StackPanel Margin="0 30 0 0" VerticalAlignment="Top" HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+
+                                    <Grid Margin="0 30 0 0" VerticalAlignment="Top" Width="250">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
                                             <Ellipse Width="10" Height="10" 
                                                      Fill="{Binding InStock, Converter={StaticResource InStockToColorConverter}}"/>
                                             <TextBlock FontSize="13" Margin="5 0 0 3"
@@ -141,15 +164,15 @@
                                         <Button Style="{StaticResource BackgroundButton}"
                                             Width="80"
                                             Height="30"
-                                            Margin="90,0,0,0"
+                                            Grid.Column="1"
                                             HorizontalAlignment="Right"
                                             Content="В корзину"
                                             FontSize="14"
                                             Foreground="Black"
-                                            Command="{Binding Path=DataContext.AddToCart, ElementName=booksList}"
-                                            CommandParameter="{Binding SelectedItem}">
+                                            Command="{Binding Path=DataContext.AddToBasket, ElementName=booksList}"
+                                            CommandParameter="{Binding}">
                                         </Button>
-                                    </StackPanel>
+                                    </Grid>
                                 </StackPanel>
                             </StackPanel>
                         </Border>

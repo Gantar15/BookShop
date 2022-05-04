@@ -7,7 +7,7 @@ namespace DataAccess
     public partial class Product : Entity
     {        
         public int Id { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
 
         public List<Order> Orders { get; set; } = new List<Order>();
         public List<Basket> Baskets { get; set; } = new List<Basket>();

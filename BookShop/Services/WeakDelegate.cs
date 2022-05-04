@@ -71,10 +71,10 @@ namespace BookShop.Services
                 throw new ArgumentException("Only instance methods are supported.",
                                                 "eventHandler");
 
-            var wehType = typeof(WeakEventHandler<,>).MakeGenericType(
+            var weakType = typeof(WeakEventHandler<,>).MakeGenericType(
                               eventHandler.Method.DeclaringType, typeof(TE));
 
-            var wehConstructor = wehType.GetConstructor(new Type[]
+            var wehConstructor = weakType.GetConstructor(new Type[]
                                  {
                                  typeof(EventHandler<TE>), typeof(UnregisterCallback<TE>)
                                  });

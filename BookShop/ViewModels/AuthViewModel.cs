@@ -39,7 +39,7 @@ namespace BookShop.ViewModels
                     if (client is null)
                     {
                         _messageBoxService.ShowMessageBox(
-                                    "Login",
+                                    "Вход",
                                     "Логин введен неверно",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);
@@ -57,7 +57,7 @@ namespace BookShop.ViewModels
                         else
                         {
                             _messageBoxService.ShowMessageBox(
-                                    "Login",
+                                    "Вход",
                                     "Пароль введен неверно",
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);
@@ -81,7 +81,7 @@ namespace BookShop.ViewModels
                         if (client != null)
                         {
                             _messageBoxService.ShowMessageBox(
-                                        "Register",
+                                        "Регистрация",
                                         "Пользователь с таким логином уже существует",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
@@ -91,7 +91,7 @@ namespace BookShop.ViewModels
                             var emailCandidat = db.Users.Get(c => c.Email == RegisterFormModel.Email);
                             if(emailCandidat != null)
                                 _messageBoxService.ShowMessageBox(
-                                        "Register",
+                                        "Регистрация",
                                         "Пользователь с такой почтой уже существует",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
@@ -114,7 +114,7 @@ namespace BookShop.ViewModels
                             db.Baskets.Add(userBasket);
 
                             _messageBoxService.ShowMessageBox(
-                                        "Register",
+                                        "Регистрация",
                                         "Вы успешно зарегестрировались",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);

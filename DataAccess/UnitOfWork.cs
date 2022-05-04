@@ -11,6 +11,11 @@ namespace DataAccess
         private BasketProductRepository basketProductRepository;
         private UserRepository userRepository;
         private RoleRepository roleRepository;
+        private AuthorRepository authorRepository;
+        private OrderProductRepository orderProductRepository;
+        private CategoryRepository categoryRepository;
+        private OrderRepository orderRepository;
+        private PhotoRepository photoRepository;
 
         public BookRepository Books
         {
@@ -55,6 +60,51 @@ namespace DataAccess
                 if (roleRepository == null)
                     roleRepository = new RoleRepository(db);
                 return roleRepository;
+            }
+        }
+        public AuthorRepository Authors
+        {
+            get
+            {
+                if (authorRepository == null)
+                    authorRepository = new AuthorRepository(db);
+                return authorRepository;
+            }
+        }
+        public OrderProductRepository OrderProducts
+        {
+            get
+            {
+                if (orderProductRepository == null)
+                    orderProductRepository = new OrderProductRepository(db);
+                return orderProductRepository;
+            }
+        }
+        public CategoryRepository Categories
+        {
+            get
+            {
+                if (categoryRepository == null)
+                    categoryRepository = new CategoryRepository(db);
+                return categoryRepository;
+            }
+        }
+        public OrderRepository Orders
+        {
+            get
+            {
+                if (orderRepository == null)
+                    orderRepository = new OrderRepository(db);
+                return orderRepository;
+            }
+        }
+        public PhotoRepository Photos
+        {
+            get
+            {
+                if (photoRepository == null)
+                    photoRepository = new PhotoRepository(db);
+                return photoRepository;
             }
         }
 

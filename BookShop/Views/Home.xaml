@@ -64,9 +64,12 @@
                 </StackPanel>
 
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Column="1">
-                    <TextBox FontSize="15" Width="300" Height="45" Padding="5 10 40 10"/>
+                    <TextBox FontSize="15" Width="300" 
+                             Height="45" Padding="5 10 40 10"
+                             Text="{Binding SearchText}"/>
                     <Button Margin="-40 0 0 0" BorderThickness="0"
-                            Background="Transparent" Style="{StaticResource ClearButton}">
+                            Background="Transparent" Style="{StaticResource ClearButton}"
+                            Command="{Binding SearchCommand}">
                         <Image Source="/Imgs/Search.png" Width="25" Height="25"/>
                     </Button>
                 </StackPanel>
@@ -80,12 +83,12 @@
                                         Width="120" Height="45" 
                                         Panel.ZIndex="1"
                                         BorderBrush="LightGray"
-                                        Style="{StaticResource ClearButton}">
+                                        Style="{StaticResource ClearButton}" Cursor="Hand">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal">
                                     <Image Source="/Imgs/shopping-cart.png" Width="25" Height="25"/>
-                                    <TextBlock Text="{Binding BasketCount}" VerticalAlignment="Center" FontSize="15" Margin="1 -17 0 0" Foreground="Red" FontWeight="Bold"/>
-                                    <TextBlock Margin="10 0 0 0">35.17$</TextBlock>
+                                    <TextBlock Text="{Binding BasketModelContext.Count}" VerticalAlignment="Center" FontSize="15" Margin="1 -17 0 0" Foreground="Red" FontWeight="Bold"/>
+                                    <TextBlock Margin="10 0 0 0" Text="{Binding BasketModelContext.Price, Converter={StaticResource MoneyConverter}}"></TextBlock>
                                 </StackPanel>
                             </Button.Content>
                         </Button>

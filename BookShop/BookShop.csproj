@@ -19,6 +19,7 @@
     <None Remove="Imgs\phone.png" />
     <None Remove="Imgs\search.png" />
     <None Remove="Imgs\shopping-cart.png" />
+    <None Remove="Imgs\star.png" />
     <None Remove="Imgs\truck.png" />
     <None Remove="Imgs\wallet.png" />
   </ItemGroup>
@@ -31,6 +32,7 @@
     <Resource Include="Imgs\phone.png" />
     <Resource Include="Imgs\search.png" />
     <Resource Include="Imgs\shopping-cart.png" />
+    <Resource Include="Imgs\star.png" />
     <Resource Include="Imgs\truck.png" />
     <Resource Include="Imgs\wallet.png" />
   </ItemGroup>
