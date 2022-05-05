@@ -22,6 +22,10 @@ namespace BookShop.ViewModels
             _main = homeViewModel;
             _messageBoxService = new MessageBoxService();
             AllBooks = _main.AllBooks;
+            _main.ChangeBooksList = (bookList) =>
+            {
+                AllBooks = bookList;
+            };
         }
 
         public List<Book> AllBooks
@@ -38,7 +42,7 @@ namespace BookShop.ViewModels
                     var movie = o as Book;
                     if (movie != null)
                     {
-                        //переход на страницу книги
+
                     }
                 }));
             }

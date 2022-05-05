@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace BookShop.ViewModels
 {
@@ -71,13 +72,29 @@ namespace BookShop.ViewModels
         }
 
         public UnitOfWork db { get => _unitOfWork; }
+        public Action<List<Book>> ChangeBooksList { get; set; }
         public LambdaCommand ChangeCommand { get; set; }
         public LambdaCommand SearchCommand
         {
             get {
                 return _searchCommand ?? (_searchCommand = new LambdaCommand((o) =>
                 {
-                    AllBooks = db.Books.Get(b => Regex.IsMatch(b.Title, $"^.*{SearchText}.*$"));
+                    List<Book> searchResults = new List<Book>();
+                    var titleSearch = db.Books.Get(b => Regex.IsMatch(b.Title, $"^.*{SearchText}.*$", RegexOptions.IgnoreCase));
+                    var authorsSearch = db.Books.Get(b => b.Authors.Any(a => Regex.IsMatch($"{a.Name} {a.Surname}", $"^.*{SearchText}.*$", RegexOptions.IgnoreCase)));
+                    var categorySearch = db.Books.Get(b => Regex.IsMatch(b.Category.Title, $"^.*{SearchText}.*$", RegexOptions.IgnoreCase));
+
+                    if(titleSearch != null)
+                        searchResults.AddRange(titleSearch);
+                    if (authorsSearch != null)
+                        searchResults.AddRange(authorsSearch);
+                    if (categorySearch != null)
+                        searchResults.AddRange(categorySearch);
+
+                    searchResults = searchResults.Select(b => b).Distinct().ToList();
+
+                    AllBooks = searchResults;
+                    ChangeBooksList?.Invoke(AllBooks);
                 }));
             }
         }
