@@ -11,8 +11,8 @@ namespace DataAccess
         public float Rating { get; set; }
         public string AgeRestriction { get; set; }
         public string Format { get; set; }
-        public int? PagesCount { get; set; }
-        public int? PublicationYear { get; set; }
+        public int PagesCount { get; set; }
+        public int PublicationYear { get; set; }
         public int? ProductId { get; set; }
         public int? CategoryId { get; set; }
         public bool InStock { get; set; }

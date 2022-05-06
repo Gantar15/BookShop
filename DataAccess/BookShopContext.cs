@@ -108,7 +108,7 @@ namespace DataAccess
                 entity.Property(e => e.CategoryId).HasColumnName("categoryId");
 
                 entity.Property(e => e.Description)
-                    .HasMaxLength(2500)
+                    .HasMaxLength(3200)
                     .IsUnicode(false)
                     .HasColumnName("description");
 

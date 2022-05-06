@@ -1,5 +1,6 @@
 ﻿using BookShop.Infrastructure.Commands;
 using BookShop.Models;
+using BookShop.Services;
 using BookShop.ViewModels.Base;
 using BookShop.ViewModels.Common;
 using DataAccess;
@@ -16,36 +17,49 @@ namespace BookShop.ViewModels
         private ViewModel _ShowingViewModel;
         private readonly UnitOfWork _unitOfWork;
         private string _searchText;
+        private readonly MessageBoxService _messageBoxService;
         private List<Book> _allBooks;
         private LambdaCommand _searchCommand;
+        private LambdaCommand _addToBasket;
 
         public HomeViewModel(UnitOfWork unitOfWork = null)
         {
+            _messageBoxService = new MessageBoxService();
+
             if (unitOfWork == null)
                 _unitOfWork = new UnitOfWork();
             else
                 _unitOfWork = unitOfWork;
 
-            AllBooks = db.Books.Items.ToList();
+            ResetAllBooks();
             ShowingViewModel = new HomeContentViewModel(this);
             ChangeCommand = new LambdaCommand((name) =>
             {
                 switch (name.ToString())
                 {
                     case "home":
-                        ShowingViewModel = new HomeContentViewModel(this);
+                        ResetAllBooks();
+                        if(ShowingViewModel.GetType().Name != "HomeContentViewModel")
+                            ShowingViewModel = new HomeContentViewModel(this);
                         break;
                     case "contacts":
-                        ShowingViewModel = new ContactsVeiwModel();
+                        if (ShowingViewModel.GetType().Name != "ContactsVeiwModel")
+                            ShowingViewModel = new ContactsVeiwModel();
                         break;
                     case "deliveryInfo":
-                        ShowingViewModel = new DeliveryInfoVeiwModel();
+                        if (ShowingViewModel.GetType().Name != "DeliveryInfoVeiwModel")
+                            ShowingViewModel = new DeliveryInfoVeiwModel();
                         break;
                 }
             });
             UpdateBasket();
         }
 
+        public void ResetAllBooks()
+        {
+            AllBooks = db.Books.Items.ToList();
+            ChangeBooksList?.Invoke(AllBooks);
+        }
         public void UpdateBasket()
         {
             BasketModelContext.Count = GetActualBasketCount();
@@ -79,6 +93,8 @@ namespace BookShop.ViewModels
             get {
                 return _searchCommand ?? (_searchCommand = new LambdaCommand((o) =>
                 {
+                    ChangeCommand.Execute("home");
+
                     List<Book> searchResults = new List<Book>();
                     var titleSearch = db.Books.Get(b => Regex.IsMatch(b.Title, $"^.*{SearchText}.*$", RegexOptions.IgnoreCase));
                     var authorsSearch = db.Books.Get(b => b.Authors.Any(a => Regex.IsMatch($"{a.Name} {a.Surname}", $"^.*{SearchText}.*$", RegexOptions.IgnoreCase)));
@@ -95,6 +111,48 @@ namespace BookShop.ViewModels
 
                     AllBooks = searchResults;
                     ChangeBooksList?.Invoke(AllBooks);
+                }));
+            }
+        }
+        public LambdaCommand AddToBasket
+        {
+            get
+            {
+                return _addToBasket ?? (_addToBasket = new LambdaCommand((o) =>
+                {
+                    var book = o as Book;
+
+                    if (book != null)
+                    {
+                        if (!book.InStock)
+                        {
+                            _messageBoxService.ShowMessageBox(
+                            book.Title,
+                            "Товара нет в наличии",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                            return;
+                        }
+
+                        var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)[0];
+                        var existsBasketProduct = loggedinUserBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.ProductId);
+                        if (loggedinUserBasket.BasketProducts.Count == 0 || existsBasketProduct == null)
+                        {
+                            var basketProduct = new BasketProduct
+                            {
+                                Basket = loggedinUserBasket,
+                                Product = book.Product,
+                                Count = 1
+                            };
+                            db.BasketProducts.Add(basketProduct);
+                        }
+                        else if (existsBasketProduct != null)
+                        {
+                            existsBasketProduct.Count++;
+                            db.BasketProducts.Update(existsBasketProduct);
+                        }
+                        UpdateBasket();
+                    }
                 }));
             }
         }

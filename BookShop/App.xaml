@@ -16,6 +16,9 @@
             <DataTemplate DataType="{x:Type vm:DeliveryInfoVeiwModel}">
                 <v:DeliveryInfoContent/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:BookPageContentViewModel}">
+                <v:BookPageContent/>
+            </DataTemplate>
 
             <cnv:MoneyConverter x:Key="MoneyConverter"/>
             <cnv:AuthorsConverter x:Key="AuthorsConverter"/>

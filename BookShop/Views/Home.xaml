@@ -7,8 +7,6 @@
       xmlns:vm="clr-namespace:BookShop.ViewModels"
       xmlns:cmd="clr-namespace:BookShop.Infrastructure.Commands"
       mc:Ignorable="d"
-      Width="1200"
-      Height="700"
       Title="BookShop" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanResize" WindowStyle="SingleBorderWindow"
       Icon="/Imgs/logo.png">
     <Grid HorizontalAlignment="Center">
@@ -17,7 +15,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Grid x:Name="Header" Grid.Row="0" MinWidth="1200">
+        <Grid x:Name="Header" Grid.Row="0" MinWidth="{StaticResource MainContentWidth}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="50"/>
@@ -66,10 +64,15 @@
                 <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Grid.Column="1">
                     <TextBox FontSize="15" Width="300" 
                              Height="45" Padding="5 10 40 10"
-                             Text="{Binding SearchText}"/>
+                             Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.InputBindings>
+                            <KeyBinding Key="Enter" 
+                                    Command="{Binding SearchCommand}"/>
+                        </TextBox.InputBindings>
+                    </TextBox>
                     <Button Margin="-40 0 0 0" BorderThickness="0"
                             Background="Transparent" Style="{StaticResource ClearButton}"
-                            Command="{Binding SearchCommand}">
+                            Command="{Binding SearchCommand}" Cursor="Hand">
                         <Image Source="/Imgs/Search.png" Width="25" Height="25"/>
                     </Button>
                 </StackPanel>
@@ -119,11 +122,11 @@
                     </StackPanel>
                 </Border>
 
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Margin="20 0 0 0">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Column="1" Margin="25 0 0 0">
                     <TextBlock>
                         <Hyperlink NavigateUri="Stock.xaml" TextDecorations="None" FontSize="16" Foreground="White">Акция</Hyperlink>
                     </TextBlock>
-                    <TextBlock Margin="10 0 0 0">
+                    <TextBlock Margin="15 0 0 0">
                         <Hyperlink NavigateUri="Newest.xaml" TextDecorations="None" FontSize="16" Foreground="White">Новинки</Hyperlink>
                     </TextBlock>
                 </StackPanel>

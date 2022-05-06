@@ -32,7 +32,7 @@
             <Grid.Effect>
                 <DropShadowEffect BlurRadius="35" ShadowDepth="10" Color="#E5E5E5" Opacity="0.4"/>
             </Grid.Effect>
-            <TabControl>
+            <TabControl BorderBrush="#E3E3E3">
                 <TabControl.Resources>
                     <Style TargetType="TabItem" BasedOn="{StaticResource MenuTabItem}"/>
                 </TabControl.Resources>

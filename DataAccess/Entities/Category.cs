@@ -1,5 +1,4 @@
 ﻿using DataAccess.Entities.Base;
-using System;
 using System.Collections.Generic;
 
 namespace DataAccess
@@ -8,6 +7,7 @@ namespace DataAccess
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public string Image { get; set; }
 
         public List<Book> Books { get; set; } = new List<Book>();
     }

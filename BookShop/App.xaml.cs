@@ -1,4 +1,5 @@
 ﻿using BookShop.ViewModels;
+using BookShop.ViewModels.Common;
 using BookShop.Views;
 using System.Windows;
 
@@ -9,10 +10,12 @@ namespace BookShop
     /// </summary>
     public partial class App : Application
     {
+        private AuthWindow AuthWnd;
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             Current.MainWindow = new AuthWindow(new AuthViewModel());
+            AuthWnd = Current.MainWindow as AuthWindow;
             Current.MainWindow.Closing += AuthWindow_Closing;
             Current.MainWindow.Show();
         }
@@ -24,8 +27,8 @@ namespace BookShop
             {
                 return;
             }
-            Current.MainWindow.Closing -= AuthWindow_Closing;
             Current.MainWindow = new Home(new HomeViewModel(view.VM.db));
+            Current.MainWindow.Closing -= AuthWindow_Closing;
             Current.MainWindow.Show();
         }
     }
