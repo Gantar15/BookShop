@@ -34,7 +34,7 @@ namespace BookShop.ViewModels
             {
                 return _loginCommand ?? (_loginCommand = new LambdaCommand((o) =>
                 {
-                    var client = db.Users.Get(c => c.Login == LoginFormModel.Login)?[0];
+                    var client = db.Users.GetFirstOrDefault(c => c.Login == LoginFormModel.Login);
 
                     if (client is null)
                     {
@@ -48,11 +48,7 @@ namespace BookShop.ViewModels
                     {
                         if (BCrypt.Net.BCrypt.Verify(LoginFormModel.Password, client.Password))
                         {
-                            LoggedinUser.Id = client.Id;
-                            LoggedinUser.Image = client.Image;
-                            LoggedinUser.Login = client.Login;
-                            IsLoggedIn = true;
-                            CloseAction();
+                            SetLoggedinUser(client);
                         }
                         else
                         {
@@ -76,7 +72,8 @@ namespace BookShop.ViewModels
                 {
                     if (!string.IsNullOrEmpty(RegisterFormModel.Login) && !string.IsNullOrEmpty(RegisterFormModel.Email))
                     {
-                        var client = db.Users.Get(c => c.Login == RegisterFormModel.Login)?[0];
+                        var client = db.Users.GetFirstOrDefault(c => c.Login == RegisterFormModel.Login);
+                        var emailCandidat = db.Users.Get(c => c.Email == RegisterFormModel.Email);
 
                         if (client != null)
                         {
@@ -86,22 +83,22 @@ namespace BookShop.ViewModels
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
                         }
+                        else if (emailCandidat != null)
+                        {
+                            _messageBoxService.ShowMessageBox(
+                                    "Регистрация",
+                                    "Пользователь с такой почтой уже существует",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                        }
                         else
                         {
-                            var emailCandidat = db.Users.Get(c => c.Email == RegisterFormModel.Email);
-                            if(emailCandidat != null)
-                                _messageBoxService.ShowMessageBox(
-                                        "Регистрация",
-                                        "Пользователь с такой почтой уже существует",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Information);
-
                             var clientNew = new User
                             {
                                 Login = RegisterFormModel.Login,
                                 RegistrationDate = DateTime.Now,
                                 Email = RegisterFormModel.Email,
-                                Role = db.Roles.Get(r => r.Role1 == "User")[0],
+                                Role = db.Roles.GetFirstOrDefault(r => r.Role1 == "User"),
                                 Image = "/Imgs/bg.jpg",
                                 Password = BCrypt.Net.BCrypt.HashPassword(RegisterFormModel.Password)
                             };
@@ -118,12 +115,21 @@ namespace BookShop.ViewModels
                                         "Вы успешно зарегестрировались",
                                         MessageBoxButton.OK,
                                         MessageBoxImage.Information);
-                            IsLoggedIn = true;
-                            CloseAction();
+
+                            SetLoggedinUser(clientNew);
                         }
                     }
                 }, (o) => true));
             }
+        }
+
+        private void SetLoggedinUser(User client)
+        {
+            LoggedinUser.Id = client.Id;
+            LoggedinUser.Image = client.Image;
+            LoggedinUser.Login = client.Login;
+            IsLoggedIn = true;
+            CloseAction();
         }
     }
 }

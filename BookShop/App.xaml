@@ -19,6 +19,9 @@
             <DataTemplate DataType="{x:Type vm:BookPageContentViewModel}">
                 <v:BookPageContent/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:BasketPageContentViewModel}">
+                <v:BasketPageContent/>
+            </DataTemplate>
 
             <cnv:MoneyConverter x:Key="MoneyConverter"/>
             <cnv:AuthorsConverter x:Key="AuthorsConverter"/>

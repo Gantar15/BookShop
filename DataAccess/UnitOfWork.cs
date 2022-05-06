@@ -16,6 +16,7 @@ namespace DataAccess
         private CategoryRepository categoryRepository;
         private OrderRepository orderRepository;
         private PhotoRepository photoRepository;
+        private ProductRepository productRepository;
 
         public BookRepository Books
         {
@@ -105,6 +106,15 @@ namespace DataAccess
                 if (photoRepository == null)
                     photoRepository = new PhotoRepository(db);
                 return photoRepository;
+            }
+        }
+        public ProductRepository Products
+        {
+            get
+            {
+                if (productRepository == null)
+                    productRepository = new ProductRepository(db);
+                return productRepository;
             }
         }
 

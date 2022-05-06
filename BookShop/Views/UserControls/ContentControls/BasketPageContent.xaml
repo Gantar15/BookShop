@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="BookShop.Views.UserControls.ContentControls.BasketPageContent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
+             mc:Ignorable="d">
+
+    <Grid Margin="20 40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0">
+            <TextBlock Text="Корзина" FontSize="28" FontWeight="Bold" HorizontalAlignment="Left"/>
+            
+            <Rectangle Margin="0 30 0 0" HorizontalAlignment="Stretch" Height="1" Fill="{DynamicResource BorderColor}"/>
+
+            <ListBox x:Name="BasketItemsList" 
+                         Margin="0 20 0 0"
+                         VirtualizingPanel.ScrollUnit="Pixel" 
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
+                         ScrollViewer.VerticalScrollBarVisibility="Hidden" 
+                         Background="Transparent"
+                         HorizontalAlignment="Left" 
+                         VerticalAlignment="Top" 
+                         VerticalContentAlignment="Top"
+                         HorizontalContentAlignment="Stretch"
+                         BorderBrush="{x:Null}"
+                         ItemsSource="{Binding Path=BasketItems, UpdateSourceTrigger=PropertyChanged}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10" BorderThickness="1"
+                                BorderBrush="{DynamicResource BorderColor}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel  Orientation="Horizontal">
+                                    <Border BorderBrush="{DynamicResource BorderColor}" 
+                                            BorderThickness="1" Padding="5">
+                                        <Image Source="{Binding Photos[0].Source}"
+                                               Width="70" Height="90"
+                                               Stretch="Fill"
+                                               Cursor="Hand"/>
+                                    </Border>
+                                    <StackPanel Margin="20 0 0 0">
+                                        <TextBlock Text="{Binding Title}" FontSize="16" 
+                                                   FontWeight="Medium"
+                                                   Cursor="Hand"/>
+                                        <TextBlock Text="{Binding Authors, Converter={StaticResource AuthorsConverter}}"
+                                                   TextWrapping="Wrap" FontSize="14" Foreground="LightGray"
+                                                   Margin="0 5 0 0"/>
+                                        <Button Style="{StaticResource BackgroundButton}"
+                                                    Width="80"
+                                                    Height="30"
+                                                    Content="Удалить"
+                                                    FontSize="14"
+                                                    Foreground="Black"
+                                                    Command="{Binding Path=DataContext.RemoveCommand, ElementName=BasketItemsList}"
+                                                    CommandParameter="{Binding}">
+                                        </Button>
+                                    </StackPanel>
+                                </StackPanel
+                                <TextBlock 
+                                           Text="{Binding BasketPrice, Converter={StaticResource MoneyConverter}}"
+                                           />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        
+        <StackPanel Grid.Column="1">
+            
+        </StackPanel>
+    </Grid>
+</UserControl>

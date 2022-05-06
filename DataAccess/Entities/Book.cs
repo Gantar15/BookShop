@@ -1,4 +1,5 @@
 ﻿using DataAccess.Entities.Base;
+using System;
 using System.Collections.Generic;
 
 namespace DataAccess
@@ -16,6 +17,7 @@ namespace DataAccess
         public int? ProductId { get; set; }
         public int? CategoryId { get; set; }
         public bool InStock { get; set; }
+        public DateTime AddDate { get; set; }
 
         public Category Category { get; set; }
         public Product Product { get; set; }

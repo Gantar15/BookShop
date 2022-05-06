@@ -1,11 +1,7 @@
 ﻿using BookShop.Infrastructure.Commands;
-using BookShop.Services;
 using BookShop.ViewModels.Base;
-using BookShop.ViewModels.Common;
 using DataAccess;
 using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
 
 namespace BookShop.ViewModels
 {
@@ -40,7 +36,7 @@ namespace BookShop.ViewModels
                     var book = o as Book;
                     if (book != null)
                     {
-                        _main.ShowingViewModel = new BookPageContentViewModel(_main, book);
+                        _main.ShowBookPage.Execute(book);
                     }
                 }));
             }

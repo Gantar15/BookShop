@@ -19,8 +19,10 @@ namespace BookShop.ViewModels
         private string _searchText;
         private readonly MessageBoxService _messageBoxService;
         private List<Book> _allBooks;
+        private string _loggedinUserName;
         private LambdaCommand _searchCommand;
         private LambdaCommand _addToBasket;
+        private LambdaCommand _showBookPage;
 
         public HomeViewModel(UnitOfWork unitOfWork = null)
         {
@@ -50,11 +52,21 @@ namespace BookShop.ViewModels
                         if (ShowingViewModel.GetType().Name != "DeliveryInfoVeiwModel")
                             ShowingViewModel = new DeliveryInfoVeiwModel();
                         break;
+                    case "basket":
+                        if (ShowingViewModel.GetType().Name != "BasketPageContentViewModel")
+                            ShowingViewModel = new BasketPageContentViewModel(this);
+                        break;
                 }
             });
             UpdateBasket();
+            GetUserData();
         }
 
+        public void GetUserData()
+        {
+            int userId = LoggedinUser.Id;
+            LoggedinUserName = db.Users.Get(userId).Login;
+        }
         public void ResetAllBooks()
         {
             AllBooks = db.Books.Items.ToList();
@@ -66,7 +78,7 @@ namespace BookShop.ViewModels
             BasketModelContext.Price = GetActualBasketPrice();
         }
         public int GetActualBasketCount() {
-            var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)[0];
+            var loggedinUserBasket = db.Baskets.GetFirstOrDefault(b => b.UserId == LoggedinUser.Id);
             var basketProducts = db.BasketProducts.Get(bp => bp.BasketId == loggedinUserBasket.Id);
             if (basketProducts == null)
                 return 0;
@@ -76,7 +88,7 @@ namespace BookShop.ViewModels
         }
         public decimal GetActualBasketPrice()
         {
-            var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)[0];
+            var loggedinUserBasket = db.Baskets.GetFirstOrDefault(b => b.UserId == LoggedinUser.Id);
             var basketProducts = db.BasketProducts.Get(bp => bp.BasketId == loggedinUserBasket.Id);
             if (basketProducts == null)
                 return 0;
@@ -134,7 +146,7 @@ namespace BookShop.ViewModels
                             return;
                         }
 
-                        var loggedinUserBasket = db.Baskets.Get(b => b.UserId == LoggedinUser.Id)[0];
+                        var loggedinUserBasket = db.Baskets.GetFirstOrDefault(b => b.UserId == LoggedinUser.Id);
                         var existsBasketProduct = loggedinUserBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.ProductId);
                         if (loggedinUserBasket.BasketProducts.Count == 0 || existsBasketProduct == null)
                         {
@@ -156,11 +168,28 @@ namespace BookShop.ViewModels
                 }));
             }
         }
+        public LambdaCommand ShowBookPage
+        {
+            get
+            {
+                return _showBookPage ?? (_showBookPage = new LambdaCommand((o) =>
+                {
+                    var book = o as Book;
+                    if (book != null)
+                    {
+                        this.ShowingViewModel = new BookPageContentViewModel(this, book);
+                    }
+                }));
+            }
+        }
+        public string LoggedinUserName {
+            get => _loggedinUserName;
+            set => _loggedinUserName = value;
+        }
         public List<Book> AllBooks {
             get => _allBooks;
             set => Set(ref _allBooks, value);
         }
-
         public BasketModel BasketModelContext { get; set; } = new BasketModel();
         public string SearchText
         {

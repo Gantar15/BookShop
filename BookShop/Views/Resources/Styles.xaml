@@ -4,6 +4,9 @@
     <!--Brushes-->
     <SolidColorBrush x:Key="MainContrastColor" Color="#1DAD00"/>
     <SolidColorBrush x:Key="ErrorColor" Color="#EB3225"/>
+    <SolidColorBrush x:Key="BorderColor" Color="#D3D3D3"/>
+
+    <!--Sizes-->
     <sys:Double x:Key="MainContentWidth">1200</sys:Double>
 
     <!--Buttons-->

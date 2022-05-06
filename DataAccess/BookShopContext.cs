@@ -124,6 +124,7 @@ namespace DataAccess
                 entity.Property(e => e.PublicationYear).HasColumnName("publicationYear");
 
                 entity.Property(e => e.Rating).HasColumnName("rating");
+                entity.Property(e => e.AddDate).HasDefaultValueSql("getdate()").HasColumnName("addDate");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(50)
@@ -134,11 +135,9 @@ namespace DataAccess
                     .WithMany(p => p.Books)
                     .HasForeignKey(b => b.CategoryId)
                     .HasConstraintName("FK_Book_Category");
-                
+
                 entity.HasOne(b => b.Product)
-                    .WithMany(p => p.Books)
-                    .HasForeignKey(b => b.ProductId)
-                    .HasConstraintName("FK_Book_Product");
+                    .WithOne(p => p.Book);
 
                 entity.HasMany(b => b.Authors)
                     .WithMany(p => p.Books)

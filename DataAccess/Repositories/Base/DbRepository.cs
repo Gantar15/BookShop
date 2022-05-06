@@ -36,6 +36,11 @@ namespace DataAccess.Repositories
                 return null;
             return results.ToList();
         }
+        public T GetFirstOrDefault(Func<T, bool> filter)
+        {
+            var result = Items.FirstOrDefault(filter);
+            return result;
+        }
 
         public T Add(T item)
         {

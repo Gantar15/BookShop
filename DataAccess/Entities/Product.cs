@@ -9,9 +9,9 @@ namespace DataAccess
         public int Id { get; set; }
         public decimal Price { get; set; }
 
+        public Book Book { get; set; }
         public List<Order> Orders { get; set; } = new List<Order>();
         public List<Basket> Baskets { get; set; } = new List<Basket>();
-        public List<Book> Books { get; set; } = new List<Book>();
         public List<OrderProduct> OrderProducts { get; set; } = new();
         public List<BasketProduct> BasketProducts { get; set; } = new();
     }
