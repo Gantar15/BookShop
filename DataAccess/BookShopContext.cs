@@ -119,8 +119,6 @@ namespace DataAccess
 
                 entity.Property(e => e.PagesCount).HasColumnName("pagesCount");
 
-                entity.Property(e => e.ProductId).HasColumnName("productId");
-
                 entity.Property(e => e.PublicationYear).HasColumnName("publicationYear");
 
                 entity.Property(e => e.Rating).HasColumnName("rating");
@@ -137,7 +135,8 @@ namespace DataAccess
                     .HasConstraintName("FK_Book_Category");
 
                 entity.HasOne(b => b.Product)
-                    .WithOne(p => p.Book);
+                    .WithOne(p => p.Book)
+                    .HasForeignKey<Product>(p => p.BookId);
 
                 entity.HasMany(b => b.Authors)
                     .WithMany(p => p.Books)

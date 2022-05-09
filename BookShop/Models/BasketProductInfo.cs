@@ -1,28 +1,30 @@
 ﻿using BookShop.Models.Base;
+using DataAccess;
 
 namespace BookShop.Models
 {
-    public class BasketModel : Model
+    public class BasketProductInfo : Model
     {
         private int _count;
-        private decimal _price;
+        private decimal _totalСost;
 
+        public Book Book { get; set; }
         public int Count
         {
-            get { return _count; }
+            get => _count;
             set
             {
                 _count = value;
+                TotalСost = _count * Book.Product.Price;
                 OnPropertyChanged();
             }
         }
-
-        public decimal Price
+        public decimal TotalСost
         {
-            get { return _price; }
+            get => _totalСost;
             set
             {
-                _price = value;
+                _totalСost = value;
                 OnPropertyChanged();
             }
         }

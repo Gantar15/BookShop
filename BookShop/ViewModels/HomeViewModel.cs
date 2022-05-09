@@ -147,7 +147,7 @@ namespace BookShop.ViewModels
                         }
 
                         var loggedinUserBasket = db.Baskets.GetFirstOrDefault(b => b.UserId == LoggedinUser.Id);
-                        var existsBasketProduct = loggedinUserBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.ProductId);
+                        var existsBasketProduct = loggedinUserBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.Id);
                         if (loggedinUserBasket.BasketProducts.Count == 0 || existsBasketProduct == null)
                         {
                             var basketProduct = new BasketProduct

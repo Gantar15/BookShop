@@ -126,17 +126,17 @@
                                                                Text="{Binding BookContext.InStock, Converter={StaticResource InStockToStringConverter}}"/>
                                         </StackPanel>
                                     </StackPanel>
-                                    <Button Style="{StaticResource BackgroundButton}"
+                                    <Button Style="{StaticResource AddButton}"
                                             Height="40"
                                             Margin="0 20 0 0"
                                             Grid.Column="1"
                                             HorizontalAlignment="Stretch"
                                             Content="В корзину"
                                             FontSize="16"
-                                            Foreground="Black"
+                                            Foreground="White"
                                             BorderThickness="2"
                                             Command="{Binding Path=AddToBasket}"
-                                            CommandParameter="{Binding BookContext}">
+                                            CommandParameter="{Binding BookContext}" Cursor="Hand">
                                     </Button>
                                 </StackPanel>
                             </Border>

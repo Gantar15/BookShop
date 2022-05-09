@@ -10,16 +10,20 @@ namespace BookShop.Infrastructure.Converters
     {
         public object Convert(object value, System.Type targetType, object parameter, CultureInfo culture)
         {
-            var authors = (List<Author>)value;
-            string resultAuthors = "";
-            for(int i=0; i<authors.Count; i++)
+            var authors = value as List<Author>;
+            if (authors != null)
             {
-                var author = authors[i];
-                resultAuthors += $"{author.Name} {author.Surname}";
-                if (i < authors.Count - 1)
-                    resultAuthors += ", ";
+                string resultAuthors = "";
+                for (int i = 0; i < authors.Count; i++)
+                {
+                    var author = authors[i];
+                    resultAuthors += $"{author.Name} {author.Surname}";
+                    if (i < authors.Count - 1)
+                        resultAuthors += ", ";
+                }
+                return resultAuthors;
             }
-            return resultAuthors;
+            return "";
         }
 
         public object ConvertBack(object value, System.Type targetType, object parameter, CultureInfo culture)

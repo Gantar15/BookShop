@@ -1,19 +1,24 @@
 ﻿using BookShop.Infrastructure.Commands;
+using BookShop.Models;
 using BookShop.ViewModels.Base;
 using BookShop.ViewModels.Common;
 using DataAccess;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace BookShop.ViewModels
 {
     public class BasketPageContentViewModel : ViewModel
     {
         private HomeViewModel _main;
-        private List<Book> _basketItems;
         private decimal _basketPrice;
         private int _basketCount;
         private LambdaCommand _showBookPage;
         private LambdaCommand _removeCommand;
+        private LambdaCommand _incrementCommand;
+        private LambdaCommand _decrementCommand;
 
         public BasketPageContentViewModel(HomeViewModel _main)
         {
@@ -21,11 +26,37 @@ namespace BookShop.ViewModels
 
             int userId = LoggedinUser.Id;
             CurrentBasket = _main.db.Baskets.GetFirstOrDefault(basket => basket.UserId == userId);
-            var items = new List<Book>();
-            CurrentBasket.Products.ForEach(p => items.Add(p.Book));
-            BasketItems = items;
+
+            var booksItems = new List<Book>();
+            CurrentBasket.Products.ForEach(p => booksItems.Add(p.Book));
+            BasketItems = new ObservableCollection<BasketProductInfo>();
+            foreach(var bookitem in booksItems)
+            {
+                var basketProductInfo = new BasketProductInfo();
+                var basketProduct = _main.db.BasketProducts.GetFirstOrDefault(bp => bp.ProductId == bookitem.Product.Id && bp.BasketId == CurrentBasket.Id);
+                basketProductInfo.Book = bookitem;
+                if (basketProduct != null)
+                {
+                    basketProductInfo.Count = basketProduct.Count;
+                    basketProductInfo.TotalСost = basketProduct.Count * bookitem.Product.Price;
+                }
+                BasketItems.Add(basketProductInfo);
+            }
         }
 
+        public void UpdateBasket()
+        {
+            decimal newPrice = 0;
+            foreach (var bpItem in BasketItems)
+                newPrice += bpItem.Book.Product.Price;
+            BasketPrice = newPrice;
+
+            int newCount = 0;
+            CurrentBasket.BasketProducts.ForEach(bp => newCount += bp.Count);
+            BasketCount = newCount;
+
+            _main.UpdateBasket();
+        }
         public LambdaCommand ShowBookPage
         {
             get
@@ -52,27 +83,53 @@ namespace BookShop.ViewModels
                         var product = _main.db.Products.Get(book.Id);
                         CurrentBasket.Products.Remove(product);
                         _main.db.Save();
+                        BasketItems.Remove(BasketItems.FirstOrDefault(item => item.Book.Id == book.Id));
+                        UpdateBasket();
+                    }
+                }));
+            }
+        }
+        public LambdaCommand IncrementCommand
+        {
+            get
+            {
+                return _incrementCommand ?? (_incrementCommand = new LambdaCommand(o =>
+                {
+                    var book = o as Book;
+                    if (book != null)
+                    {
+                        var basketProduct = CurrentBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.Product.Id);
+                        basketProduct.Count++;
+                        _main.db.BasketProducts.Update(basketProduct);
+                        BasketItems.First(item => item.Book.Id == book.Id).Count++;
+                        UpdateBasket();
+                    }
+                }));
+            }
+        }
+        public LambdaCommand DecrementCommand
+        {
+            get
+            {
+                return _decrementCommand ?? (_decrementCommand = new LambdaCommand(o =>
+                {
+                    var book = o as Book;
+                    if (book != null)
+                    {
+                        var basketProductInfo = BasketItems.First(item => item.Book.Id == book.Id);
+                        if (basketProductInfo.Count <= 0) RemoveCommand.Execute(book);
+
+                        var basketProduct = CurrentBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.Product.Id);
+                        basketProduct.Count--;
+                        _main.db.BasketProducts.Update(basketProduct);
+                        BasketItems.First(item => item.Book.Id == book.Id).Count--;
+                        UpdateBasket();
                     }
                 }));
             }
         }
         private Basket CurrentBasket { get; }
-        public List<Book> BasketItems
-        {
-            get => _basketItems;
-            set 
-            {
-                Set(ref _basketItems, value);
-
-                decimal newPrice = 0;
-                _basketItems.ForEach(b => newPrice += b.Product.Price);
-                BasketPrice = newPrice;
-
-                int newCount = 0;
-                CurrentBasket.BasketProducts.ForEach(bp => newCount += bp.Count);
-                BasketCount = newCount;
-            }
-        }
+        public ObservableCollection<BasketProductInfo> BasketItems { get; set; }
         public decimal BasketPrice
         {
             get => _basketPrice;
