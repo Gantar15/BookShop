@@ -83,16 +83,17 @@
                                         Foreground="Black"
                                         FontWeight="Bold" FontSize="15" 
                                         VerticalAlignment="Center" 
-                                        Width="130" Height="45" 
+                                        Height="45"
                                         Panel.ZIndex="1"
                                         BorderBrush="LightGray"
                                         Style="{StaticResource ClearButton}" Cursor="Hand"
                                         Command="{Binding ChangeCommand}"
                                         CommandParameter="basket">
                             <Button.Content>
-                                <StackPanel Orientation="Horizontal">
+                                <StackPanel Margin="10 0" Orientation="Horizontal">
                                     <Image Source="/Imgs/shopping-cart.png" Width="25" Height="25"/>
-                                    <TextBlock Text="{Binding BasketModelContext.Count}" VerticalAlignment="Center" FontSize="15" Margin="1 -17 0 0" Foreground="Red" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding BasketModelContext.Count}" VerticalAlignment="Center" 
+                                               FontSize="15" Margin="1 -17 0 0" Foreground="Red" FontWeight="Bold"/>
                                     <TextBlock Margin="10 0 0 0" Text="{Binding BasketModelContext.Price, Converter={StaticResource MoneyConverter}}"></TextBlock>
                                 </StackPanel>
                             </Button.Content>

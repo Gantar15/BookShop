@@ -9,7 +9,7 @@
     <Grid Margin="20 40">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="4*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0">
@@ -113,9 +113,50 @@
                 </ListBox.ItemTemplate>
             </ListBox>
         </StackPanel>
-        
-        <StackPanel Grid.Column="1">
-            
+
+
+        <StackPanel Grid.Column="1" Margin="20 0 0 0" VerticalAlignment="Top">
+            <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="2">
+                <StackPanel>
+                    <Button Style="{StaticResource AddButton}"
+                                            Height="50"
+                                            Grid.Column="1"
+                                            HorizontalAlignment="Stretch"
+                                            Content="Оформить заказ"
+                                            FontSize="15"
+                                            Foreground="White"
+                                            Command="{Binding ShowOrderPage}"/>
+                    <StackPanel Orientation="Vertical" Margin="20">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="15" FontWeight="Medium"
+                                       Grid.Column="0" HorizontalAlignment="Left">
+                                Ваша корзина
+                            </TextBlock>
+                            <TextBlock FontSize="14" Foreground="{DynamicResource BorderColor}"
+                                       Grid.Column="1" HorizontalAlignment="Right" 
+                                       Text="{Binding BasketCount, StringFormat=\{0\} товара}"/>
+                        </Grid>
+                        <Rectangle Margin="0 20" HorizontalAlignment="Stretch" Height="1" Fill="{DynamicResource BorderColor}"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock FontSize="15" FontWeight="Medium"
+                                       Grid.Column="0" HorizontalAlignment="Left">
+                                Общая стоимость
+                            </TextBlock>
+                            <TextBlock FontSize="15" FontWeight="Medium"
+                                       Grid.Column="1" HorizontalAlignment="Right"
+                                       Text="{Binding BasketPrice, Converter={StaticResource MoneyConverter}}"/>
+                        </Grid>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
         </StackPanel>
     </Grid>
 </UserControl>

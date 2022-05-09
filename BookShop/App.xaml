@@ -22,6 +22,9 @@
             <DataTemplate DataType="{x:Type vm:BasketPageContentViewModel}">
                 <v:BasketPageContent/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:OrderPageContentViewModel}">
+                <v:OrderPageContent/>
+            </DataTemplate>
 
             <cnv:MoneyConverter x:Key="MoneyConverter"/>
             <cnv:AuthorsConverter x:Key="AuthorsConverter"/>

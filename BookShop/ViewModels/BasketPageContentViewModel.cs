@@ -19,6 +19,7 @@ namespace BookShop.ViewModels
         private LambdaCommand _removeCommand;
         private LambdaCommand _incrementCommand;
         private LambdaCommand _decrementCommand;
+        private LambdaCommand _showOrderPage;
 
         public BasketPageContentViewModel(HomeViewModel _main)
         {
@@ -41,6 +42,7 @@ namespace BookShop.ViewModels
                     basketProductInfo.TotalСost = basketProduct.Count * bookitem.Product.Price;
                 }
                 BasketItems.Add(basketProductInfo);
+                UpdateBasket();
             }
         }
 
@@ -57,6 +59,7 @@ namespace BookShop.ViewModels
 
             _main.UpdateBasket();
         }
+
         public LambdaCommand ShowBookPage
         {
             get
@@ -68,6 +71,16 @@ namespace BookShop.ViewModels
                     {
                         _main.ShowBookPage.Execute(book);
                     }
+                }));
+            }
+        }
+        public LambdaCommand ShowOrderPage
+        {
+            get
+            {
+                return _showOrderPage ?? (_showOrderPage = new LambdaCommand((o) =>
+                {
+                    _main.ChangeCommand.Execute("order");
                 }));
             }
         }
