@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -78,9 +79,9 @@ namespace DataAccess.Repositories
 
         public void Remove(int id)
         {
-            var item = _Set.Local.FirstOrDefault(i => i.Id == id) ?? new T { Id = id };
-
-            _db.Remove(item);
+            var item = _Set.FirstOrDefault(i => i.Id == id);
+            if (item == null) return;
+            _Set.Remove(item);
 
             if (AutoSaveChanges)
                 _db.SaveChanges();
@@ -88,21 +89,29 @@ namespace DataAccess.Repositories
 
         public async Task RemoveAsync(int id, CancellationToken Cancel = default)
         {
-            _db.Remove(new T { Id = id });
+            var item = _Set.FirstOrDefault(i => i.Id == id);
+            if (item == null) return;
+            _Set.Remove(item);
+
             if (AutoSaveChanges)
                 await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
         }
 
         public void Remove(Func<T, bool> filter)
         {
-            _db.Remove(filter);
+            var item = _Set.FirstOrDefault(filter);
+            if (item == null) return;
+            _Set.Remove(item);
 
             if (AutoSaveChanges)
                 _db.SaveChanges();
         }
-        public async Task RemoveAsync(Predicate<T> filter, CancellationToken Cancel = default)
+        public async Task RemoveAsync(Expression<Func<T, bool>> filter, CancellationToken Cancel = default)
         {
-            _db.Remove(filter);
+            var item = _Set.FirstOrDefault(filter);
+            if (item == null) return;
+            _Set.Remove(item);
+
             if (AutoSaveChanges)
                 await _db.SaveChangesAsync(Cancel).ConfigureAwait(false);
         }

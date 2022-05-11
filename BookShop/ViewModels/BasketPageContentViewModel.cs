@@ -1,9 +1,9 @@
 ﻿using BookShop.Infrastructure.Commands;
 using BookShop.Models;
+using BookShop.Services;
 using BookShop.ViewModels.Base;
 using BookShop.ViewModels.Common;
 using DataAccess;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -20,9 +20,11 @@ namespace BookShop.ViewModels
         private LambdaCommand _incrementCommand;
         private LambdaCommand _decrementCommand;
         private LambdaCommand _showOrderPage;
+        private readonly MessageBoxService _messageBoxService;
 
         public BasketPageContentViewModel(HomeViewModel _main)
         {
+            _messageBoxService = new MessageBoxService();
             this._main = _main;
 
             int userId = LoggedinUser.Id;
@@ -46,11 +48,20 @@ namespace BookShop.ViewModels
             }
         }
 
+        public void ClearBasket()
+        {
+            foreach(var basketProduct in CurrentBasket.BasketProducts.ToList())
+            {
+                _main.db.BasketProducts.Remove(basketProduct.Id);
+            }
+            _main.UpdateBasket();
+        }
+
         public void UpdateBasket()
         {
             decimal newPrice = 0;
             foreach (var bpItem in BasketItems)
-                newPrice += bpItem.Book.Product.Price;
+                newPrice += bpItem.Book.Product.Price * CurrentBasket.BasketProducts.First(bp => bp.ProductId == bpItem.Book.Id).Count;
             BasketPrice = newPrice;
 
             int newCount = 0;
@@ -80,7 +91,10 @@ namespace BookShop.ViewModels
             {
                 return _showOrderPage ?? (_showOrderPage = new LambdaCommand((o) =>
                 {
-                    _main.ChangeCommand.Execute("order");
+                    if (BasketCount == 0) {
+                        _messageBoxService.ShowMessageBox("Корзина", "Корзина пуста", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                    }
+                    _main.ShowingViewModel = new OrderPageContentViewModel(_main, this);
                 }));
             }
         }
@@ -141,7 +155,7 @@ namespace BookShop.ViewModels
                 }));
             }
         }
-        private Basket CurrentBasket { get; }
+        public Basket CurrentBasket { get; }
         public ObservableCollection<BasketProductInfo> BasketItems { get; set; }
         public decimal BasketPrice
         {

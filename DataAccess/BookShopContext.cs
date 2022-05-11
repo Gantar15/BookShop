@@ -163,6 +163,16 @@ namespace DataAccess
                     .IsUnicode(false)
                     .HasColumnName("address");
 
+                entity.Property(e => e.Fio)
+                    .HasMaxLength(100)
+                    .IsUnicode(false)
+                    .HasColumnName("fio");
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("phone");
+
                 entity.HasMany(o => o.Products)
                     .WithMany(p => p.Orders)
                     .UsingEntity<OrderProduct>(

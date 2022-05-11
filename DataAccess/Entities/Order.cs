@@ -8,6 +8,8 @@ namespace DataAccess
     {
         public int Id { get; set; }
         public string Address { get; set; }
+        public string Fio { get; set; }
+        public string Phone { get; set; }
 
         public List<Product> Products { get; set; } = new();
         public List<OrderProduct> OrderProducts { get; set; } = new();

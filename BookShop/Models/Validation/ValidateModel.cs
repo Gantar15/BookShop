@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookShop.Models.Base;
+using System;
 using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,15 +8,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Kinoa.ViewModel.Validation
+namespace BookShop.Models.Validation
 {
-    public class ValidateModel : INotifyDataErrorInfo, INotifyPropertyChanged
+    public class ValidateModel : Model, INotifyDataErrorInfo
     {
         private ConcurrentDictionary<string, List<string>> _errors = null;
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void OnPropertyChanged(string propertyName)
+        public override event PropertyChangedEventHandler PropertyChanged;
+        protected override void OnPropertyChanged(string propertyName)
         {
             var handler = PropertyChanged;
             if (handler != null)

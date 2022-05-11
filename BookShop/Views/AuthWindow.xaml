@@ -49,23 +49,9 @@
                             <Label Target="{Binding ElementName=LoginLoginBox}" FontSize="13">
                                 Логин
                             </Label>
-                            <TextBox x:Name="LoginLoginBox" 
+                            <TextBox x:Name="LoginLoginBox" Style="{StaticResource ValidationException}"
                                      Text="{Binding LoginFormModel.Login, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                                      Padding="5">
-                                <Validation.ErrorTemplate>
-                                    <ControlTemplate>
-                                        <StackPanel>
-                                            <AdornedElementPlaceholder x:Name="textBox" />
-                                            <ItemsControl ItemsSource="{Binding}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding ErrorContent}" Foreground="{DynamicResource ErrorColor}" FontSize="10" />
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </StackPanel>
-                                    </ControlTemplate>
-                                </Validation.ErrorTemplate>
                             </TextBox>
                             <Label Target="{Binding ElementName=LoginPasswordBox}" Margin="0 10 0 0" FontSize="13">
                                 Пароль
@@ -98,46 +84,16 @@
                             <Label Target="{Binding ElementName=RegisterLoginBox}" FontSize="13">
                                 Логин
                             </Label>
-                            <TextBox x:Name="RegisterLoginBox" 
+                            <TextBox x:Name="RegisterLoginBox" Style="{StaticResource ValidationException}"
                                      Text="{Binding RegisterFormModel.Login, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
-                                     Padding="5">
-                                <Validation.ErrorTemplate>
-                                    <ControlTemplate>
-                                        <StackPanel>
-                                            <AdornedElementPlaceholder x:Name="textBox" />
-                                            <ItemsControl ItemsSource="{Binding}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding ErrorContent}" Foreground="{DynamicResource ErrorColor}" FontSize="10" />
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </StackPanel>
-                                    </ControlTemplate>
-                                </Validation.ErrorTemplate>
-                            </TextBox>
+                                     Padding="5"/>
 
                             <Label Target="{Binding ElementName=RegisterEmailBox}" Margin="0 10 0 0" FontSize="13">
                                 Почта
                             </Label>
-                            <TextBox x:Name="RegisterEmailBox" 
+                            <TextBox x:Name="RegisterEmailBox" Style="{StaticResource ValidationException}"
                                      Text="{Binding RegisterFormModel.Email, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                     Padding="5">
-                                <Validation.ErrorTemplate>
-                                    <ControlTemplate>
-                                        <StackPanel>
-                                            <AdornedElementPlaceholder x:Name="textBox" />
-                                            <ItemsControl ItemsSource="{Binding}">
-                                                <ItemsControl.ItemTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding ErrorContent}" Foreground="{DynamicResource ErrorColor}" FontSize="10" />
-                                                    </DataTemplate>
-                                                </ItemsControl.ItemTemplate>
-                                            </ItemsControl>
-                                        </StackPanel>
-                                    </ControlTemplate>
-                                </Validation.ErrorTemplate>
-                            </TextBox>
+                                     Padding="5"/>
 
                             <Label Target="{Binding ElementName=RegisterPasswordBox}" Margin="0 10 0 0" FontSize="13">
                                 Пароль

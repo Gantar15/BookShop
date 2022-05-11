@@ -1,4 +1,4 @@
-﻿using Kinoa.ViewModel.Validation;
+﻿using BookShop.Models.Validation;
 using System.ComponentModel.DataAnnotations;
 
 namespace BookShop.Models
@@ -10,28 +10,20 @@ namespace BookShop.Models
 
         public LoginForm()
         {
-            Login = string.Empty;
+            Validate();
         }
 
         [Required(ErrorMessage = "Логин обязателен")]
         public string Login
         {
-            get { return _login; }
-            set
-            {
-                _login = value;
-                OnPropertyChanged(nameof(Login));
-            }
+            get => _login;
+            set => Set(ref _login, value);
         }
         [Required(ErrorMessage = "Пароль обязателен")]
         public string Password
         {
-            get { return _password; }
-            set
-            {
-                _password = value;
-                OnPropertyChanged(nameof(Password));
-            }
+            get => _password;
+            set => Set(ref _password, value);
         }
     }
 }

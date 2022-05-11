@@ -56,10 +56,6 @@ namespace BookShop.ViewModels
                         if (ShowingViewModel.GetType().Name != "BasketPageContentViewModel")
                             ShowingViewModel = new BasketPageContentViewModel(this);
                         break;
-                    case "order":
-                        if (ShowingViewModel.GetType().Name != "OrderPageContentViewModel")
-                            ShowingViewModel = new OrderPageContentViewModel(this);
-                        break;
                 }
             });
             UpdateBasket();

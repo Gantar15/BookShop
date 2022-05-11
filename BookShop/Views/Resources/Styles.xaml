@@ -2,14 +2,36 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <!--Brushes-->
-    <SolidColorBrush x:Key="MainContrastColor" Color="#1DAD00"/>
-    <SolidColorBrush x:Key="AddColor" Color="#1DAD00"/>
+    <SolidColorBrush x:Key="MainContrastColor" Color="#3AB54A"/>
+    <SolidColorBrush x:Key="AddColor" Color="#3AB54A"/>
     <SolidColorBrush x:Key="ErrorColor" Color="#EB3225"/>
     <SolidColorBrush x:Key="RemoveColor" Color="#EB4C42"/>
     <SolidColorBrush x:Key="BorderColor" Color="#D3D3D3"/>
 
     <!--Sizes-->
     <sys:Double x:Key="MainContentWidth">1200</sys:Double>
+    
+    <!--Validation-->
+    <Style TargetType="TextBox" x:Key="ValidationException">
+        <Style.Setters>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <StackPanel>
+                            <AdornedElementPlaceholder x:Name="textBox" />
+                            <ItemsControl ItemsSource="{Binding}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ErrorContent}" Foreground="{DynamicResource ErrorColor}" FontSize="10" />
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style.Setters>
+    </Style>
 
     <!--Buttons-->
     <Style TargetType="Button" x:Key="DefaultButton">
