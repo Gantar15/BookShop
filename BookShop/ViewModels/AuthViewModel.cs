@@ -25,8 +25,8 @@ namespace BookShop.ViewModels
         public bool IsLoggedIn { get; set; } = false;
 
         public UnitOfWork db { get => _unitOfWork; }
-        public LoginForm LoginFormModel { get; set; } = new LoginForm();
-        public RegisterForm RegisterFormModel { get; set; } = new RegisterForm();
+        public LoginForm LoginFormModel { get; } = new LoginForm();
+        public RegisterForm RegisterFormModel { get; } = new RegisterForm();
 
         public LambdaCommand LoginCommand
         {

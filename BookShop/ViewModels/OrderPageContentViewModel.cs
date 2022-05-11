@@ -51,9 +51,8 @@ namespace BookShop.ViewModels
                 return _orderCommand ?? (_orderCommand = new LambdaCommand(o =>
                 {
                     CreateOrder();
-                    _basket.ClearBasket();
-
                     _messageBoxService.ShowMessageBox("Заказ", "Ваш заказ успешно оформлен", MessageBoxButton.OK, MessageBoxImage.Information);
+                    _basket.ClearBasket();
                     _main.ChangeCommand.Execute("home");
                 },
                 (o) => !OrderFormModel.HasErrors));

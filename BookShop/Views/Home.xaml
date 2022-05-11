@@ -5,7 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:BookShop"
       xmlns:vm="clr-namespace:BookShop.ViewModels"
+      xmlns:common="clr-namespace:BookShop.ViewModels.Common"
       xmlns:cmd="clr-namespace:BookShop.Infrastructure.Commands"
+      xmlns:bh="clr-namespace:Microsoft.Xaml.Behaviors;assembly=Microsoft.Xaml.Behaviors"
       mc:Ignorable="d"
       Title="BookShop" WindowStartupLocation="CenterScreen" WindowState="Maximized" ResizeMode="CanResize" WindowStyle="SingleBorderWindow"
       Icon="/Imgs/logo.png">
@@ -65,6 +67,9 @@
                     <TextBox FontSize="15" Width="300" 
                              Height="45" Padding="5 10 40 10"
                              Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                        <bh:Interaction.Behaviors>
+                            <common:PlaceholderBehavior Placeholder="Введите запрос" PlaceholderColor="168,168,168"/>
+                        </bh:Interaction.Behaviors>
                         <TextBox.InputBindings>
                             <KeyBinding Key="Enter" 
                                     Command="{Binding SearchCommand}"/>
