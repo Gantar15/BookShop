@@ -1,18 +1,20 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <!--Brushes-->
-    <SolidColorBrush x:Key="MainContrastColor" Color="#3AB54A"/>
-    <SolidColorBrush x:Key="AddColor" Color="#3AB54A"/>
-    <SolidColorBrush x:Key="ErrorColor" Color="#EB3225"/>
-    <SolidColorBrush x:Key="RemoveColor" Color="#EB4C42"/>
-    <SolidColorBrush x:Key="BorderColor" Color="#D3D3D3"/>
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <!--  Brushes  -->
+    <SolidColorBrush x:Key="MainContrastColor" Color="#3AB54A" />
+    <SolidColorBrush x:Key="AddColor" Color="#3AB54A" />
+    <SolidColorBrush x:Key="ErrorColor" Color="#EB3225" />
+    <SolidColorBrush x:Key="RemoveColor" Color="#EB4C42" />
+    <SolidColorBrush x:Key="BorderColor" Color="#D3D3D3" />
+    <SolidColorBrush x:Key="PlaceholderColor" Color="#9A9A9A" />
 
-    <!--Sizes-->
+    <!--  Sizes  -->
     <sys:Double x:Key="MainContentWidth">1200</sys:Double>
-    
-    <!--Validation-->
-    <Style TargetType="TextBox" x:Key="ValidationException">
+
+    <!--  Validation  -->
+    <Style x:Key="ValidationException" TargetType="TextBox">
         <Style.Setters>
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
@@ -22,7 +24,10 @@
                             <ItemsControl ItemsSource="{Binding}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding ErrorContent}" Foreground="{DynamicResource ErrorColor}" FontSize="10" />
+                                        <TextBlock
+                                            FontSize="10"
+                                            Foreground="{DynamicResource ErrorColor}"
+                                            Text="{Binding ErrorContent}" />
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
@@ -33,14 +38,21 @@
         </Style.Setters>
     </Style>
 
-    <!--Buttons-->
-    <Style TargetType="Button" x:Key="DefaultButton">
-        <Setter Property="Cursor" Value="Hand"/>
+    <!--  Buttons  -->
+    <Style x:Key="DefaultButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentControl HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        TextBlock.Foreground="{TemplateBinding Foreground}">
+                        <ContentControl
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -50,82 +62,32 @@
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" Duration="0:0:0.2" From="0" To="2"/>
-                            <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Duration="0:0:0.1" From="{x:Null}" To="#EFEFEF"></ColorAnimation>
+                            <ThicknessAnimation
+                                Storyboard.TargetProperty="BorderThickness"
+                                From="0"
+                                To="2"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="BorderBrush.Color"
+                                From="{x:Null}"
+                                To="#EFEFEF"
+                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
                 <Trigger.ExitActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ThicknessAnimation Storyboard.TargetProperty="BorderThickness" Duration="0:0:0.3" From="2" To="0"/>
-                            <ColorAnimation Storyboard.TargetProperty="BorderBrush.Color" Duration="0:0:0.3" From="#EFEFEF" To="{x:Null}"></ColorAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.ExitActions>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    
-    <Style TargetType="Button" x:Key="ClearButton">
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <Style TargetType="Button" x:Key="BackgroundButton">
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource MainContrastColor}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="Black"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Trigger.EnterActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            Duration="0:0:0.2"
-                                            From="{x:Null}"
-                                            To="#1DAD00">
-                            </ColorAnimation>
-                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.1"
-                                            From="Black"
-                                            To="#FAFAFA">
-                            </ColorAnimation>
-                        </Storyboard>
-                    </BeginStoryboard>
-                </Trigger.EnterActions>
-                <Trigger.ExitActions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            Duration="0:0:0.2"
-                                            From="#1DAD00"
-                                            To="{x:Null}">
-                            </ColorAnimation>
-                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.1" 
-                                            From="#FAFAFA"
-                                            To="Black">
-                            </ColorAnimation>
+                            <ThicknessAnimation
+                                Storyboard.TargetProperty="BorderThickness"
+                                From="2"
+                                To="0"
+                                Duration="0:0:0.3" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="BorderBrush.Color"
+                                From="#EFEFEF"
+                                To="{x:Null}"
+                                Duration="0:0:0.3" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.ExitActions>
@@ -133,17 +95,44 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="RemoveButton">
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource RemoveColor}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="{DynamicResource RemoveColor}"/>
+    <Style x:Key="ClearButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        TextBlock.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BackgroundButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MainContrastColor}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="Black" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        TextBlock.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -153,32 +142,32 @@
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            Duration="0:0:0.2"
-                                            From="{x:Null}"
-                                            To="Transparent">
-                            </ColorAnimation>
-                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.1"
-                                            From="{x:Null}"
-                                            To="Black">
-                            </ColorAnimation>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="{x:Null}"
+                                To="#1DAD00"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="Black"
+                                To="#FAFAFA"
+                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
                 <Trigger.ExitActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            Duration="0:0:0.2"
-                                            From="Transparent"
-                                            To="{x:Null}">
-                            </ColorAnimation>
-                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.1" 
-                                            From="Black"
-                                            To="White">
-                            </ColorAnimation>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="#1DAD00"
+                                To="{x:Null}"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="#FAFAFA"
+                                To="Black"
+                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.ExitActions>
@@ -186,17 +175,24 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="Button" x:Key="AddButton">
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="BorderBrush" Value="{DynamicResource AddColor}"/>
-        <Setter Property="BorderThickness" Value="1"/>
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="{DynamicResource AddColor}"/>
+    <Style x:Key="RemoveButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderBrush" Value="{DynamicResource RemoveColor}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource RemoveColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border TextBlock.Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" Content="{TemplateBinding Content}" />
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        TextBlock.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
@@ -206,32 +202,92 @@
                 <Trigger.EnterActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            Duration="0:0:0.2"
-                                            From="{x:Null}"
-                                            To="Transparent">
-                            </ColorAnimation>
-                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.1"
-                                            From="{x:Null}"
-                                            To="Black">
-                            </ColorAnimation>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="{x:Null}"
+                                To="Transparent"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="{x:Null}"
+                                To="Black"
+                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.EnterActions>
                 <Trigger.ExitActions>
                     <BeginStoryboard>
                         <Storyboard>
-                            <ColorAnimation Storyboard.TargetProperty="Background.Color"
-                                            Duration="0:0:0.2"
-                                            From="Transparent"
-                                            To="{x:Null}">
-                            </ColorAnimation>
-                            <ColorAnimation Storyboard.TargetProperty="Foreground.Color"
-                                            Duration="0:0:0.1" 
-                                            From="Black"
-                                            To="White">
-                            </ColorAnimation>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="Transparent"
+                                To="{x:Null}"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="Black"
+                                To="White"
+                                Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="AddButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderBrush" Value="{DynamicResource AddColor}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource AddColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        TextBlock.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="{x:Null}"
+                                To="Transparent"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="{x:Null}"
+                                To="Black"
+                                Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="Transparent"
+                                To="{x:Null}"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="Black"
+                                To="White"
+                                Duration="0:0:0.1" />
                         </Storyboard>
                     </BeginStoryboard>
                 </Trigger.ExitActions>

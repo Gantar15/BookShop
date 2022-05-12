@@ -74,6 +74,7 @@ namespace BookShop.ViewModels
                     {
                         var client = db.Users.GetFirstOrDefault(c => c.Login == RegisterFormModel.Login);
                         var emailCandidat = db.Users.Get(c => c.Email == RegisterFormModel.Email);
+                        var nameCandidat = db.Users.Get(c => c.Name == RegisterFormModel.Name);
 
                         if (client != null)
                         {
@@ -91,11 +92,20 @@ namespace BookShop.ViewModels
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Information);
                         }
+                        else if (nameCandidat != null)
+                        {
+                            _messageBoxService.ShowMessageBox(
+                                    "Регистрация",
+                                    "Пользователь с таким именем уже существует",
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
+                        }
                         else
                         {
                             var clientNew = new User
                             {
                                 Login = RegisterFormModel.Login,
+                                Name = RegisterFormModel.Name,
                                 RegistrationDate = DateTime.Now,
                                 Email = RegisterFormModel.Email,
                                 Role = db.Roles.GetFirstOrDefault(r => r.Role1 == "User"),
@@ -109,17 +119,10 @@ namespace BookShop.ViewModels
                                 User = clientNew
                             };
                             db.Baskets.Add(userBasket);
-
-                            _messageBoxService.ShowMessageBox(
-                                        "Регистрация",
-                                        "Вы успешно зарегестрировались",
-                                        MessageBoxButton.OK,
-                                        MessageBoxImage.Information);
-
                             SetLoggedinUser(clientNew);
                         }
                     }
-                }, (o) => true));
+                }, (o) => !RegisterFormModel.HasErrors));
             }
         }
 

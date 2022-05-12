@@ -25,6 +25,9 @@
             <DataTemplate DataType="{x:Type vm:OrderPageContentViewModel}">
                 <v:OrderPageContent/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:UserPageContentViewModel}">
+                <v:UserPageContent/>
+            </DataTemplate>
 
             <cnv:MoneyConverter x:Key="MoneyConverter"/>
             <cnv:AuthorsConverter x:Key="AuthorsConverter"/>

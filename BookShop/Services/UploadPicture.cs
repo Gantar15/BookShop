@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BookShop.Infrastructure;
 using Microsoft.Win32;
 using System.IO;
 using System.Threading.Tasks;
@@ -10,9 +10,7 @@ namespace BookShop.Services
         private readonly string _clientsDataFolder;
         public UploadPicture()
         {
-            var configuration = new ConfigurationBuilder()
-                   .AddJsonFile("appsettings.json")
-                   .Build();
+            var configuration = new ConfigurationFactory().GetConfiguration();
             _clientsDataFolder = configuration["clientsDataFolder"];
         }
 
@@ -25,18 +23,15 @@ namespace BookShop.Services
                 await file.ReadAsync(data, 0, data.Length);
             }
             var imageName = filePath.Substring(filePath.LastIndexOf(@"\"));
-
             var userFolder = _clientsDataFolder + $@"\{clientId}";
 
             DirectoryInfo info = new DirectoryInfo(userFolder);
-
             if (!info.Exists)
             {
                 info.Create();
             }
 
             var pathToAdd = info.FullName + imageName;
-
             using (FileStream file = new FileStream(pathToAdd, FileMode.Create))
             {
                 await file.WriteAsync(data, 0, data.Length);

@@ -20,6 +20,7 @@ namespace BookShop.ViewModels
         private readonly MessageBoxService _messageBoxService;
         private List<Book> _allBooks;
         private string _loggedinUserName;
+        private string _loggedinUserImage;
         private LambdaCommand _searchCommand;
         private LambdaCommand _addToBasket;
         private LambdaCommand _showBookPage;
@@ -56,6 +57,10 @@ namespace BookShop.ViewModels
                         if (ShowingViewModel.GetType().Name != "BasketPageContentViewModel")
                             ShowingViewModel = new BasketPageContentViewModel(this);
                         break;
+                    case "userPage":
+                        if (ShowingViewModel.GetType().Name != "UserPageContentViewModel")
+                            ShowingViewModel = new UserPageContentViewModel(this);
+                        break;
                 }
             });
             UpdateBasket();
@@ -64,8 +69,9 @@ namespace BookShop.ViewModels
 
         public void GetUserData()
         {
-            int userId = LoggedinUser.Id;
-            LoggedinUserName = db.Users.Get(userId).Login;
+            var currentUser = db.Users.Get(LoggedinUser.Id);
+            LoggedinUserName = currentUser.Name;
+            LoggedinUserImage = currentUser.Image;
         }
         public void ResetAllBooks()
         {
@@ -184,7 +190,12 @@ namespace BookShop.ViewModels
         }
         public string LoggedinUserName {
             get => _loggedinUserName;
-            set => _loggedinUserName = value;
+            set => Set(ref _loggedinUserName, value);
+        }
+        public string LoggedinUserImage
+        {
+            get => _loggedinUserImage;
+            set => Set(ref _loggedinUserImage, value);
         }
         public List<Book> AllBooks {
             get => _allBooks;

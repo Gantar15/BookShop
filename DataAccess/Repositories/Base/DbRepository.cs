@@ -32,7 +32,7 @@ namespace DataAccess.Repositories
            .ConfigureAwait(false);
 
         public List<T> Get(Func<T, bool> filter) {
-            var results = Items.TakeWhile(filter);
+            var results = Items.Where(filter);
             if (results.Count() == 0)
                 return null;
             return results.ToList();

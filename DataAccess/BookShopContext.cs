@@ -251,9 +251,19 @@ namespace DataAccess
                     .HasColumnName("email");
 
                 entity.Property(e => e.Login)
-                    .HasMaxLength(50)
+                    .HasMaxLength(25)
                     .IsUnicode(false)
                     .HasColumnName("login");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(30)
+                    .IsUnicode(false)
+                    .HasColumnName("name");
+
+                entity.Property(e => e.Image)
+                   .HasMaxLength(200)
+                   .IsUnicode(false)
+                   .HasColumnName("image");
 
                 entity.Property(e => e.Password)
                     .HasMaxLength(150)

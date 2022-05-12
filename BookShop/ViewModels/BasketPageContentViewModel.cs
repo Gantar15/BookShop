@@ -93,6 +93,7 @@ namespace BookShop.ViewModels
                 {
                     if (BasketCount == 0) {
                         _messageBoxService.ShowMessageBox("Корзина", "Корзина пуста", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Information);
+                        return;
                     }
                     _main.ShowingViewModel = new OrderPageContentViewModel(_main, this);
                 }));

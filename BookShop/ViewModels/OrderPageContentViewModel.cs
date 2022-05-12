@@ -5,6 +5,7 @@ using System.Windows;
 using DataAccess;
 using BookShop.Models;
 using System.Collections.Generic;
+using BookShop.ViewModels.Common;
 
 namespace BookShop.ViewModels
 {
@@ -14,26 +15,19 @@ namespace BookShop.ViewModels
         private BasketPageContentViewModel _basket;
         private LambdaCommand _orderCommand;
         private readonly MessageBoxService _messageBoxService;
+        private readonly EmailService _emailService;
 
         public OrderPageContentViewModel(HomeViewModel _main, BasketPageContentViewModel _basket)
         {
             _messageBoxService = new MessageBoxService();
+            _emailService = new EmailService();
             this._basket = _basket;
             this._main = _main;
         }
 
-        private void CreateOrder()
+        private Order CreateOrder()
         {
             var orderProducts = new List<OrderProduct>();
-            foreach (var basketProduct in _basket.CurrentBasket.BasketProducts)
-            {
-                var orderProduct = new OrderProduct
-                {
-                    Count = basketProduct.Count,
-                    Product = basketProduct.Product
-                };
-                orderProducts.Add(orderProduct);
-            }
             var newOrder = new Order
             {
                 Address = OrderFormModel.Address,
@@ -41,7 +35,47 @@ namespace BookShop.ViewModels
                 Phone = OrderFormModel.Phone
             };
             _main.db.Orders.Add(newOrder);
-            newOrder.OrderProducts.AddRange(orderProducts);
+            foreach (var basketProduct in _basket.CurrentBasket.BasketProducts)
+            {
+                var orderProduct = new OrderProduct
+                {
+                    Count = basketProduct.Count,
+                    Product = basketProduct.Product,
+                    Order = newOrder
+                };
+                _main.db.OrderProducts.Add(orderProduct);
+                orderProducts.Add(orderProduct);
+            }
+
+            return newOrder;
+        }
+
+        private string GetOrdersHtmlTable(Order currentOrder)
+        {
+            string productsHtmlTr = "";
+            var orderProducts = _main.db.OrderProducts.Get(op => op.OrderId == currentOrder.Id);
+            foreach (var orderProduct in orderProducts)
+            {
+                var book = _main.db.Books.Get(orderProduct.Product.Id);
+                productsHtmlTr += "<tr>" +
+                                $"<td>{book.Title}</td>" +
+                                $"<td>{orderProduct.Product.Price}</td>" +
+                                "</tr>";
+            }
+            string messageBody = $"<article>" +
+                                $"<h2>Уважаемый {currentOrder.Fio}</h2>" +
+                                "<table margin=\"10,0,0,0\">" +
+                                "<thead><tr>" +
+                                    "<th>название</td>" +
+                                    "<th>цена</td>" +
+                                "</tr></thead>" +
+                                "<tbody>" +
+                                    productsHtmlTr +
+                                "</tbody>" +
+                                "</table>" +
+                                "</article>";
+
+            return productsHtmlTr;
         }
 
         public LambdaCommand OrderCommand
@@ -50,8 +84,13 @@ namespace BookShop.ViewModels
             {
                 return _orderCommand ?? (_orderCommand = new LambdaCommand(o =>
                 {
-                    CreateOrder();
-                    _messageBoxService.ShowMessageBox("Заказ", "Ваш заказ успешно оформлен", MessageBoxButton.OK, MessageBoxImage.Information);
+                    var user = _main.db.Users.Get(LoggedinUser.Id);
+                    var currentOrder = CreateOrder();
+                    _messageBoxService.ShowMessageBox("Заказ", $"Ваш заказ успешно оформлен :3", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    string messageBody = GetOrdersHtmlTable(currentOrder);
+                    _emailService.SendMail(user.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
+
                     _basket.ClearBasket();
                     _main.ChangeCommand.Execute("home");
                 },

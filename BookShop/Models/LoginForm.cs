@@ -19,6 +19,7 @@ namespace BookShop.Models
             get => _login;
             set => Set(ref _login, value);
         }
+
         [Required(ErrorMessage = "Пароль обязателен")]
         public string Password
         {
