@@ -21,10 +21,12 @@ namespace BookShop.ViewModels
         private List<Book> _allBooks;
         private string _loggedinUserName;
         private string _loggedinUserImage;
+        private bool _isCategoriesManuHidden = true;
         private LambdaCommand _searchCommand;
         private LambdaCommand _addToBasket;
         private LambdaCommand _showBookPage;
         private LambdaCommand _showCategoryPage;
+        private LambdaCommand _showCategoriesMenu;
 
         public HomeViewModel(UnitOfWork unitOfWork = null)
         {
@@ -159,7 +161,8 @@ namespace BookShop.ViewModels
                         }
 
                         var loggedinUserBasket = db.Baskets.GetFirstOrDefault(b => b.UserId == LoggedinUser.Id);
-                        var existsBasketProduct = loggedinUserBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.Id);
+                        var product = db.Products.GetFirstOrDefault(p => p.BookId == book.Id);
+                        var existsBasketProduct = loggedinUserBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == product.Id);
                         if (loggedinUserBasket.BasketProducts.Count == 0 || existsBasketProduct == null)
                         {
                             var basketProduct = new BasketProduct
@@ -207,6 +210,21 @@ namespace BookShop.ViewModels
                     }
                 }));
             }
+        }
+        public LambdaCommand ShowCategoriesMenu
+        {
+            get
+            {
+                return _showCategoriesMenu ?? (_showCategoriesMenu = new LambdaCommand((o) =>
+                {
+                    IsCategoriesManuHidden = false;
+                }));
+            }
+        }
+        public bool IsCategoriesManuHidden
+        {
+            get => _isCategoriesManuHidden;
+            set => Set(ref _isCategoriesManuHidden, value);
         }
         public string LoggedinUserName {
             get => _loggedinUserName;

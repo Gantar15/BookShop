@@ -23,7 +23,7 @@ namespace BookShop.Models
         }
 
         [Required(ErrorMessage = "Адрес обязателен")]
-        [RegularExpression(@"^(\w+\.?,?\s?){3,10}$", ErrorMessage = "Некорректный адрес")]
+        [RegularExpression(@"^([a-zA-Zа-яА-Я0-9]+[\.,\s]){5,12}[a-zA-Zа-яА-Я0-9]+$", ErrorMessage = "Некорректный адрес")]
         public string Address
         {
             get => _address;

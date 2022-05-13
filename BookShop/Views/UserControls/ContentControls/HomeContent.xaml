@@ -30,13 +30,206 @@
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Grid.Column="0" HorizontalAlignment="Left">
-                    <Image
-                        Width="740"
-                        Height="446"
-                        Source="\Imgs\slider_bg.jpg"
-                        Stretch="Fill" />
-                </StackPanel>
+                <Grid
+                    Grid.Column="0"
+                    Width="740"
+                    Height="446"
+                    HorizontalAlignment="Left">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Path=Changed, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                    <DataTrigger.EnterActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="0"
+                                                    Duration="0:0:0.6" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.EnterActions>
+                                    <DataTrigger.ExitActions>
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    To="1"
+                                                    Duration="0:0:0.5" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </DataTrigger.ExitActions>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+                    <Grid.Background>
+                        <ImageBrush
+                            AlignmentX="Center"
+                            AlignmentY="Center"
+                            ImageSource="{Binding Path=ShowingSliderBook.Photos[0].Source, UpdateSourceTrigger=PropertyChanged}"
+                            Opacity="0.8"
+                            Stretch="UniformToFill" />
+                    </Grid.Background>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.1*" />
+                    </Grid.RowDefinitions>
+                    <StackPanel
+                        Grid.Row="0"
+                        Margin="50,20,50,0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Orientation="Vertical">
+                        <TextBlock
+                            HorizontalAlignment="Left"
+                            Cursor="Hand"
+                            FontSize="48"
+                            FontWeight="Bold"
+                            Foreground="#FAFAFA"
+                            Text="{Binding Path=ShowingSliderBook.Title}"
+                            TextWrapping="Wrap">
+                            <TextBlock.InputBindings>
+                                <MouseBinding
+                                    Command="{Binding Path=ShowBookPage}"
+                                    CommandParameter="{Binding ShowingSliderBook}"
+                                    MouseAction="LeftClick" />
+                            </TextBlock.InputBindings>
+                        </TextBlock>
+                        <StackPanel
+                            Margin="0,5,0,0"
+                            VerticalAlignment="Top"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                Cursor="Hand"
+                                FontSize="20"
+                                Foreground="White"
+                                Text="{Binding Path=ShowingSliderBook.Product.Price, Converter={StaticResource MoneyConverter}}"
+                                TextWrapping="Wrap" />
+                            <StackPanel
+                                Margin="40,0,0,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Orientation="Horizontal">
+                                <Image
+                                    Width="23"
+                                    Height="23"
+                                    Source="/Imgs/star.png" />
+                                <TextBlock
+                                    Margin="5,0,0,0"
+                                    FontSize="18"
+                                    Foreground="White"
+                                    Text="{Binding Path=ShowingSliderBook.Rating, StringFormat={}{0:F1}}" />
+                            </StackPanel>
+                        </StackPanel>
+                        <TextBlock
+                            Margin="5,30,0,0"
+                            HorizontalAlignment="Left"
+                            FontSize="21"
+                            FontWeight="Light"
+                            Foreground="#FAFAFA"
+                            Text="{Binding Path=ShowingSliderBook.Description}"
+                            TextWrapping="Wrap" />
+                    </StackPanel>
+                    <ListBox
+                        x:Name="sliderBooks"
+                        Grid.Row="1"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderBrush="{x:Null}"
+                        ItemsSource="{Binding Path=SliderBooks}"
+                        SelectedItem="{Binding Path=ShowingSliderBook, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="ListBoxItem">
+                                            <Border
+                                                Name="Bd"
+                                                Margin="10,0,0,0"
+                                                Padding="{TemplateBinding Control.Padding}"
+                                                Background="{TemplateBinding Panel.Background}"
+                                                BorderBrush="{TemplateBinding Border.BorderBrush}"
+                                                BorderThickness="{TemplateBinding Border.BorderThickness}"
+                                                SnapsToDevicePixels="True">
+                                                <ContentPresenter
+                                                    HorizontalAlignment="{TemplateBinding Control.HorizontalContentAlignment}"
+                                                    VerticalAlignment="{TemplateBinding Control.VerticalContentAlignment}"
+                                                    Content="{TemplateBinding ContentControl.Content}"
+                                                    ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}"
+                                                    ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}"
+                                                    Opacity="1"
+                                                    SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Selector.IsSelectionActive" Value="False" />
+                                                        <Condition Property="Selector.IsSelected" Value="True" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="Bd" Property="Opacity" Value="0.5" />
+                                                    <Setter TargetName="Bd" Property="Panel.Background" Value="Transparent" />
+                                                    <Setter TargetName="Bd" Property="Border.BorderBrush" Value="Transparent" />
+                                                </MultiTrigger>
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="Selector.IsSelectionActive" Value="True" />
+                                                        <Condition Property="Selector.IsSelected" Value="True" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="Bd" Property="Opacity" Value="0.5" />
+                                                    <Setter TargetName="Bd" Property="Panel.Background" Value="Transparent" />
+                                                    <Setter TargetName="Bd" Property="Border.BorderBrush">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush>Transparent</SolidColorBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </MultiTrigger>
+                                                <Trigger Property="UIElement.IsMouseOver" Value="True">
+                                                    <Setter TargetName="Bd" Property="Panel.Background" Value="Transparent" />
+                                                    <Setter TargetName="Bd" Property="Border.BorderBrush">
+                                                        <Setter.Value>
+                                                            <SolidColorBrush>Transparent</SolidColorBrush>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Ellipse
+                                    Width="13"
+                                    Height="13"
+                                    Cursor="Hand">
+                                    <Ellipse.Style>
+                                        <Style TargetType="{x:Type Ellipse}">
+                                            <Setter Property="Fill" Value="white" />
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Opacity" Value="0.7" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Ellipse.Style>
+                                </Ellipse>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition />

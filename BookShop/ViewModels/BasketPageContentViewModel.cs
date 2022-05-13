@@ -48,26 +48,28 @@ namespace BookShop.ViewModels
             }
         }
 
-        public void ClearBasket()
-        {
-            foreach(var basketProduct in CurrentBasket.BasketProducts.ToList())
-            {
-                _main.db.BasketProducts.Remove(basketProduct.Id);
-            }
-            _main.UpdateBasket();
-        }
-
         public void UpdateBasket()
         {
             decimal newPrice = 0;
             foreach (var bpItem in BasketItems)
-                newPrice += bpItem.Book.Product.Price * CurrentBasket.BasketProducts.First(bp => bp.ProductId == bpItem.Book.Id).Count;
+            {
+                var bpProduct = _main.db.Products.GetFirstOrDefault(p => p.BookId == bpItem.Book.Id);
+                newPrice += bpItem.Book.Product.Price * CurrentBasket.BasketProducts.First(bp => bp.ProductId == bpProduct.Id).Count;
+            }
             BasketPrice = newPrice;
 
             int newCount = 0;
             CurrentBasket.BasketProducts.ForEach(bp => newCount += bp.Count);
             BasketCount = newCount;
 
+            _main.UpdateBasket();
+        }
+        public void ClearBasket()
+        {
+            foreach (var basketProduct in CurrentBasket.BasketProducts.ToList())
+            {
+                _main.db.BasketProducts.Remove(basketProduct.Id);
+            }
             _main.UpdateBasket();
         }
 
@@ -110,7 +112,7 @@ namespace BookShop.ViewModels
                     {
                         var product = _main.db.Products.Get(book.Id);
                         CurrentBasket.Products.Remove(product);
-                        _main.db.Save();
+                        _main.db.Baskets.Update(CurrentBasket);
                         BasketItems.Remove(BasketItems.FirstOrDefault(item => item.Book.Id == book.Id));
                         UpdateBasket();
                     }
@@ -145,13 +147,15 @@ namespace BookShop.ViewModels
                     if (book != null)
                     {
                         var basketProductInfo = BasketItems.First(item => item.Book.Id == book.Id);
-                        if (basketProductInfo.Count <= 0) RemoveCommand.Execute(book);
 
                         var basketProduct = CurrentBasket.BasketProducts.FirstOrDefault(bp => bp.ProductId == book.Product.Id);
                         basketProduct.Count--;
                         _main.db.BasketProducts.Update(basketProduct);
                         BasketItems.First(item => item.Book.Id == book.Id).Count--;
                         UpdateBasket();
+
+                        if (basketProductInfo.Count == 0)
+                            RemoveCommand.Execute(book);
                     }
                 }));
             }

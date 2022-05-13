@@ -1,20 +1,27 @@
-﻿<UserControl x:Class="BookShop.Views.UserControls.ContentControls.ContactsContent"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
-             mc:Ignorable="d">
-    <Grid VerticalAlignment="Top" Margin="0 50 0 0" HorizontalAlignment="Center" >
+﻿<UserControl
+    x:Class="BookShop.Views.UserControls.ContentControls.ContactsContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Grid
+        Margin="0,50,0,0"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Top">
         <StackPanel Orientation="Vertical">
             <TextBlock FontSize="20" FontWeight="Bold">КОНТАКТЫ</TextBlock>
-            <TextBlock FontWeight="Bold">Тел: <Run FontWeight="Normal">+375 (29) 389-01-79</Run></TextBlock>
-            <TextBlock FontWeight="Bold">E-mail: <Run FontWeight="Normal">bookshop@inbox.ru</Run></TextBlock>
+            <TextBlock FontWeight="Bold">
+                Тел:<Run FontWeight="Normal">+375 (29) 389-01-79</Run></TextBlock>
+            <TextBlock FontWeight="Bold">
+                E-mail:<Run FontWeight="Normal">bookshop@inbox.ru</Run></TextBlock>
             <TextBlock FontWeight="Bold">Контактная информация юридического лица:</TextBlock>
             <TextBlock>Индивидуальный предприниматель Павловский Егор Николаевич</TextBlock>
             <TextBlock>ИНН 490121563805</TextBlock>
             <TextBlock>ЕГРНИП 235135209215421</TextBlock>
-            <TextBlock FontWeight="Bold">Юридический адрес: 
+            <TextBlock FontWeight="Bold">
+                Юридический адрес:
                 <TextBlock FontWeight="Normal">426006, г. Минск, ул. Авангардная, 23Б 129</TextBlock>
             </TextBlock>
         </StackPanel>

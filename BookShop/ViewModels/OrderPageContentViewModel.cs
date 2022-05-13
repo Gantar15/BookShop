@@ -32,7 +32,8 @@ namespace BookShop.ViewModels
             {
                 Address = OrderFormModel.Address,
                 Fio = OrderFormModel.Fio,
-                Phone = OrderFormModel.Phone
+                Phone = OrderFormModel.Phone,
+                UserId = LoggedinUser.Id
             };
             _main.db.Orders.Add(newOrder);
             foreach (var basketProduct in _basket.CurrentBasket.BasketProducts)
@@ -56,7 +57,7 @@ namespace BookShop.ViewModels
             var orderProducts = _main.db.OrderProducts.Get(op => op.OrderId == currentOrder.Id);
             foreach (var orderProduct in orderProducts)
             {
-                var book = _main.db.Books.Get(orderProduct.Product.Id);
+                var book = _main.db.Books.Get(orderProduct.Product.BookId);
                 productsHtmlTr += "<tr>" +
                                 $"<td>{book.Title}</td>" +
                                 $"<td>{orderProduct.Product.Price}</td>" +

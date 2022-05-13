@@ -182,7 +182,6 @@
                 Background="{DynamicResource MainContrastColor}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="145" />
-                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="0.8*" />
                 </Grid.ColumnDefinitions>
 
@@ -201,6 +200,7 @@
                             Panel.ZIndex="1"
                             Background="Transparent"
                             BorderBrush="White"
+                            Command="{Binding ShowCategoriesMenu}"
                             Cursor="Hand"
                             FontSize="16"
                             Foreground="White"
@@ -211,7 +211,7 @@
                                         Width="25"
                                         Height="25"
                                         Source="/Imgs/burger.png" />
-                                    <TextBlock Margin="10,0,0,0">Категории</TextBlock>
+                                    <TextBlock Margin="10,0,0,0" Text="Категории" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -220,22 +220,6 @@
 
                 <StackPanel
                     Grid.Column="1"
-                    Margin="25,0,0,0"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-                    <TextBlock Margin="15,0,0,0">
-                        <Hyperlink
-                            FontSize="16"
-                            Foreground="White"
-                            NavigateUri="Newest.xaml"
-                            TextDecorations="None">
-                            Новинки
-                        </Hyperlink>
-                    </TextBlock>
-                </StackPanel>
-
-                <StackPanel
-                    Grid.Column="2"
                     Margin="0,0,10,0"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
@@ -249,7 +233,7 @@
                     </StackPanel.InputBindings>
                     <TextBlock
                         VerticalAlignment="Center"
-                        FontSize="14"
+                        FontSize="16"
                         Foreground="White"
                         Text="{Binding LoggedinUserName}" />
                     <Ellipse
