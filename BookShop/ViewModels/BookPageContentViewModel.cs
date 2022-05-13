@@ -10,6 +10,7 @@ namespace BookShop.ViewModels
         private readonly Book _bookContext;
         private LambdaCommand _changeSelectedImage;
         private LambdaCommand _addToBasket;
+        private LambdaCommand _showCategoryPage;
         private Photo _selectedImage;
 
         public BookPageContentViewModel(HomeViewModel _main, Book book)
@@ -26,7 +27,6 @@ namespace BookShop.ViewModels
                 return _changeSelectedImage ?? (_changeSelectedImage = new LambdaCommand((o) =>
                 {
                     var img = o as Photo;
-
                     if (img != null)
                     {
                         SelectedImage = img;
@@ -42,10 +42,23 @@ namespace BookShop.ViewModels
                 return _addToBasket ?? (_addToBasket = new LambdaCommand((o) =>
                 {
                     var book = o as Book;
-
                     if (book != null)
                     {
                         _main.AddToBasket.Execute(book);
+                    }
+                }));
+            }
+        }
+        public LambdaCommand ShowCategoryPage
+        {
+            get
+            {
+                return _showCategoryPage ?? (_showCategoryPage = new LambdaCommand((o) =>
+                {
+                    var category = o as Category;
+                    if (category != null)
+                    {
+                        _main.ShowCategoryPage.Execute(category);
                     }
                 }));
             }

@@ -84,12 +84,11 @@ namespace BookShop.ViewModels
             {
                 return _orderCommand ?? (_orderCommand = new LambdaCommand(o =>
                 {
-                    var user = _main.db.Users.Get(LoggedinUser.Id);
                     var currentOrder = CreateOrder();
                     _messageBoxService.ShowMessageBox("Заказ", $"Ваш заказ успешно оформлен :3", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     string messageBody = GetOrdersHtmlTable(currentOrder);
-                    _emailService.SendMail(user.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
+                    _emailService.SendMail(LoggedinUser.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
 
                     _basket.ClearBasket();
                     _main.ChangeCommand.Execute("home");

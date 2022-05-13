@@ -32,6 +32,9 @@
             <DataTemplate DataType="{x:Type vm:SearchPageContentViewModel}">
                 <v:SearchPageContent />
             </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:CategoryPageContentViewModel}">
+                <v:CategoryPageContent />
+            </DataTemplate>
 
             <cnv:MoneyConverter x:Key="MoneyConverter" />
             <cnv:AuthorsConverter x:Key="AuthorsConverter" />

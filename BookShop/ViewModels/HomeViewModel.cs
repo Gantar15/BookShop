@@ -24,6 +24,7 @@ namespace BookShop.ViewModels
         private LambdaCommand _searchCommand;
         private LambdaCommand _addToBasket;
         private LambdaCommand _showBookPage;
+        private LambdaCommand _showCategoryPage;
 
         public HomeViewModel(UnitOfWork unitOfWork = null)
         {
@@ -73,9 +74,8 @@ namespace BookShop.ViewModels
 
         public void GetUserData()
         {
-            var currentUser = db.Users.Get(LoggedinUser.Id);
-            LoggedinUserName = currentUser.Name;
-            LoggedinUserImage = currentUser.Image;
+            LoggedinUserName = LoggedinUser.Name;
+            LoggedinUserImage = LoggedinUser.Image;
         }
         public void ResetAllBooks()
         {
@@ -190,6 +190,20 @@ namespace BookShop.ViewModels
                     if (book != null)
                     {
                         this.ShowingViewModel = new BookPageContentViewModel(this, book);
+                    }
+                }));
+            }
+        }
+        public LambdaCommand ShowCategoryPage
+        {
+            get
+            {
+                return _showCategoryPage ?? (_showCategoryPage= new LambdaCommand((o) =>
+                {
+                    var category = o as Category;
+                    if (category != null)
+                    {
+                        this.ShowingViewModel = new CategoryPageContentViewModel(this, category);
                     }
                 }));
             }

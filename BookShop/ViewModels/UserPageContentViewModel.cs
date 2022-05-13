@@ -57,11 +57,10 @@ namespace BookShop.ViewModels
         }
         public void InitUserForm()
         {
-            CurrentUser = _main.db.Users.Get(LoggedinUser.Id);
-            ProfileFormModel.Email = CurrentUser.Email;
-            ProfileFormModel.Image = CurrentUser.Image;
-            ProfileFormModel.Login = CurrentUser.Login;
-            ProfileFormModel.Name = CurrentUser.Name;
+            ProfileFormModel.Email = LoggedinUser.Email;
+            ProfileFormModel.Image = LoggedinUser.Image;
+            ProfileFormModel.Login = LoggedinUser.Login;
+            ProfileFormModel.Name = LoggedinUser.Name;
         }
 
         public LambdaCommand ChangeImageCommand
@@ -84,8 +83,8 @@ namespace BookShop.ViewModels
                             _messageBoxService.ShowMessageBox(
                                 "Профиль",
                                 ex.Message,
-                                System.Windows.MessageBoxButton.OK,
-                                System.Windows.MessageBoxImage.Warning);
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Warning);
                         }
                     }
                 }));
@@ -107,8 +106,8 @@ namespace BookShop.ViewModels
                             _messageBoxService.ShowMessageBox(
                                     "Профиль",
                                     "Пользователь с таким именем уже существует",
-                                    System.Windows.MessageBoxButton.OK,
-                                    System.Windows.MessageBoxImage.Information);
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
                         }
                         else
                         {
@@ -125,8 +124,8 @@ namespace BookShop.ViewModels
                             _messageBoxService.ShowMessageBox(
                                     "Профиль",
                                     "Пользователь с такой почтой уже существует",
-                                    System.Windows.MessageBoxButton.OK,
-                                    System.Windows.MessageBoxImage.Information);
+                                    MessageBoxButton.OK,
+                                    MessageBoxImage.Information);
                         }
                         else
                         {
@@ -152,8 +151,8 @@ namespace BookShop.ViewModels
                         _messageBoxService.ShowMessageBox(
                                         "Профиль",
                                         "Ваши данные успешно изменены",
-                                        System.Windows.MessageBoxButton.OK,
-                                        System.Windows.MessageBoxImage.Information);
+                                        MessageBoxButton.OK,
+                                        MessageBoxImage.Information);
                     }
                 }, (o) => !ProfileFormModel.HasErrors));
             }

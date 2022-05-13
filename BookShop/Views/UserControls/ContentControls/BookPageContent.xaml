@@ -145,7 +145,14 @@
                                         FontSize="14"
                                         Foreground="Blue"
                                         Text="{Binding BookContext.Category.Title}"
-                                        TextDecorations="Underline" />
+                                        TextDecorations="Underline">
+                                        <TextBlock.InputBindings>
+                                            <MouseBinding
+                                                Command="{Binding ShowCategoryPage}"
+                                                CommandParameter="{Binding BookContext.Category}"
+                                                MouseAction="LeftClick" />
+                                        </TextBlock.InputBindings>
+                                    </TextBlock>
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>

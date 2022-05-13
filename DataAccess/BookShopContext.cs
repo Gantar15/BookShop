@@ -121,8 +121,12 @@ namespace DataAccess
 
                 entity.Property(e => e.PublicationYear).HasColumnName("publicationYear");
 
-                entity.Property(e => e.Rating).HasColumnName("rating");
-                entity.Property(e => e.AddDate).HasDefaultValueSql("getdate()").HasColumnName("addDate");
+                entity.Property(e => e.Rating)
+                .HasColumnName("rating");
+
+                entity.Property(e => e.AddDate)
+                .HasDefaultValueSql("getdate()")
+                .HasColumnName("addDate");
 
                 entity.Property(e => e.Title)
                     .HasMaxLength(50)
@@ -150,6 +154,8 @@ namespace DataAccess
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Title).HasMaxLength(200);
+
+                entity.Property(e => e.Image).HasMaxLength(350);
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -207,8 +213,7 @@ namespace DataAccess
                 entity.Property(e => e.BookId).HasColumnName("bookId");
 
                 entity.Property(e => e.Source)
-                    .HasMaxLength(150)
-                    .IsUnicode(false)
+                    .HasMaxLength(350)
                     .HasColumnName("source");
 
                 entity.HasOne(d => d.Book)
@@ -265,8 +270,12 @@ namespace DataAccess
                     .IsUnicode(false)
                     .HasColumnName("name");
 
+                entity.Property(e => e.registrationDate)
+                .HasDefaultValueSql("getdate()")
+                .HasColumnName("registrationDate");
+
                 entity.Property(e => e.Image)
-                   .HasMaxLength(200)
+                   .HasMaxLength(350)
                    .IsUnicode(false)
                    .HasColumnName("image");
 

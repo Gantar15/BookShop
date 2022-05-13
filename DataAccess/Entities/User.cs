@@ -13,7 +13,7 @@ namespace DataAccess
         public string Email { get; set; }
         public string Image { get; set; }
         public int? RoleId { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public DateTime registrationDate { get; set; }
 
         public Role Role { get; set; }
         public Basket Basket { get; set; }

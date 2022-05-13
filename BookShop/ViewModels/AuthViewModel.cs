@@ -106,7 +106,6 @@ namespace BookShop.ViewModels
                             {
                                 Login = RegisterFormModel.Login,
                                 Name = RegisterFormModel.Name,
-                                RegistrationDate = DateTime.Now,
                                 Email = RegisterFormModel.Email,
                                 Role = db.Roles.GetFirstOrDefault(r => r.Role1 == "User"),
                                 Image = "/Imgs/bg.jpg",
@@ -131,6 +130,8 @@ namespace BookShop.ViewModels
             LoggedinUser.Id = client.Id;
             LoggedinUser.Image = client.Image;
             LoggedinUser.Login = client.Login;
+            LoggedinUser.Email = client.Email;
+            LoggedinUser.Name = client.Name;
             IsLoggedIn = true;
             CloseAction();
         }
