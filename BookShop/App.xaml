@@ -1,41 +1,45 @@
-﻿<Application x:Class="BookShop.App"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BookShop"
-             xmlns:vm="clr-namespace:BookShop.ViewModels"
-             xmlns:v="clr-namespace:BookShop.Views.UserControls.ContentControls"
-             xmlns:cnv="clr-namespace:BookShop.Infrastructure.Converters">
+﻿<Application
+    x:Class="BookShop.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:cnv="clr-namespace:BookShop.Infrastructure.Converters"
+    xmlns:local="clr-namespace:BookShop"
+    xmlns:v="clr-namespace:BookShop.Views.UserControls.ContentControls"
+    xmlns:vm="clr-namespace:BookShop.ViewModels">
     <Application.Resources>
         <ResourceDictionary>
             <DataTemplate DataType="{x:Type vm:HomeContentViewModel}">
-                <v:HomeContent/>
+                <v:HomeContent />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:ContactsVeiwModel}">
-                <v:ContactsContent/>
+                <v:ContactsContent />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:DeliveryInfoVeiwModel}">
-                <v:DeliveryInfoContent/>
+                <v:DeliveryInfoContent />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:BookPageContentViewModel}">
-                <v:BookPageContent/>
+                <v:BookPageContent />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:BasketPageContentViewModel}">
-                <v:BasketPageContent/>
+                <v:BasketPageContent />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:OrderPageContentViewModel}">
-                <v:OrderPageContent/>
+                <v:OrderPageContent />
             </DataTemplate>
             <DataTemplate DataType="{x:Type vm:UserPageContentViewModel}">
-                <v:UserPageContent/>
+                <v:UserPageContent />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type vm:SearchPageContentViewModel}">
+                <v:SearchPageContent />
             </DataTemplate>
 
-            <cnv:MoneyConverter x:Key="MoneyConverter"/>
-            <cnv:AuthorsConverter x:Key="AuthorsConverter"/>
-            <cnv:InStockToColorConverter x:Key="InStockToColorConverter"/>
-            <cnv:InStockToStringConverter x:Key="InStockToStringConverter"/>
+            <cnv:MoneyConverter x:Key="MoneyConverter" />
+            <cnv:AuthorsConverter x:Key="AuthorsConverter" />
+            <cnv:InStockToColorConverter x:Key="InStockToColorConverter" />
+            <cnv:InStockToStringConverter x:Key="InStockToStringConverter" />
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/Views/Resources/Styles.xaml"/>
+                <ResourceDictionary Source="/Views/Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

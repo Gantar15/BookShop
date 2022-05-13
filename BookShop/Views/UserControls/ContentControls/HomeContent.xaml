@@ -17,7 +17,7 @@
         HorizontalAlignment="Stretch"
         VerticalAlignment="Top"
         VerticalScrollBarVisibility="Auto">
-        <Grid Margin="20,60,20,0">
+        <Grid Margin="20,60,20,20">
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition />
@@ -116,7 +116,7 @@
                 HorizontalAlignment="Stretch"
                 Fill="{DynamicResource BorderColor}" />
 
-            <Grid Grid.Row="2" Margin="0,50,0,20">
+            <Grid Grid.Row="2" Margin="0,50,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50" />
                     <RowDefinition Height="*" />

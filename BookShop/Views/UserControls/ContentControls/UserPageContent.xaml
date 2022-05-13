@@ -184,116 +184,154 @@
             </TabItem>
 
             <TabItem Header="Заказы">
-                <ListBox
-                    x:Name="BasketItemsList"
-                    Margin="0,20"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top"
-                    HorizontalContentAlignment="Stretch"
-                    VerticalContentAlignment="Top"
-                    Background="Transparent"
-                    BorderBrush="{x:Null}"
-                    ItemsSource="{Binding Path=OrderItemsGroups, UpdateSourceTrigger=PropertyChanged}"
-                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                    VirtualizingPanel.ScrollUnit="Pixel">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border
-                                Padding="25,0,25,25"
-                                BorderBrush="{DynamicResource BorderColor}"
-                                BorderThickness="1">
-                                <ListBox
-                                    x:Name="BasketItemsList"
-                                    Margin="0,20,0,0"
-                                    HorizontalAlignment="Left"
-                                    VerticalAlignment="Top"
-                                    HorizontalContentAlignment="Stretch"
-                                    VerticalContentAlignment="Top"
-                                    Background="Transparent"
-                                    BorderBrush="{x:Null}"
-                                    ItemsSource="{Binding Path=OrderItems, UpdateSourceTrigger=PropertyChanged}"
-                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                                    VirtualizingPanel.ScrollUnit="Pixel">
-                                    <ListBox.ItemTemplate>
-                                        <DataTemplate>
-                                            <Border
-                                                Padding="15"
-                                                BorderBrush="{DynamicResource BorderColor}"
-                                                BorderThickness="1">
-                                                <Grid>
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="2*" />
-                                                        <ColumnDefinition Width="*" />
-                                                    </Grid.ColumnDefinitions>
+                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <TextBlock
+                            Margin="0,20,0,0"
+                            HorizontalAlignment="Center"
+                            FontSize="18"
+                            FontWeight="Medium">
+                            Ваши заказы
+                        </TextBlock>
+                        <ListBox
+                            x:Name="Orders"
+                            Margin="0,0,0,30"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Top"
+                            HorizontalContentAlignment="Stretch"
+                            VerticalContentAlignment="Top"
+                            Background="Transparent"
+                            BorderBrush="{x:Null}"
+                            ItemsSource="{Binding Path=OrderItemsGroups, UpdateSourceTrigger=PropertyChanged}"
+                            ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                            ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                            VirtualizingPanel.ScrollUnit="Pixel">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="ListBoxItem">
+                                                <ContentPresenter />
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border
+                                        Margin="0,30,0,0"
+                                        BorderBrush="{DynamicResource BorderColor}"
+                                        BorderThickness="1">
+                                        <StackPanel Orientation="Vertical">
+                                            <DataGrid
+                                                x:Name="OrderItems"
+                                                HorizontalContentAlignment="Left"
+                                                VerticalContentAlignment="Center"
+                                                AutoGenerateColumns="False"
+                                                BorderBrush="Transparent"
+                                                HorizontalGridLinesBrush="{DynamicResource BorderColor}"
+                                                IsReadOnly="True"
+                                                ItemsSource="{Binding OrderItems}"
+                                                RowBackground="White"
+                                                VerticalGridLinesBrush="{DynamicResource BorderColor}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTemplateColumn Header="Изображение">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <Image
+                                                                    Width="100"
+                                                                    Height="120"
+                                                                    HorizontalAlignment="Center"
+                                                                    Cursor="Hand"
+                                                                    Source="{Binding Path=Book.Photos[0].Source}"
+                                                                    Stretch="UniformToFill">
+                                                                    <Image.InputBindings>
+                                                                        <MouseBinding
+                                                                            Command="{Binding DataContext.ShowBookPage, ElementName=Orders}"
+                                                                            CommandParameter="{Binding Book}"
+                                                                            MouseAction="LeftClick" />
+                                                                    </Image.InputBindings>
+                                                                </Image>
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Название">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock
+                                                                    Padding="15,0"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    FontSize="13"
+                                                                    Text="{Binding Path=Book.Title}" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Количество">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock
+                                                                    Padding="15,0"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    FontSize="13"
+                                                                    Text="{Binding Path=Count}" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                    <DataGridTemplateColumn Header="Цена">
+                                                        <DataGridTemplateColumn.CellTemplate>
+                                                            <DataTemplate>
+                                                                <TextBlock
+                                                                    Padding="15,0"
+                                                                    HorizontalAlignment="Center"
+                                                                    VerticalAlignment="Center"
+                                                                    FontSize="13"
+                                                                    Text="{Binding Path=TotalСost, Converter={StaticResource MoneyConverter}}" />
+                                                            </DataTemplate>
+                                                        </DataGridTemplateColumn.CellTemplate>
+                                                    </DataGridTemplateColumn>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
 
-                                                    <StackPanel Grid.Column="0" Orientation="Horizontal">
-                                                        <Border
-                                                            Padding="7"
-                                                            BorderBrush="{DynamicResource BorderColor}"
-                                                            BorderThickness="1">
-                                                            <Image
-                                                                Width="70"
-                                                                Height="90"
-                                                                Cursor="Hand"
-                                                                Source="{Binding Book.Photos[0].Source}"
-                                                                Stretch="Fill">
-                                                                <Image.InputBindings>
-                                                                    <MouseBinding
-                                                                        Command="{Binding DataContext.ShowBookPage, ElementName=BasketItemsList}"
-                                                                        CommandParameter="{Binding Book}"
-                                                                        MouseAction="LeftClick" />
-                                                                </Image.InputBindings>
-                                                            </Image>
-                                                        </Border>
-
-                                                        <StackPanel MaxWidth="350">
-                                                            <TextBlock
-                                                                Cursor="Hand"
-                                                                FontSize="16"
-                                                                FontWeight="Medium"
-                                                                Text="{Binding Book.Title}">
-                                                                <TextBlock.InputBindings>
-                                                                    <MouseBinding
-                                                                        Command="{Binding DataContext.ShowBookPage, ElementName=BasketItemsList}"
-                                                                        CommandParameter="{Binding Book}"
-                                                                        MouseAction="LeftClick" />
-                                                                </TextBlock.InputBindings>
-                                                            </TextBlock>
-                                                            <TextBlock
-                                                                Margin="0,5,0,0"
-                                                                FontSize="14"
-                                                                Foreground="#ABABAB"
-                                                                Text="{Binding Book.Authors, Converter={StaticResource AuthorsConverter}}"
-                                                                TextWrapping="WrapWithOverflow" />
-                                                        </StackPanel>
-                                                    </StackPanel>
-
-                                                    <StackPanel
-                                                        Grid.Column="1"
-                                                        Margin="0,0,20,0"
-                                                        HorizontalAlignment="Right"
-                                                        VerticalAlignment="Center">
-                                                        <TextBlock
-                                                            Margin="10,0,0,0"
-                                                            FontSize="14"
-                                                            Text="{Binding Count}" />
-                                                        <TextBlock
-                                                            HorizontalAlignment="Center"
-                                                            FontSize="14"
-                                                            FontWeight="Medium"
-                                                            Text="{Binding TotalСost, Converter={StaticResource MoneyConverter}}" />
-                                                    </StackPanel>
-                                                </Grid>
-                                            </Border>
-                                        </DataTemplate>
-                                    </ListBox.ItemTemplate>
-                                </ListBox>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                                            <StackPanel
+                                                Margin="10,20"
+                                                HorizontalAlignment="Center"
+                                                Orientation="Horizontal">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock FontSize="13">
+                                                        Количество
+                                                    </TextBlock>
+                                                    <TextBlock
+                                                        Margin="5,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="13"
+                                                        FontWeight="Bold"
+                                                        Text="{Binding Path=TotalItemsCount}" />
+                                                </StackPanel>
+                                                <StackPanel
+                                                    Margin="30,0,0,0"
+                                                    HorizontalAlignment="Center"
+                                                    Orientation="Horizontal">
+                                                    <TextBlock FontSize="13">
+                                                        Стоимость
+                                                    </TextBlock>
+                                                    <TextBlock
+                                                        Margin="5,0,0,0"
+                                                        VerticalAlignment="Center"
+                                                        FontSize="13"
+                                                        FontWeight="Bold"
+                                                        Text="{Binding Path=TotalItemsCost, Converter={StaticResource MoneyConverter}}" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </ScrollViewer>
             </TabItem>
         </TabControl>
     </Grid>

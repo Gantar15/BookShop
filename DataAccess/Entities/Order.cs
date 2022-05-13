@@ -10,7 +10,9 @@ namespace DataAccess
         public string Address { get; set; }
         public string Fio { get; set; }
         public string Phone { get; set; }
+        public int? UserId { get; set; }
 
+        public User User { get; set; }
         public List<Product> Products { get; set; } = new();
         public List<OrderProduct> OrderProducts { get; set; } = new();
     }

@@ -1,5 +1,6 @@
 ﻿using DataAccess.Entities.Base;
 using System;
+using System.Collections.Generic;
 
 namespace DataAccess
 {
@@ -16,5 +17,6 @@ namespace DataAccess
 
         public Role Role { get; set; }
         public Basket Basket { get; set; }
+        public List<Order> Orders = new();
     }
 }

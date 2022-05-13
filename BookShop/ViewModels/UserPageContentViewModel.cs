@@ -1,11 +1,15 @@
 ﻿using BookShop.Infrastructure.Commands;
+using BookShop.Infrastructure.Dto;
 using BookShop.Models;
 using BookShop.Services;
 using BookShop.ViewModels.Base;
 using BookShop.ViewModels.Common;
 using DataAccess;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Windows;
 
 namespace BookShop.ViewModels
 {
@@ -14,8 +18,8 @@ namespace BookShop.ViewModels
         private HomeViewModel _main;
         private LambdaCommand _changeImageCommand;
         private LambdaCommand _editUserCommand;
+        private LambdaCommand _showBookPage;
         private readonly MessageBoxService _messageBoxService;
-        
 
         public UserPageContentViewModel(HomeViewModel _main)
         {
@@ -23,8 +27,34 @@ namespace BookShop.ViewModels
             _messageBoxService = new MessageBoxService();
 
             InitUserForm();
+            InitOrders();
         }
 
+        public void InitOrders()
+        {
+            int userId = LoggedinUser.Id;
+            var currentOrders = _main.db.Orders.Get(order => order.UserId == userId);
+
+            foreach (var currentOrder in currentOrders) {
+                var orderItemsGroup = new OrderItemsGroup();
+                var booksItems = new List<Book>();
+                currentOrder.Products.ForEach(p => booksItems.Add(p.Book));
+
+                foreach (var bookitem in booksItems)
+                {
+                    var basketProductInfo = new BasketProductInfo();
+                    var orderProduct = _main.db.OrderProducts.GetFirstOrDefault(bp => bp.ProductId == bookitem.Product.Id && bp.OrderId == currentOrder.Id);
+                    basketProductInfo.Book = bookitem;
+                    if (orderProduct != null)
+                    {
+                        basketProductInfo.Count = orderProduct.Count;
+                        basketProductInfo.TotalСost = orderProduct.Count * bookitem.Product.Price;
+                    }
+                    orderItemsGroup.OrderItems.Add(basketProductInfo);
+                }
+                OrderItemsGroups.Add(orderItemsGroup);
+            }
+        }
         public void InitUserForm()
         {
             CurrentUser = _main.db.Users.Get(LoggedinUser.Id);
@@ -128,8 +158,22 @@ namespace BookShop.ViewModels
                 }, (o) => !ProfileFormModel.HasErrors));
             }
         }
+        public LambdaCommand ShowBookPage
+        {
+            get
+            {
+                return _showBookPage ?? (_showBookPage = new LambdaCommand((o) =>
+                {
+                    var book = o as Book;
+                    if (book != null)
+                    {
+                        _main.ShowBookPage.Execute(book);
+                    }
+                }));
+            }
+        }
         public User CurrentUser { get; set; }
-        public ObservableCollection<BasketProductInfo> OrderItems { get; set; }
+        public ObservableCollection<OrderItemsGroup> OrderItemsGroups { get; set; } = new();
         public UploadPicture UploadPictureService { get; set; } = new UploadPicture();
         public ProfileForm ProfileFormModel { get; set; } = new ProfileForm();
     }

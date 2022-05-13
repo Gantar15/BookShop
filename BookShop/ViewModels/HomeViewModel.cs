@@ -61,6 +61,10 @@ namespace BookShop.ViewModels
                         if (ShowingViewModel.GetType().Name != "UserPageContentViewModel")
                             ShowingViewModel = new UserPageContentViewModel(this);
                         break;
+                    case "searchPage":
+                        if (ShowingViewModel.GetType().Name != "SearchPageContentViewModel")
+                            ShowingViewModel = new SearchPageContentViewModel(this);
+                        break;
                 }
             });
             UpdateBasket();
@@ -129,6 +133,8 @@ namespace BookShop.ViewModels
 
                     AllBooks = searchResults;
                     ChangeBooksList?.Invoke(AllBooks);
+
+                    ChangeCommand.Execute("searchPage");
                 }));
             }
         }

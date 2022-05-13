@@ -1,55 +1,68 @@
-﻿<UserControl x:Class="BookShop.Views.UserControls.ContentControls.BookPageContent"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="BookShop.Views.UserControls.ContentControls.BookPageContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    mc:Ignorable="d">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="20 40 20 0" MaxWidth="{StaticResource MainContentWidth}">
+            <Grid MaxWidth="{StaticResource MainContentWidth}" Margin="20,40,20,20">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="330"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="330" />
+                    <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
                 <StackPanel x:Name="ImagesGallary" Grid.Column="0">
-                    <Border BorderThickness="1" BorderBrush="{DynamicResource BorderColor}"
-                            CornerRadius="2"
-                            HorizontalAlignment="Left">
-                        <Image Source="{Binding Path=SelectedImage.Source}" Stretch="Fill"  
-                               Width="230" Height="300" Margin="30"/>
+                    <Border
+                        HorizontalAlignment="Left"
+                        BorderBrush="{DynamicResource BorderColor}"
+                        BorderThickness="1"
+                        CornerRadius="2">
+                        <Image
+                            Width="230"
+                            Height="300"
+                            Margin="30"
+                            Source="{Binding Path=SelectedImage.Source}"
+                            Stretch="Fill" />
                     </Border>
-                    <ListBox Margin="0 10 0 0" 
-                             ItemsSource="{Binding BookContext.Photos}"
-                             x:Name="PhotosList"
-                             VirtualizingPanel.ScrollUnit="Pixel" 
-                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
-                             ScrollViewer.VerticalScrollBarVisibility="Hidden" 
-                             HorizontalAlignment="Left"
-                             BorderBrush="{x:Null}">
+                    <ListBox
+                        x:Name="PhotosList"
+                        Margin="0,10,0,0"
+                        HorizontalAlignment="Left"
+                        BorderBrush="{x:Null}"
+                        ItemsSource="{Binding BookContext.Photos}"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                        VirtualizingPanel.ScrollUnit="Pixel">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="1"
-                                        BorderBrush="{DynamicResource BorderColor}"
-                                        CornerRadius="2"
-                                        Cursor="Hand">
-                                    <Image Source="{Binding Path=Source}" 
-                                           Width="50" Height="60"
-                                           Stretch="Fill"  
-                                           Margin="10"/>
+                                <Border
+                                    BorderBrush="{DynamicResource BorderColor}"
+                                    BorderThickness="1"
+                                    CornerRadius="2"
+                                    Cursor="Hand">
+                                    <Image
+                                        Width="50"
+                                        Height="60"
+                                        Margin="10"
+                                        Source="{Binding Path=Source}"
+                                        Stretch="Fill" />
                                     <Border.InputBindings>
-                                        <MouseBinding MouseAction="LeftClick" 
-                                              Command="{Binding ElementName=PhotosList, Path=DataContext.ChangeSelectedImage}" 
-                                              CommandParameter="{Binding}"/>
+                                        <MouseBinding
+                                            Command="{Binding ElementName=PhotosList, Path=DataContext.ChangeSelectedImage}"
+                                            CommandParameter="{Binding}"
+                                            MouseAction="LeftClick" />
                                     </Border.InputBindings>
                                 </Border>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                         <ListBox.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel/>
+                                <WrapPanel />
                             </ItemsPanelTemplate>
                         </ListBox.ItemsPanel>
                     </ListBox>
@@ -58,98 +71,143 @@
                 <StackPanel Grid.Column="1">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="0">
-                            <TextBlock Text="{Binding BookContext.Title}"
-                               FontSize="27"
-                               FontWeight="Bold"
-                               HorizontalAlignment="Left"/>
-                            <StackPanel Orientation="Horizontal"
-                                Margin="0 3 0 0">
-                                <Image Source="/Imgs/star.png" Width="17" Height="17"/>
-                                <TextBlock FontSize="14"
-                                   FontWeight="Medium"
-                                   Margin="3 0 0 0"
-                                   Text="{Binding Path=BookContext.Rating, StringFormat={}{0:F1}}"/>
+                            <TextBlock
+                                HorizontalAlignment="Left"
+                                FontSize="27"
+                                FontWeight="Bold"
+                                Text="{Binding BookContext.Title}" />
+                            <StackPanel Margin="0,3,0,0" Orientation="Horizontal">
+                                <Image
+                                    Width="17"
+                                    Height="17"
+                                    Source="/Imgs/star.png" />
+                                <TextBlock
+                                    Margin="3,0,0,0"
+                                    FontSize="14"
+                                    FontWeight="Medium"
+                                    Text="{Binding Path=BookContext.Rating, StringFormat={}{0:F1}}" />
                             </StackPanel>
-                            <StackPanel Margin="0 40 0 0">
+                            <StackPanel Margin="0,40,0,0">
                                 <TextBlock FontSize="19" FontWeight="Medium">
                                     Характеристики
                                 </TextBlock>
-                                <StackPanel Margin="0 13 0 0" Orientation="Horizontal">
+                                <StackPanel Margin="0,13,0,0" Orientation="Horizontal">
                                     <TextBlock FontSize="14" Foreground="Gray">
                                         Возрастное ограничение :
                                     </TextBlock>
-                                    <TextBlock FontSize="14" Foreground="Black" Margin="10 0 0 0" Text="{Binding BookContext.AgeRestriction}"/>
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        FontSize="14"
+                                        Foreground="Black"
+                                        Text="{Binding BookContext.AgeRestriction}" />
                                 </StackPanel>
-                                <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                                <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
                                     <TextBlock FontSize="14" Foreground="Gray">
                                         Формат :
                                     </TextBlock>
-                                    <TextBlock FontSize="14" Foreground="Black" Margin="10 0 0 0" Text="{Binding BookContext.Format}"/>
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        FontSize="14"
+                                        Foreground="Black"
+                                        Text="{Binding BookContext.Format}" />
                                 </StackPanel>
-                                <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                                <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
                                     <TextBlock FontSize="14" Foreground="Gray">
                                         Количество страниц :
                                     </TextBlock>
-                                    <TextBlock FontSize="14" Foreground="Black" Margin="10 0 0 0" Text="{Binding BookContext.PagesCount}"/>
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        FontSize="14"
+                                        Foreground="Black"
+                                        Text="{Binding BookContext.PagesCount}" />
                                 </StackPanel>
-                                <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                                <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
                                     <TextBlock FontSize="14" Foreground="Gray">
                                         Год публикации :
                                     </TextBlock>
-                                    <TextBlock FontSize="14" Foreground="Black" Margin="10 0 0 0" Text="{Binding BookContext.PublicationYear}"/>
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        FontSize="14"
+                                        Foreground="Black"
+                                        Text="{Binding BookContext.PublicationYear}" />
                                 </StackPanel>
-                                <StackPanel Margin="0 2 0 0" Orientation="Horizontal">
+                                <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
                                     <TextBlock FontSize="14" Foreground="Gray">
                                         Категория :
                                     </TextBlock>
-                                    <TextBlock FontSize="14" Foreground="Blue" TextDecorations="Underline"
-                                               Margin="10 0 0 0" Text="{Binding BookContext.Category.Title}"
-                                               Cursor="Hand"/>
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        Cursor="Hand"
+                                        FontSize="14"
+                                        Foreground="Blue"
+                                        Text="{Binding BookContext.Category.Title}"
+                                        TextDecorations="Underline" />
                                 </StackPanel>
                             </StackPanel>
                         </StackPanel>
 
-                        <StackPanel Grid.Column="1" VerticalAlignment="Top" 
-                                    Width="300" HorizontalAlignment="Right">
-                            <Border BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" CornerRadius="2">
+                        <StackPanel
+                            Grid.Column="1"
+                            Width="300"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top">
+                            <Border
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1"
+                                CornerRadius="2">
                                 <StackPanel>
-                                    <StackPanel Orientation="Vertical" Margin="30 20 30 0">
-                                        <TextBlock FontSize="25" FontWeight="Bold" Foreground="Black" Text="{Binding Path=BookContext.Product.Price, Converter={StaticResource MoneyConverter}}"/>
-                                        <StackPanel Margin="0 5 0 0" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
-                                            <Ellipse Width="10" Height="10" 
-                                                             Fill="{Binding BookContext.InStock, Converter={StaticResource InStockToColorConverter}}"/>
-                                            <TextBlock FontSize="16" Margin="5 0 0 3"
-                                                               Text="{Binding BookContext.InStock, Converter={StaticResource InStockToStringConverter}}"/>
+                                    <StackPanel Margin="30,20,30,0" Orientation="Vertical">
+                                        <TextBlock
+                                            FontSize="25"
+                                            FontWeight="Bold"
+                                            Foreground="Black"
+                                            Text="{Binding Path=BookContext.Product.Price, Converter={StaticResource MoneyConverter}}" />
+                                        <StackPanel
+                                            Margin="0,5,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <Ellipse
+                                                Width="10"
+                                                Height="10"
+                                                Fill="{Binding BookContext.InStock, Converter={StaticResource InStockToColorConverter}}" />
+                                            <TextBlock
+                                                Margin="5,0,0,3"
+                                                FontSize="16"
+                                                Text="{Binding BookContext.InStock, Converter={StaticResource InStockToStringConverter}}" />
                                         </StackPanel>
                                     </StackPanel>
-                                    <Button Style="{StaticResource AddButton}"
-                                            Height="40"
-                                            Margin="0 20 0 0"
-                                            Grid.Column="1"
-                                            HorizontalAlignment="Stretch"
-                                            Content="В корзину"
-                                            FontSize="16"
-                                            Foreground="White"
-                                            BorderThickness="2"
-                                            Command="{Binding Path=AddToBasket}"
-                                            CommandParameter="{Binding BookContext}" Cursor="Hand">
-                                    </Button>
+                                    <Button
+                                        Grid.Column="1"
+                                        Height="40"
+                                        Margin="0,20,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        BorderThickness="2"
+                                        Command="{Binding Path=AddToBasket}"
+                                        CommandParameter="{Binding BookContext}"
+                                        Content="В корзину"
+                                        Cursor="Hand"
+                                        FontSize="16"
+                                        Foreground="White"
+                                        Style="{StaticResource AddButton}" />
                                 </StackPanel>
                             </Border>
                         </StackPanel>
                     </Grid>
-                    
-                    <StackPanel Margin="0 25 20 0">
+
+                    <StackPanel Margin="0,25,20,0">
                         <TextBlock FontSize="19" FontWeight="Medium">
                             Описание
                         </TextBlock>
-                        <TextBlock Margin="0 13 0 0" FontSize="16" 
-                                   Text="{Binding BookContext.Description}"
-                                   TextWrapping="Wrap"/>
+                        <TextBlock
+                            Margin="0,13,0,0"
+                            FontSize="16"
+                            Text="{Binding BookContext.Description}"
+                            TextWrapping="Wrap" />
                     </StackPanel>
                 </StackPanel>
             </Grid>

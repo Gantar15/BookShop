@@ -173,6 +173,11 @@ namespace DataAccess
                     .IsUnicode(false)
                     .HasColumnName("phone");
 
+                entity.HasOne(o => o.User)
+                    .WithMany(u => u.Orders)
+                    .HasForeignKey(o => o.UserId)
+                    .HasConstraintName("FK_Order_User");
+
                 entity.HasMany(o => o.Products)
                     .WithMany(p => p.Orders)
                     .UsingEntity<OrderProduct>(

@@ -1,0 +1,188 @@
+﻿<UserControl
+    x:Class="BookShop.Views.UserControls.ContentControls.SearchPageContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookShop.Views.UserControls.ContentControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Views/Resources/HomeStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <ScrollViewer
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Top"
+        VerticalScrollBarVisibility="Auto">
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <StackPanel
+                Grid.Row="0"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <TextBlock FontSize="17" Text="Книги в библиотеке" />
+                <Rectangle
+                    Width="157"
+                    Height="3"
+                    Margin="0,5,0,0"
+                    Fill="{DynamicResource MainContrastColor}" />
+            </StackPanel>
+
+            <ListBox
+                x:Name="booksList"
+                Grid.Row="1"
+                Margin="0,20,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Top"
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Top"
+                Background="Transparent"
+                BorderBrush="{x:Null}"
+                ItemContainerStyle="{StaticResource ListBoxItemTemplate}"
+                ItemsSource="{Binding Path=AllBooks, UpdateSourceTrigger=PropertyChanged}"
+                ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                VirtualizingPanel.ScrollUnit="Pixel">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border
+                            BorderBrush="LightGray"
+                            BorderThickness="1"
+                            CornerRadius="2">
+                            <StackPanel
+                                Width="250"
+                                Margin="20"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Orientation="Vertical">
+                                <Image
+                                    Width="250"
+                                    Height="320"
+                                    Cursor="Hand"
+                                    Source="{Binding Photos[0].Source}"
+                                    Stretch="Fill">
+                                    <Image.InputBindings>
+                                        <MouseBinding
+                                            Command="{Binding ElementName=booksList, Path=DataContext.ShowBookPage}"
+                                            CommandParameter="{Binding}"
+                                            MouseAction="LeftClick" />
+                                    </Image.InputBindings>
+                                </Image>
+
+                                <StackPanel
+                                    Margin="0,20,0,0"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Orientation="Vertical">
+                                    <TextBlock
+                                        Grid.Column="0"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top"
+                                        FontSize="14"
+                                        FontWeight="Medium"
+                                        Text="{Binding Path=Product.Price, Converter={StaticResource MoneyConverter}}"
+                                        TextWrapping="Wrap" />
+
+                                    <Grid
+                                        Width="250"
+                                        Margin="0,5,0,0"
+                                        VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="8*" />
+                                            <ColumnDefinition Width="3*" />
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock
+                                            Grid.Column="0"
+                                            Margin="0,5"
+                                            HorizontalAlignment="Left"
+                                            Cursor="Hand"
+                                            FontSize="20"
+                                            Text="{Binding Path=Title}"
+                                            TextWrapping="Wrap">
+                                            <TextBlock.InputBindings>
+                                                <MouseBinding
+                                                    Command="{Binding ElementName=booksList, Path=DataContext.ShowBookPage}"
+                                                    CommandParameter="{Binding}"
+                                                    MouseAction="LeftClick" />
+                                            </TextBlock.InputBindings>
+                                        </TextBlock>
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Margin="0,9,0,0"
+                                            HorizontalAlignment="Right"
+                                            VerticalAlignment="Top"
+                                            Orientation="Horizontal">
+                                            <Image
+                                                Width="17"
+                                                Height="17"
+                                                Source="/Imgs/star.png" />
+                                            <TextBlock
+                                                Margin="3,0,0,0"
+                                                FontSize="14"
+                                                FontWeight="Medium"
+                                                Text="{Binding Path=Rating, StringFormat={}{0:F1}}" />
+                                        </StackPanel>
+                                    </Grid>
+
+                                    <TextBlock
+                                        FontSize="14"
+                                        Foreground="#ABABAB"
+                                        Text="{Binding Path=Authors, Converter={StaticResource AuthorsConverter}}"
+                                        TextWrapping="Wrap" />
+
+                                    <Grid
+                                        Width="250"
+                                        Margin="0,30,0,0"
+                                        VerticalAlignment="Top">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel
+                                            Grid.Column="0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            Orientation="Horizontal">
+                                            <Ellipse
+                                                Width="10"
+                                                Height="10"
+                                                Fill="{Binding InStock, Converter={StaticResource InStockToColorConverter}}" />
+                                            <TextBlock
+                                                Margin="5,0,0,3"
+                                                FontSize="13"
+                                                Text="{Binding InStock, Converter={StaticResource InStockToStringConverter}}" />
+                                        </StackPanel>
+                                        <Button
+                                            Grid.Column="1"
+                                            Width="80"
+                                            Height="30"
+                                            HorizontalAlignment="Right"
+                                            Command="{Binding Path=DataContext.AddToBasket, ElementName=booksList}"
+                                            CommandParameter="{Binding}"
+                                            Content="В корзину"
+                                            FontSize="14"
+                                            Foreground="Black"
+                                            Style="{StaticResource BackgroundButton}" />
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel />
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+        </Grid>
+    </ScrollViewer>
+</UserControl>
