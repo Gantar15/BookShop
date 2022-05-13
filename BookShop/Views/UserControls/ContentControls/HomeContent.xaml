@@ -148,7 +148,7 @@
                     ItemContainerStyle="{StaticResource ListBoxItemTemplate}"
                     ItemsSource="{Binding Path=AllBooks, UpdateSourceTrigger=PropertyChanged}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                    ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                    ScrollViewer.VerticalScrollBarVisibility="Disabled"
                     VirtualizingPanel.ScrollUnit="Pixel">
                     <ListBox.ItemTemplate>
                         <DataTemplate>

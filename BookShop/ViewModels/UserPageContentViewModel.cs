@@ -4,6 +4,7 @@ using BookShop.Services;
 using BookShop.ViewModels.Base;
 using BookShop.ViewModels.Common;
 using DataAccess;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace BookShop.ViewModels
@@ -14,6 +15,7 @@ namespace BookShop.ViewModels
         private LambdaCommand _changeImageCommand;
         private LambdaCommand _editUserCommand;
         private readonly MessageBoxService _messageBoxService;
+        
 
         public UserPageContentViewModel(HomeViewModel _main)
         {
@@ -127,6 +129,7 @@ namespace BookShop.ViewModels
             }
         }
         public User CurrentUser { get; set; }
+        public ObservableCollection<BasketProductInfo> OrderItems { get; set; }
         public UploadPicture UploadPictureService { get; set; } = new UploadPicture();
         public ProfileForm ProfileFormModel { get; set; } = new ProfileForm();
     }
