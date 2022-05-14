@@ -267,6 +267,7 @@
                 </StackPanel.Style>
                 <ListBox
                     x:Name="CategoriesList"
+                    MaxHeight="275"
                     Margin="0,-15,0,0"
                     ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
                     ScrollViewer.HorizontalScrollBarVisibility="Disabled"
