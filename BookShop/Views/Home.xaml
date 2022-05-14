@@ -19,7 +19,7 @@
     <Grid HorizontalAlignment="Center">
         <Grid.RowDefinitions>
             <RowDefinition Height="160" />
-            <RowDefinition Height="*" />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <Grid
@@ -200,7 +200,7 @@
                             Panel.ZIndex="1"
                             Background="Transparent"
                             BorderBrush="White"
-                            Command="{Binding ShowCategoriesMenu}"
+                            Command="{Binding ToggleCategoriesMenu}"
                             Cursor="Hand"
                             FontSize="16"
                             Foreground="White"
@@ -248,6 +248,74 @@
             </Grid>
         </Grid>
 
-        <ContentPresenter Grid.Row="1" Content="{Binding Path=ShowingViewModel}" />
+        <Grid Grid.Row="1">
+            <StackPanel
+                Margin="0,15,0,0"
+                HorizontalAlignment="Left"
+                Panel.ZIndex="3">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsCategoriesMenuHidden, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding IsCategoriesMenuHidden, UpdateSourceTrigger=PropertyChanged}" Value="False">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <ListBox
+                    x:Name="CategoriesList"
+                    Margin="0,-15,0,0"
+                    ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}"
+                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                    ScrollViewer.VerticalScrollBarVisibility="Auto">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                Width="286"
+                                BorderBrush="{DynamicResource BorderColor}"
+                                BorderThickness="1">
+                                <StackPanel Margin="5,10" Orientation="Horizontal">
+                                    <Ellipse
+                                        Width="60"
+                                        Height="60"
+                                        HorizontalAlignment="Center"
+                                        Cursor="Hand">
+                                        <Ellipse.Fill>
+                                            <ImageBrush ImageSource="{Binding Image}" Stretch="UniformToFill" />
+                                        </Ellipse.Fill>
+                                        <Ellipse.InputBindings>
+                                            <MouseBinding
+                                                Command="{Binding ElementName=CategoriesList, Path=DataContext.ShowCategoryPage}"
+                                                CommandParameter="{Binding}"
+                                                MouseAction="LeftClick" />
+                                        </Ellipse.InputBindings>
+                                    </Ellipse>
+                                    <TextBlock
+                                        Margin="10,5,0,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Cursor="Hand"
+                                        FontSize="16"
+                                        Text="{Binding Title}"
+                                        TextWrapping="WrapWithOverflow">
+                                        <TextBlock.InputBindings>
+                                            <MouseBinding
+                                                Command="{Binding ElementName=CategoriesList, Path=DataContext.ShowCategoryPage}"
+                                                CommandParameter="{Binding}"
+                                                MouseAction="LeftClick" />
+                                        </TextBlock.InputBindings>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+
+            <ContentPresenter Content="{Binding Path=ShowingViewModel}" />
+        </Grid>
     </Grid>
 </Window>

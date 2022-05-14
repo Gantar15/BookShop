@@ -19,14 +19,15 @@ namespace BookShop.ViewModels
         private string _searchText;
         private readonly MessageBoxService _messageBoxService;
         private List<Book> _allBooks;
+        private List<Category> _categories;
         private string _loggedinUserName;
         private string _loggedinUserImage;
-        private bool _isCategoriesManuHidden = true;
+        private bool _IsCategoriesMenuHidden = true;
         private LambdaCommand _searchCommand;
         private LambdaCommand _addToBasket;
         private LambdaCommand _showBookPage;
         private LambdaCommand _showCategoryPage;
-        private LambdaCommand _showCategoriesMenu;
+        private LambdaCommand _toggleCategoriesMenu;
 
         public HomeViewModel(UnitOfWork unitOfWork = null)
         {
@@ -38,6 +39,7 @@ namespace BookShop.ViewModels
                 _unitOfWork = unitOfWork;
 
             ResetAllBooks();
+            InitCategories();
             ShowingViewModel = new HomeContentViewModel(this);
             ChangeCommand = new LambdaCommand((name) =>
             {
@@ -74,6 +76,10 @@ namespace BookShop.ViewModels
             GetUserData();
         }
 
+        public void InitCategories()
+        {
+            Categories = db.Categories.Get(c => true);
+        }
         public void GetUserData()
         {
             LoggedinUserName = LoggedinUser.Name;
@@ -211,20 +217,25 @@ namespace BookShop.ViewModels
                 }));
             }
         }
-        public LambdaCommand ShowCategoriesMenu
+        public LambdaCommand ToggleCategoriesMenu
         {
             get
             {
-                return _showCategoriesMenu ?? (_showCategoriesMenu = new LambdaCommand((o) =>
+                return _toggleCategoriesMenu ?? (_toggleCategoriesMenu = new LambdaCommand((o) =>
                 {
-                    IsCategoriesManuHidden = false;
+                    IsCategoriesMenuHidden = !IsCategoriesMenuHidden;
                 }));
             }
         }
-        public bool IsCategoriesManuHidden
+        public List<Category> Categories
         {
-            get => _isCategoriesManuHidden;
-            set => Set(ref _isCategoriesManuHidden, value);
+            get => _categories;
+            set => Set(ref _categories, value);
+        }
+        public bool IsCategoriesMenuHidden
+        {
+            get => _IsCategoriesMenuHidden;
+            set => Set(ref _IsCategoriesMenuHidden, value);
         }
         public string LoggedinUserName {
             get => _loggedinUserName;
