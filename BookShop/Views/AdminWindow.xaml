@@ -1,0 +1,394 @@
+﻿<Window
+    x:Class="BookShop.Views.AdminWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookShop.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="BookShop"
+    Icon="/Imgs/logo.png"
+    ResizeMode="CanResize"
+    WindowStartupLocation="CenterScreen"
+    WindowState="Maximized"
+    WindowStyle="SingleBorderWindow"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Views/Resources/AuthStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid Margin="0,10,0,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <Image
+                    Width="40"
+                    Height="40"
+                    Source="/Imgs/logo.png" />
+                <TextBlock
+                    Margin="10,0,0,0"
+                    VerticalAlignment="Center"
+                    FontSize="25"
+                    FontWeight="Bold"
+                    Foreground="#505050">
+                    Admin Panel
+                </TextBlock>
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+                <TextBox
+                    x:Name="SearchTextBox"
+                    Width="300"
+                    Height="45"
+                    Padding="5,10,40,10"
+                    Panel.ZIndex="1"
+                    Background="Transparent"
+                    FontSize="15"
+                    Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding SearchCommand}" />
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button
+                    Margin="-40,0,0,0"
+                    Panel.ZIndex="3"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Command="{Binding SearchCommand}"
+                    Cursor="Hand"
+                    Style="{StaticResource ClearButton}">
+                    <Image
+                        Width="25"
+                        Height="25"
+                        Source="/Imgs/Search.png" />
+                </Button>
+                <TextBlock
+                    Margin="-292,13,0,0"
+                    FontSize="15"
+                    Text="Введите запрос">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Setter Property="Foreground" Value="{DynamicResource PlaceholderColor}" />
+                            <Setter Property="Visibility" Value="Collapsed" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Text, ElementName=SearchTextBox}" Value="">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </StackPanel>
+        </Grid>
+
+        <TabControl Grid.Row="1" Margin="0,20,0,0">
+            <TabControl.Resources>
+                <Style BasedOn="{StaticResource MenuTabItem}" TargetType="TabItem" />
+            </TabControl.Resources>
+            <TabItem DataContext="{Binding AdminBooksViewModel}" Header="Книги">
+                <ScrollViewer
+                    Padding="10,0"
+                    HorizontalScrollBarVisibility="Auto"
+                    VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Grid Margin="0,10,0,0" VerticalAlignment="Top">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
+                                <Button
+                                    Width="140"
+                                    Height="40"
+                                    Style="{StaticResource AddButton}">
+                                    Добавить
+                                </Button>
+                            </StackPanel>
+                        </Grid>
+
+                        <DataGrid
+                            x:Name="Books"
+                            Margin="0,10,0,0"
+                            HorizontalContentAlignment="Left"
+                            VerticalContentAlignment="Center"
+                            AutoGenerateColumns="False"
+                            BorderBrush="{DynamicResource BorderColor}"
+                            HorizontalGridLinesBrush="{DynamicResource BorderColor}"
+                            HorizontalScrollBarVisibility="Hidden"
+                            IsReadOnly="True"
+                            ItemsSource="{Binding AllBooks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            RowBackground="White"
+                            VerticalGridLinesBrush="{DynamicResource BorderColor}"
+                            VerticalScrollBarVisibility="Disabled">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn MaxWidth="365" Header="Изображения">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0,10,10,10">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Button
+                                                        Width="100"
+                                                        Height="120"
+                                                        Margin="7,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Background="{DynamicResource AddColor}"
+                                                        Command="{Binding DataContext.AddImageCommand, ElementName=Books}"
+                                                        CommandParameter="{Binding}"
+                                                        Style="{StaticResource DefaultButton}">
+                                                        <Image
+                                                            Width="30"
+                                                            Height="30"
+                                                            Source="\Imgs\add.png"
+                                                            Stretch="UniformToFill" />
+                                                    </Button>
+                                                    <Button
+                                                        Width="100"
+                                                        Height="120"
+                                                        Margin="10,0,0,0"
+                                                        HorizontalAlignment="Left"
+                                                        Background="{DynamicResource RemoveColor}"
+                                                        Command="{Binding DataContext.RemoveImageCommand, ElementName=Books}"
+                                                        CommandParameter="{Binding Path=SelectedItem, ElementName=bookPhotos}"
+                                                        Style="{StaticResource DefaultButton}">
+                                                        <Image
+                                                            Width="25"
+                                                            Height="25"
+                                                            Source="\Imgs\remove.png"
+                                                            Stretch="UniformToFill" />
+                                                    </Button>
+                                                </StackPanel>
+                                                <ListBox
+                                                    x:Name="bookPhotos"
+                                                    Grid.Row="1"
+                                                    MaxHeight="128"
+                                                    Margin="0,0,0,0"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalContentAlignment="Center"
+                                                    VerticalContentAlignment="Top"
+                                                    Background="Transparent"
+                                                    BorderBrush="{x:Null}"
+                                                    ItemsSource="{Binding Photos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                                    VirtualizingPanel.ScrollUnit="Pixel">
+                                                    <ListBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Image
+                                                                Width="100"
+                                                                Height="120"
+                                                                HorizontalAlignment="Center"
+                                                                Source="{Binding Path=Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                                Stretch="UniformToFill" />
+                                                        </DataTemplate>
+                                                    </ListBox.ItemTemplate>
+                                                    <ListBox.ItemsPanel>
+                                                        <ItemsPanelTemplate>
+                                                            <WrapPanel />
+                                                        </ItemsPanelTemplate>
+                                                    </ListBox.ItemsPanel>
+                                                </ListBox>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Название">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Book.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Авторы">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Authors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn MaxWidth="300" Header="Описание">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <ScrollViewer
+                                                MaxHeight="240"
+                                                Margin="15,0"
+                                                HorizontalScrollBarVisibility="Disabled"
+                                                VerticalScrollBarVisibility="Auto">
+                                                <TextBox
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="13"
+                                                    Style="{StaticResource ClearTextBox}"
+                                                    Text="{Binding Path=Book.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                    TextWrapping="WrapWithOverflow" />
+                                            </ScrollViewer>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Рейтинг">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Book.Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Возрастное ограничение">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Book.AgeRestriction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Формат">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Book.Format, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Количество страниц">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Book.PagesCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Год публикации">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Book.PublicationYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Категория">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="В наличии">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Book.InStock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Цена, ₽">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBox
+                                                Margin="15,0"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="13"
+                                                Style="{StaticResource ClearTextBox}"
+                                                Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F2}}" />
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTemplateColumn Header="Опции">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="10,0" VerticalAlignment="Center">
+                                                <Button
+                                                    Width="100"
+                                                    Height="40"
+                                                    Command="{Binding DataContext.UpdateBookCommand, ElementName=Books}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource UpdateButton}">
+                                                    Обновить
+                                                </Button>
+                                                <Button
+                                                    Width="100"
+                                                    Height="40"
+                                                    Margin="0,10,0,0"
+                                                    Command="{Binding DataContext.RemoveBookCommand, ElementName=Books}"
+                                                    CommandParameter="{Binding}"
+                                                    Style="{StaticResource RemoveButton}">
+                                                    Удалить
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Пользователи" />
+        </TabControl>
+    </Grid>
+</Window>

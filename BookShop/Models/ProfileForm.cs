@@ -22,14 +22,14 @@ namespace BookShop.Models
             set => Set(ref _login, value);
         }
 
-        [RegularExpression(@"^[А-Яа-яA-Za-z0-9_\-]{2,30}$", ErrorMessage = "Буквы, цифры, дефисы и подчёркивания, от 2 до 30 символов")]
+        [RegularExpression(@"^[А-Яа-яA-Za-z0-9_\- ]{2,30}$", ErrorMessage = "Буквы, цифры, дефисы и подчёркивания, от 2 до 30 символов")]
         public string Name
         {
             get => _name;
             set => Set(ref _name, value);
         }
 
-        [RegularExpression(@"^([a-z0-9_\.\- ]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$", ErrorMessage = "Невалидный Email")]
+        [RegularExpression(@"^([A-Za-z0-9_\.-]+)@([A-Za-z0-9_\.-]+)\.([A-Za-z\.]{2,6})$", ErrorMessage = "Некорректная почта")]
         public string Email
         {
             get => _email;

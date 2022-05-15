@@ -132,6 +132,7 @@ namespace BookShop.ViewModels
             LoggedinUser.Login = client.Login;
             LoggedinUser.Email = client.Email;
             LoggedinUser.Name = client.Name;
+            LoggedinUser.Role = client.Role.Role1;
             IsLoggedIn = true;
             CloseAction();
         }

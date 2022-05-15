@@ -7,6 +7,7 @@
     <SolidColorBrush x:Key="AddColor" Color="#3AB54A" />
     <SolidColorBrush x:Key="ErrorColor" Color="#EB3225" />
     <SolidColorBrush x:Key="RemoveColor" Color="#EB4C42" />
+    <SolidColorBrush x:Key="UpdateColor" Color="#F8A622" />
     <SolidColorBrush x:Key="BorderColor" Color="#D3D3D3" />
     <SolidColorBrush x:Key="PlaceholderColor" Color="#9A9A9A" />
 
@@ -36,6 +37,12 @@
                 </Setter.Value>
             </Setter>
         </Style.Setters>
+    </Style>
+
+    <!--  TextBoxes  -->
+    <Style x:Key="ClearTextBox" TargetType="TextBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
     </Style>
 
     <!--  Buttons  -->
@@ -241,6 +248,66 @@
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="Background" Value="{DynamicResource AddColor}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        TextBlock.Foreground="{TemplateBinding Foreground}">
+                        <ContentPresenter
+                            HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="{x:Null}"
+                                To="Transparent"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="{x:Null}"
+                                To="Black"
+                                Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Background.Color"
+                                From="Transparent"
+                                To="{x:Null}"
+                                Duration="0:0:0.2" />
+                            <ColorAnimation
+                                Storyboard.TargetProperty="Foreground.Color"
+                                From="Black"
+                                To="White"
+                                Duration="0:0:0.1" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="UpdateButton" TargetType="Button">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="BorderBrush" Value="{DynamicResource UpdateColor}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Background" Value="{DynamicResource UpdateColor}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">

@@ -20,12 +20,14 @@ namespace BookShop.ViewModels
         private LambdaCommand _editUserCommand;
         private LambdaCommand _showBookPage;
         private readonly MessageBoxService _messageBoxService;
+        private UploadPicture _uploadPictureService = new UploadPicture();
 
         public UserPageContentViewModel(HomeViewModel _main)
         {
             this._main = _main;
             _messageBoxService = new MessageBoxService();
 
+            CurrentUser = _main.db.Users.Get(LoggedinUser.Id);
             InitUserForm();
             InitOrders();
         }
@@ -35,6 +37,7 @@ namespace BookShop.ViewModels
             int userId = LoggedinUser.Id;
             var currentOrders = _main.db.Orders.Get(order => order.UserId == userId);
 
+            if (currentOrders == null) return;
             foreach (var currentOrder in currentOrders) {
                 var orderItemsGroup = new OrderItemsGroup();
                 var booksItems = new List<Book>();
@@ -70,12 +73,12 @@ namespace BookShop.ViewModels
                 return _changeImageCommand ??
                 (_changeImageCommand = new LambdaCommand(async (o) =>
                 {
-                    var path = UploadPictureService.OpenFileDialog();
+                    var path = _uploadPictureService.OpenFileDialog();
                     if (!string.IsNullOrEmpty(path))
                     {
                         try
                         {
-                            var endPath = await UploadPictureService.AddClientImageAsync(path, LoggedinUser.Id);
+                            var endPath = await _uploadPictureService.AddClientImageAsync(path, LoggedinUser.Id);
                             ProfileFormModel.Image = endPath;
                         }
                         catch (IOException ex)
@@ -173,7 +176,6 @@ namespace BookShop.ViewModels
         }
         public User CurrentUser { get; set; }
         public ObservableCollection<OrderItemsGroup> OrderItemsGroups { get; set; } = new();
-        public UploadPicture UploadPictureService { get; set; } = new UploadPicture();
         public ProfileForm ProfileFormModel { get; set; } = new ProfileForm();
     }
 }

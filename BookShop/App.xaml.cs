@@ -10,12 +10,10 @@ namespace BookShop
     /// </summary>
     public partial class App : Application
     {
-        private AuthWindow AuthWnd;
         protected override void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);
             Current.MainWindow = new AuthWindow(new AuthViewModel());
-            AuthWnd = Current.MainWindow as AuthWindow;
             Current.MainWindow.Closing += AuthWindow_Closing;
             Current.MainWindow.Show();
         }
@@ -27,7 +25,17 @@ namespace BookShop
             {
                 return;
             }
-            Current.MainWindow = new Home(new HomeViewModel(view.VM.db));
+
+            switch (LoggedinUser.Role)
+            {
+                case "Admin":
+                    Current.MainWindow = new AdminWindow(new AdminViewModel(view.VM.db));
+                    break;
+                case "User":
+                default:
+                    Current.MainWindow = new Home(new HomeViewModel(view.VM.db));
+                    break;
+            }
             Current.MainWindow.Closing -= AuthWindow_Closing;
             Current.MainWindow.Show();
         }

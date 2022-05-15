@@ -8,5 +8,6 @@ namespace BookShop.ViewModels.Common
         public static string Email { get; set; }
         public static string Name { get; set; }
         public static string Image { get; set; }
+        public static string Role { get; set; }
     }
 }

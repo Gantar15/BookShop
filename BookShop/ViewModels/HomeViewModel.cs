@@ -32,11 +32,7 @@ namespace BookShop.ViewModels
         public HomeViewModel(UnitOfWork unitOfWork = null)
         {
             _messageBoxService = new MessageBoxService();
-
-            if (unitOfWork == null)
-                _unitOfWork = new UnitOfWork();
-            else
-                _unitOfWork = unitOfWork;
+            _unitOfWork = unitOfWork ?? new UnitOfWork();
 
             ResetAllBooks();
             InitCategories();
