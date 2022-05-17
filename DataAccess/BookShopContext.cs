@@ -72,7 +72,8 @@ namespace DataAccess
                 entity.HasOne(b => b.User)
                     .WithOne(u => u.Basket)
                     .HasForeignKey<Basket>(b => b.UserId)
-                    .HasConstraintName("FK_Basket_User");
+                    .HasConstraintName("FK_Basket_User")
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(b => b.Products)
                     .WithMany(p => p.Baskets)
@@ -183,7 +184,8 @@ namespace DataAccess
                 entity.HasOne(o => o.User)
                     .WithMany(u => u.Orders)
                     .HasForeignKey(o => o.UserId)
-                    .HasConstraintName("FK_Order_User");
+                    .HasConstraintName("FK_Order_User")
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(o => o.Products)
                     .WithMany(p => p.Orders)

@@ -10,6 +10,7 @@
     <SolidColorBrush x:Key="UpdateColor" Color="#F8A622" />
     <SolidColorBrush x:Key="BorderColor" Color="#D3D3D3" />
     <SolidColorBrush x:Key="PlaceholderColor" Color="#9A9A9A" />
+    <SolidColorBrush x:Key="AdminTableBackground" Color="#F8F8F8" />
 
     <!--  Sizes  -->
     <sys:Double x:Key="MainContentWidth">1200</sys:Double>

@@ -215,7 +215,6 @@ namespace BookShop.ViewModels
             {
                 return _openAddBookWndCommand ?? (_openAddBookWndCommand = new LambdaCommand((o) =>
                 {
-                    NewBookForm = new AdminBookForm();
                     AddBookWnd = new AddBookWindow(this);
                     AddBookWnd.Show();
                 }));
@@ -263,7 +262,7 @@ namespace BookShop.ViewModels
                             catch (IOException ex)
                             {
                                 _messageBoxService.ShowMessageBox(
-                                    "Профиль",
+                                    book.Book.Title,
                                     ex.Message,
                                     MessageBoxButton.OK,
                                     MessageBoxImage.Warning);

@@ -4,11 +4,11 @@ using System.Windows;
 namespace BookShop.Views
 {
     /// <summary>
-    /// Логика взаимодействия для AddBookWindow.xaml
+    /// Логика взаимодействия для AddUserWindow.xaml
     /// </summary>
-    public partial class AddBookWindow : Window
+    public partial class AddUserWindow : Window
     {
-        public AddBookWindow(AdminBooksViewModel vm)
+        public AddUserWindow(AdminUsersViewModel vm)
         {
             this.DataContext = vm;
             InitializeComponent();
