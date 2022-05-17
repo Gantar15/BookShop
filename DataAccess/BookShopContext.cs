@@ -140,7 +140,8 @@ namespace DataAccess
 
                 entity.HasOne(b => b.Product)
                     .WithOne(p => p.Book)
-                    .HasForeignKey<Product>(p => p.BookId);
+                    .HasForeignKey<Product>(p => p.BookId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
                 entity.HasMany(b => b.Authors)
                     .WithMany(p => p.Books)
@@ -219,7 +220,8 @@ namespace DataAccess
                 entity.HasOne(d => d.Book)
                     .WithMany(p => p.Photos)
                     .HasForeignKey(d => d.BookId)
-                    .HasConstraintName("FK_Photo_Book");
+                    .HasConstraintName("FK_Photo_Book")
+                    .OnDelete(DeleteBehavior.Cascade);
             });
 
             modelBuilder.Entity<Product>(entity =>

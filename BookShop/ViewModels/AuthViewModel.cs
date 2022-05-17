@@ -1,4 +1,5 @@
-﻿using BookShop.Infrastructure.Commands;
+﻿using BookShop.Infrastructure;
+using BookShop.Infrastructure.Commands;
 using BookShop.Models;
 using BookShop.Services;
 using BookShop.ViewModels.Base;
@@ -20,7 +21,34 @@ namespace BookShop.ViewModels
         {
             _unitOfWork = new UnitOfWork();
             _messageBoxService = new MessageBoxService();
+            CreateAdmin();
         }
+
+        private void CreateAdmin()
+        {
+            var configurationFactory = new ConfigurationFactory();
+            var configuration = configurationFactory.GetConfiguration();
+
+            if (db.Users.Get(user => user.Login == configuration["adminUser:login"]) == null)
+            {
+                var admin = new User
+                {
+                    Login = configuration["adminUser:login"],
+                    Password = BCrypt.Net.BCrypt.HashPassword(configuration["adminUser:password"]),
+                    Role = db.Roles.GetFirstOrDefault(r => r.Role1 == "Admin"),
+                    Name = "Admin",
+                    Email = "",
+                    Image = ""
+                };
+                db.Users.Add(admin);
+                var adminBasket = new Basket
+                {
+                    User = admin
+                };
+                db.Baskets.Add(adminBasket);
+            }
+        }
+
         public Action CloseAction { get; set; }
         public bool IsLoggedIn { get; set; } = false;
 

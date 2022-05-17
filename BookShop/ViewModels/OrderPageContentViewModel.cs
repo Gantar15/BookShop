@@ -57,7 +57,7 @@ namespace BookShop.ViewModels
             var orderProducts = _main.db.OrderProducts.Get(op => op.OrderId == currentOrder.Id);
             foreach (var orderProduct in orderProducts)
             {
-                var book = _main.db.Books.Get(orderProduct.Product.BookId);
+                var book = _main.db.Books.Get((int)orderProduct.Product.BookId);
                 productsHtmlTr += "<tr>" +
                                 $"<td>{book.Title}</td>" +
                                 $"<td>{orderProduct.Product.Price}</td>" +

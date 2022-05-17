@@ -117,6 +117,7 @@
                                 <Button
                                     Width="140"
                                     Height="40"
+                                    Command="{Binding OpenAddBookWndCommand}"
                                     Style="{StaticResource AddButton}">
                                     Добавить
                                 </Button>

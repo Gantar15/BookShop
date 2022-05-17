@@ -8,7 +8,7 @@ namespace DataAccess
     {        
         public int Id { get; set; }
         public decimal Price { get; set; }
-        public int BookId { get; set; }
+        public int? BookId { get; set; }
 
         public Book Book { get; set; }
         public List<Order> Orders { get; set; } = new List<Order>();

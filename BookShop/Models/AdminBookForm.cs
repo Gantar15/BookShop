@@ -13,6 +13,18 @@ namespace BookShop.Models
         private ObservableCollection<Photo> _photos;
         private Book _book;
 
+        public AdminBookForm()
+        {
+            Photos = new();
+            Book = new()
+            {
+                Category = new(),
+                Product = new(),
+                Authors = new(),
+                Photos = new()
+            };
+        }
+
         public Book Book {
             get => _book;
             set => Set(ref _book, value);
