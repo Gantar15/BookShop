@@ -78,7 +78,7 @@ namespace BookShop.ViewModels
                     {
                         try
                         {
-                            var endPath = await _uploadPictureService.AddClientImageAsync(path, LoggedinUser.Id);
+                            var endPath = await _uploadPictureService.AddClientImageAsync<User>(path, LoggedinUser.Id);
                             ProfileFormModel.Image = endPath;
                         }
                         catch (IOException ex)

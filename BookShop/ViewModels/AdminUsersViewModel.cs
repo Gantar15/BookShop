@@ -212,7 +212,7 @@ namespace BookShop.ViewModels
                         {
                             try
                             {
-                                var endPath = await _uploadPictureService.AddClientImageAsync(path, user.User.Id);
+                                var endPath = await _uploadPictureService.AddClientImageAsync<User>(path, user.User.Id);
                                 user.Image = endPath;
                             }
                             catch (IOException ex)

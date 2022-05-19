@@ -25,7 +25,7 @@
                 Color="#E5E5E5" />
         </Grid.Effect>
 
-        <ScrollViewer VerticalAlignment="Center">
+        <ScrollViewer VerticalAlignment="Center" VerticalScrollBarVisibility="Auto">
             <StackPanel
                 x:Name="newUser"
                 HorizontalAlignment="Center"

@@ -88,6 +88,17 @@ namespace BookShop.ViewModels
                 return false;
             }
 
+            var bookCandidate = _main.db.Books.GetFirstOrDefault(b => b.Title == book.Book.Title);
+            if (bookCandidate != null)
+            {
+                _messageBoxService.ShowMessageBox(
+                            book.Book.Title,
+                            "Книга с таким названием уже существует",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                return false;
+            }
+
             //Authors
             var authorsNames = ParseAuthors(book.Authors);
             if (authorsNames == null)
@@ -259,7 +270,7 @@ namespace BookShop.ViewModels
                         {
                             try
                             {
-                                var endPath = await _uploadPictureService.AddClientImageAsync(path, LoggedinUser.Id);
+                                var endPath = await _uploadPictureService.AddClientImageAsync<Book>(path, LoggedinUser.Id);
                                 book.Photos.Add(new Photo
                                 {
                                     Source = endPath

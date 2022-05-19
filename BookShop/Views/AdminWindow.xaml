@@ -215,12 +215,16 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Text="{Binding Path=Book.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="WrapWithOverflow" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -228,12 +232,16 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Authors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Text="{Binding Path=Authors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="WrapWithOverflow" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -246,8 +254,10 @@
                                                 HorizontalScrollBarVisibility="Disabled"
                                                 VerticalScrollBarVisibility="Auto">
                                                 <TextBox
+                                                    MinWidth="120"
                                                     HorizontalAlignment="Left"
                                                     VerticalAlignment="Center"
+                                                    HorizontalContentAlignment="Center"
                                                     FontSize="13"
                                                     Style="{StaticResource ClearTextBox}"
                                                     Text="{Binding Path=Book.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -260,9 +270,12 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=Book.Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -273,9 +286,12 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=Book.AgeRestriction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -286,12 +302,16 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.Format, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Text="{Binding Path=Book.Format, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="WrapWithOverflow" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -299,9 +319,12 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=Book.PagesCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -312,9 +335,12 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=Book.PublicationYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -325,12 +351,16 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="WrapWithOverflow" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -338,9 +368,12 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=Book.InStock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
@@ -351,9 +384,12 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F2}}" />
@@ -461,6 +497,7 @@
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=User.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -477,6 +514,7 @@
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=User.Login, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -493,6 +531,7 @@
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -509,6 +548,7 @@
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
                                                 Text="{Binding Path=User.Email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -577,84 +617,34 @@
                             Margin="0,10,0,0"
                             HorizontalContentAlignment="Left"
                             VerticalContentAlignment="Center"
+                            AlternatingRowBackground="White"
                             AutoGenerateColumns="False"
                             BorderBrush="{DynamicResource BorderColor}"
                             HorizontalGridLinesBrush="{DynamicResource BorderColor}"
                             HorizontalScrollBarVisibility="Hidden"
                             IsReadOnly="True"
-                            ItemsSource="{Binding AllBooks, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                            RowBackground="White"
+                            ItemsSource="{Binding AllCategories, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            RowBackground="{DynamicResource AdminTableBackground}"
                             VerticalGridLinesBrush="{DynamicResource BorderColor}"
                             VerticalScrollBarVisibility="Disabled">
                             <DataGrid.Columns>
-                                <DataGridTemplateColumn MaxWidth="365" Header="Изображения">
+                                <DataGridTemplateColumn MaxWidth="190" Header="Изображение">
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                            <StackPanel Margin="0,10,10,10">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <Button
-                                                        Width="100"
-                                                        Height="120"
-                                                        Margin="7,0,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        Background="{DynamicResource AddColor}"
-                                                        Command="{Binding DataContext.AddImageCommand, ElementName=Categories}"
+                                            <Image
+                                                Width="190"
+                                                Height="190"
+                                                HorizontalAlignment="Center"
+                                                Cursor="Hand"
+                                                Source="{Binding Path=Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                Stretch="UniformToFill">
+                                                <Image.InputBindings>
+                                                    <MouseBinding
+                                                        Command="{Binding DataContext.ChangeImageCommand, ElementName=Categories}"
                                                         CommandParameter="{Binding}"
-                                                        Style="{StaticResource DefaultButton}">
-                                                        <Image
-                                                            Width="30"
-                                                            Height="30"
-                                                            Source="\Imgs\add.png"
-                                                            Stretch="UniformToFill" />
-                                                    </Button>
-                                                    <Button
-                                                        Width="100"
-                                                        Height="120"
-                                                        Margin="10,0,0,0"
-                                                        HorizontalAlignment="Left"
-                                                        Background="{DynamicResource RemoveColor}"
-                                                        Command="{Binding DataContext.RemoveImageCommand, ElementName=Categories}"
-                                                        CommandParameter="{Binding Path=SelectedItem, ElementName=bookPhotos}"
-                                                        Style="{StaticResource DefaultButton}">
-                                                        <Image
-                                                            Width="25"
-                                                            Height="25"
-                                                            Source="\Imgs\remove.png"
-                                                            Stretch="UniformToFill" />
-                                                    </Button>
-                                                </StackPanel>
-                                                <ListBox
-                                                    x:Name="bookPhotos"
-                                                    Grid.Row="1"
-                                                    MaxHeight="128"
-                                                    Margin="0,0,0,0"
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalContentAlignment="Center"
-                                                    VerticalContentAlignment="Top"
-                                                    Background="Transparent"
-                                                    BorderBrush="{x:Null}"
-                                                    ItemsSource="{Binding Photos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                                    ScrollViewer.VerticalScrollBarVisibility="Auto"
-                                                    VirtualizingPanel.ScrollUnit="Pixel">
-                                                    <ListBox.ItemTemplate>
-                                                        <DataTemplate>
-                                                            <Image
-                                                                Width="100"
-                                                                Height="120"
-                                                                HorizontalAlignment="Center"
-                                                                Source="{Binding Path=Source, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                                Stretch="UniformToFill" />
-                                                        </DataTemplate>
-                                                    </ListBox.ItemTemplate>
-                                                    <ListBox.ItemsPanel>
-                                                        <ItemsPanelTemplate>
-                                                            <WrapPanel />
-                                                        </ItemsPanelTemplate>
-                                                    </ListBox.ItemsPanel>
-                                                </ListBox>
-                                            </StackPanel>
+                                                        MouseAction="LeftClick" />
+                                                </Image.InputBindings>
+                                            </Image>
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -662,148 +652,16 @@
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
                                             <TextBox
+                                                MinWidth="120"
+                                                MaxWidth="220"
                                                 Margin="15,0"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
+                                                HorizontalContentAlignment="Center"
                                                 FontSize="13"
                                                 Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Авторы">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Authors, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn MaxWidth="300" Header="Описание">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <ScrollViewer
-                                                MaxHeight="240"
-                                                Margin="15,0"
-                                                HorizontalScrollBarVisibility="Disabled"
-                                                VerticalScrollBarVisibility="Auto">
-                                                <TextBox
-                                                    HorizontalAlignment="Left"
-                                                    VerticalAlignment="Center"
-                                                    FontSize="13"
-                                                    Style="{StaticResource ClearTextBox}"
-                                                    Text="{Binding Path=Book.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                                    TextWrapping="WrapWithOverflow" />
-                                            </ScrollViewer>
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Рейтинг">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.Rating, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Возрастное ограничение">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.AgeRestriction, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Формат">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.Format, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Количество страниц">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.PagesCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Год публикации">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.PublicationYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Категория">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="В наличии">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Book.InStock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                        </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                                </DataGridTemplateColumn>
-                                <DataGridTemplateColumn Header="Цена, ₽">
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
-                                            <TextBox
-                                                Margin="15,0"
-                                                HorizontalAlignment="Center"
-                                                VerticalAlignment="Center"
-                                                FontSize="13"
-                                                Style="{StaticResource ClearTextBox}"
-                                                Text="{Binding Path=Price, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat={}{0:F2}}" />
+                                                Text="{Binding Path=Category.Title, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                TextWrapping="WrapWithOverflow" />
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
@@ -814,7 +672,7 @@
                                                 <Button
                                                     Width="100"
                                                     Height="40"
-                                                    Command="{Binding DataContext.UpdateBookCommand, ElementName=Categories}"
+                                                    Command="{Binding DataContext.UpdateCategoryCommand, ElementName=Categories}"
                                                     CommandParameter="{Binding}"
                                                     Style="{StaticResource UpdateButton}">
                                                     Обновить
@@ -823,7 +681,7 @@
                                                     Width="100"
                                                     Height="40"
                                                     Margin="0,10,0,0"
-                                                    Command="{Binding DataContext.RemoveBookCommand, ElementName=Categories}"
+                                                    Command="{Binding DataContext.RemoveCategoryCommand, ElementName=Categories}"
                                                     CommandParameter="{Binding}"
                                                     Style="{StaticResource RemoveButton}">
                                                     Удалить

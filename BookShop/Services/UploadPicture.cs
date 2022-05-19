@@ -14,7 +14,7 @@ namespace BookShop.Services
             _clientsDataFolder = configuration["clientsDataFolder"];
         }
 
-        public async Task<string> AddClientImageAsync(string filePath, int clientId)
+        public async Task<string> AddClientImageAsync<T>(string filePath, int id)
         {
             byte[] data;
             using (FileStream file = new FileStream(filePath, FileMode.Open))
@@ -23,8 +23,8 @@ namespace BookShop.Services
                 await file.ReadAsync(data, 0, data.Length);
             }
             var imageName = filePath.Substring(filePath.LastIndexOf(@"\"));
-            var userFolder = _clientsDataFolder + $@"\{clientId}";
-
+            var userFolder = _clientsDataFolder + $@"\{(typeof(T)).Name}" + $@"\{id}";
+            
             DirectoryInfo info = new DirectoryInfo(userFolder);
             if (!info.Exists)
             {

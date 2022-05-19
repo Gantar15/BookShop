@@ -1,0 +1,97 @@
+﻿<Window
+    x:Class="BookShop.Views.AddCategoryWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookShop.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AddCategoryWindow"
+    Width="450"
+    Height="430"
+    Icon="/Imgs/logo.png"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid
+        Width="400"
+        Height="350"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="White">
+        <Grid.Effect>
+            <DropShadowEffect
+                BlurRadius="35"
+                Opacity="0.4"
+                ShadowDepth="10"
+                Color="#E5E5E5" />
+        </Grid.Effect>
+
+        <ScrollViewer VerticalAlignment="Center" VerticalScrollBarVisibility="Auto">
+            <StackPanel
+                x:Name="newCategory"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <StackPanel
+                    Width="250"
+                    Margin="0,10,0,10"
+                    Orientation="Vertical">
+                    <Image
+                        Width="190"
+                        Height="190"
+                        HorizontalAlignment="Center"
+                        Cursor="Hand"
+                        Source="{Binding Path=NewCategory.Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Stretch="UniformToFill">
+                        <Image.InputBindings>
+                            <MouseBinding
+                                Command="{Binding ChangeImageCommand}"
+                                CommandParameter="{Binding NewCategory}"
+                                MouseAction="LeftClick" />
+                        </Image.InputBindings>
+                    </Image>
+
+                    <Label
+                        Margin="0,10,0,0"
+                        FontSize="13"
+                        Target="{Binding ElementName=CategoryTitleBox}">
+                        Название
+                    </Label>
+                    <TextBox
+                        x:Name="CategoryTitleBox"
+                        Padding="5"
+                        Panel.ZIndex="1"
+                        Background="Transparent"
+                        Style="{StaticResource ValidationException}"
+                        Text="{Binding NewCategory.Category.Title, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="7,-23,0,0" Text="Введите название">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="{DynamicResource PlaceholderColor}" />
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=CategoryTitleBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button
+                        Height="40"
+                        Margin="0,25,0,0"
+                        Background="{DynamicResource MainContrastColor}"
+                        Command="{Binding AddCategoryCommand}"
+                        CommandParameter="{Binding NewCategory}"
+                        Cursor="Hand"
+                        FontSize="15"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Style="{StaticResource DefaultButton}">
+                        Добавить
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Window>
