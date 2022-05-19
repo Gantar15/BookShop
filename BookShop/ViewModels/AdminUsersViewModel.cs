@@ -7,7 +7,6 @@ using DataAccess;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
 using System.Windows;
 
 namespace BookShop.ViewModels
@@ -21,7 +20,7 @@ namespace BookShop.ViewModels
         private LambdaCommand _addUserCommand;
         private LambdaCommand _changeImageCommand;
         private LambdaCommand _openAddUserWndCommand;
-        private User _newUser;
+        private AdminUserForm _newUser;
         private readonly MessageBoxService _messageBoxService = new MessageBoxService();
         private readonly UploadPicture _uploadPictureService = new UploadPicture();
 
@@ -29,8 +28,13 @@ namespace BookShop.ViewModels
         {
             _main = main;
             ResetAllUsers();
+            ResetNewUser();
         }
 
+        public void ResetNewUser()
+        {
+            NewUser = new(@"\Imgs\bg.jpg", _main.db.Roles.GetFirstOrDefault(r => r.Role1 == "User"));
+        }
         public void ResetAllUsers()
         {
             AllUsers = new();
@@ -46,13 +50,67 @@ namespace BookShop.ViewModels
             }
         }
 
+        public bool SetUserFields(AdminUserForm user)
+        {
+            if (String.IsNullOrEmpty(user.Image) || String.IsNullOrEmpty(user.User.Login)
+                            || String.IsNullOrEmpty(user.User.Name) || String.IsNullOrEmpty(user.User.Email))
+            {
+                _messageBoxService.ShowMessageBox(
+                    user.User.Login,
+                    "Все поля должны быть заполнены",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
+                return false;
+            }
+
+            var client = _main.db.Users.GetFirstOrDefault(c => c.Login == user.User.Login && c.Id != user.User.Id);
+            var emailCandidat = _main.db.Users.Get(c => c.Email == user.User.Email && c.Id != user.User.Id);
+            var nameCandidat = _main.db.Users.Get(c => c.Name == user.User.Name && c.Id != user.User.Id);
+
+            if (client != null)
+            {
+                _messageBoxService.ShowMessageBox(
+                            user.User.Login,
+                            "Пользователь с таким логином уже существует",
+                            MessageBoxButton.OK,
+                            MessageBoxImage.Information);
+                return false;
+            }
+            else if (emailCandidat != null)
+            {
+                _messageBoxService.ShowMessageBox(
+                        user.User.Login,
+                        "Пользователь с такой почтой уже существует",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                return false;
+            }
+            else if (nameCandidat != null)
+            {
+                _messageBoxService.ShowMessageBox(
+                        user.User.Login,
+                        "Пользователь с таким именем уже существует",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Information);
+                return false;
+            }
+
+            if (!String.IsNullOrEmpty(user.Password))
+                user.User.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+            if (user.Image != user.User.Image)
+                user.User.Image = user.Image;
+
+            return true;
+        }
+
         public AddUserWindow AddUserWnd { get; set; }
         public ObservableCollection<AdminUserForm> AllUsers
         {
             get => _allUsers;
             set => Set(ref _allUsers, value);
         }
-        public User NewUser
+        public AdminUserForm NewUser
         {
             get => _newUser;
             set => Set(ref _newUser, value);
@@ -66,24 +124,9 @@ namespace BookShop.ViewModels
                     var user = o as AdminUserForm;
                     if (user != null)
                     {
-                        if (String.IsNullOrEmpty(user.Image) || String.IsNullOrEmpty(user.User.Login)
-                            || String.IsNullOrEmpty(user.User.Name))
-                        {
-                            _messageBoxService.ShowMessageBox(
-                                user.User.Login,
-                                "Все поля должны быть заполнены",
-                                MessageBoxButton.OK,
-                                MessageBoxImage.Information);
-                            return;
-                        }
+                        if (!SetUserFields(user)) return;
 
-                        if (!String.IsNullOrEmpty(user.Password))
-                            user.User.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
-
-                        if (user.Image != user.User.Image)
-                            user.User.Image = user.Image;
-
-                        _main.db.Users.UpdateAsync(user.User);
+                        _main.db.Users.Update(user.User);
                         _messageBoxService.ShowMessageBox(
                           user.User.Login,
                           $"{user.User.Name} обновлен",
@@ -102,7 +145,7 @@ namespace BookShop.ViewModels
                     var user = o as AdminUserForm;
                     if (user != null)
                     {
-                        _main.db.Users.RemoveAsync(user.User.Id);
+                        _main.db.Users.Remove(user.User.Id);
                         AllUsers.Remove(user);
                     }
                 }));
@@ -128,9 +171,29 @@ namespace BookShop.ViewModels
                     var user = o as AdminUserForm;
                     if (user != null)
                     {
-                        AddUserWnd.Close();
-                        _main.db.Users.AddAsync(user.User);
+                        if (String.IsNullOrEmpty(user.Password))
+                        {
+                            _messageBoxService.ShowMessageBox(
+                                user.User.Login,
+                                "Все поля должны быть заполнены",
+                                MessageBoxButton.OK,
+                                MessageBoxImage.Information);
+                            return;
+                        }
+
+                        if (!SetUserFields(user)) return;
+
+                        _main.db.Users.Add(user.User);
+
+                        var userBasket = new Basket
+                        {
+                            User = user.User
+                        };
+                        _main.db.Baskets.Add(userBasket);
+
                         AllUsers.Add(user);
+                        ResetNewUser();
+                        AddUserWnd.Close();
                     }
                 }));
             }

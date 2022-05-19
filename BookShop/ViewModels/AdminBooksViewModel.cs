@@ -14,7 +14,7 @@ using System.Windows;
 
 namespace BookShop.ViewModels
 {
-    public class  AdminBooksViewModel : ViewModel
+    public class AdminBooksViewModel : ViewModel
     {
         private AdminViewModel _main;
         private ObservableCollection<AdminBookForm> _allBooks;
@@ -32,8 +32,13 @@ namespace BookShop.ViewModels
         {
             _main = main;
             ResetAllBooks();
+            ResetNewBookForm();
         }
 
+        public void ResetNewBookForm()
+        {
+            NewBookForm = new AdminBookForm();
+        }
         public void ResetAllBooks()
         {
             AllBooks = new();
@@ -231,9 +236,10 @@ namespace BookShop.ViewModels
                     {
                         if (!SetBookFields(book)) return;
 
-                        AddBookWnd.Close();
                         _main.db.Books.Add(book.Book);
                         AllBooks.Add(book);
+                        ResetNewBookForm();
+                        AddBookWnd.Close();
                     }
                 }));
             }

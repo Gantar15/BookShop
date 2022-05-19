@@ -89,7 +89,7 @@ namespace BookShop.ViewModels
                     _messageBoxService.ShowMessageBox("Заказ", $"Ваш заказ успешно оформлен :3", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     string messageBody = GetOrdersHtmlTable(currentOrder);
-                    _emailService.SendMail(LoggedinUser.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
+                    //_emailService.SendMail(LoggedinUser.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
 
                     _basket.ClearBasket();
                     _main.ChangeCommand.Execute("home");

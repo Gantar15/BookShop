@@ -51,11 +51,11 @@ namespace BookShop.Services
 
             try
             {
-                Client.Send(mess);
+                Client.SendAsync(mess, null);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show(ex.InnerException.Message);
                 return false;
             }
 

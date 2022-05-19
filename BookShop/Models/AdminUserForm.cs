@@ -8,6 +8,16 @@ namespace BookShop.Models
         private string _password;
         private User _user;
 
+        public AdminUserForm() { }
+        public AdminUserForm(string image, Role role)
+        {
+            Image = image;
+            User = new()
+            {
+                Role = role
+            };
+        }
+
         public User User
         {
             get => _user;

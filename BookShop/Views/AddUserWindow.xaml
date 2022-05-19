@@ -1,12 +1,170 @@
-﻿<Window x:Class="BookShop.Views.AddUserWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BookShop.Views"
-        mc:Ignorable="d"
-        Title="AddUserWindow" Height="450" Width="800">
-    <Grid>
-        
+﻿<Window
+    x:Class="BookShop.Views.AddUserWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BookShop.Views"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="AddUserWindow"
+    Width="450"
+    Height="580"
+    Icon="/Imgs/logo.png"
+    WindowStartupLocation="CenterScreen"
+    mc:Ignorable="d">
+    <Grid
+        Width="400"
+        Height="510"
+        HorizontalAlignment="Center"
+        VerticalAlignment="Center"
+        Background="White">
+        <Grid.Effect>
+            <DropShadowEffect
+                BlurRadius="35"
+                Opacity="0.4"
+                ShadowDepth="10"
+                Color="#E5E5E5" />
+        </Grid.Effect>
+
+        <ScrollViewer VerticalAlignment="Center">
+            <StackPanel
+                x:Name="newUser"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Orientation="Vertical">
+                <StackPanel
+                    Width="250"
+                    Margin="0,10,0,10"
+                    Orientation="Vertical">
+
+                    <Image
+                        Width="190"
+                        Height="190"
+                        HorizontalAlignment="Center"
+                        Cursor="Hand"
+                        Source="{Binding Path=NewUser.Image, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Stretch="UniformToFill">
+                        <Image.InputBindings>
+                            <MouseBinding
+                                Command="{Binding ChangeImageCommand}"
+                                CommandParameter="{Binding NewUser}"
+                                MouseAction="LeftClick" />
+                        </Image.InputBindings>
+                    </Image>
+
+                    <Label
+                        Margin="0,10,0,0"
+                        FontSize="13"
+                        Target="{Binding ElementName=UserNameBox}">
+                        Имя
+                    </Label>
+                    <TextBox
+                        x:Name="UserNameBox"
+                        Padding="5"
+                        Panel.ZIndex="1"
+                        Background="Transparent"
+                        Style="{StaticResource ValidationException}"
+                        Text="{Binding NewUser.User.Name, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="7,-23,0,0" Text="Введите имя">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="{DynamicResource PlaceholderColor}" />
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=UserNameBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Label FontSize="13" Target="{Binding ElementName=UserLoginBox}">
+                        Логин
+                    </Label>
+                    <TextBox
+                        x:Name="UserLoginBox"
+                        Padding="5"
+                        Panel.ZIndex="1"
+                        Background="Transparent"
+                        Style="{StaticResource ValidationException}"
+                        Text="{Binding NewUser.User.Login, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="7,-23,0,0" Text="Введите логин">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="{DynamicResource PlaceholderColor}" />
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=UserLoginBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Label FontSize="13" Target="{Binding ElementName=UserPasswordBox}">
+                        Пароль
+                    </Label>
+                    <TextBox
+                        x:Name="UserPasswordBox"
+                        Padding="5"
+                        Panel.ZIndex="1"
+                        Background="Transparent"
+                        Style="{StaticResource ValidationException}"
+                        Text="{Binding NewUser.Password, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="7,-23,0,0" Text="Введите логин">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="{DynamicResource PlaceholderColor}" />
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=UserPasswordBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Label FontSize="13" Target="{Binding ElementName=UserMailBox}">
+                        Почта
+                    </Label>
+                    <TextBox
+                        x:Name="UserMailBox"
+                        Padding="5"
+                        Panel.ZIndex="1"
+                        Background="Transparent"
+                        Style="{StaticResource ValidationException}"
+                        Text="{Binding NewUser.User.Email, ValidatesOnExceptions=True, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBlock Margin="7,-23,0,0" Text="Введите почту">
+                        <TextBlock.Style>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Foreground" Value="{DynamicResource PlaceholderColor}" />
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Text, ElementName=UserMailBox}" Value="">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+
+                    <Button
+                        Height="40"
+                        Margin="0,25,0,0"
+                        Background="{DynamicResource MainContrastColor}"
+                        Command="{Binding AddUserCommand}"
+                        CommandParameter="{Binding NewUser}"
+                        Cursor="Hand"
+                        FontSize="15"
+                        FontWeight="Bold"
+                        Foreground="White"
+                        Style="{StaticResource DefaultButton}">
+                        Добавить
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
