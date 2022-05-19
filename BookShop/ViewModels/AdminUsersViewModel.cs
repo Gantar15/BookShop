@@ -5,13 +5,16 @@ using BookShop.ViewModels.Base;
 using BookShop.Views;
 using DataAccess;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace BookShop.ViewModels
 {
-    public class AdminUsersViewModel : ViewModel
+    public class AdminUsersViewModel : AdminPageViewModel
     {
         private AdminViewModel _main;
         private ObservableCollection<AdminUserForm> _allUsers;
@@ -115,6 +118,7 @@ namespace BookShop.ViewModels
             get => _newUser;
             set => Set(ref _newUser, value);
         }
+        public override LambdaCommand _searchCommand { get; set; }
         public LambdaCommand UpdateUserCommand
         {
             get
@@ -228,5 +232,46 @@ namespace BookShop.ViewModels
                 }));
             }
         }
+        public override LambdaCommand SearchCommand
+        {
+            get
+            {
+                return _searchCommand ??
+                (_searchCommand = new LambdaCommand((o) =>
+                {
+                    if (!String.IsNullOrEmpty(_main.SearchText))
+                    {
+                        List<User> searchResults = new();
+                        var nameSearch = _main.db.Users.Get(u => Regex.IsMatch(u.Name, $"^.*{_main.SearchText}.*$", RegexOptions.IgnoreCase));
+                        var loginSearch = _main.db.Users.Get(u => Regex.IsMatch(u.Login, $"^.*{_main.SearchText}.*$", RegexOptions.IgnoreCase));
+                        var emailSearch = _main.db.Users.Get(u => Regex.IsMatch(u.Email, $"^.*{_main.SearchText}.*$", RegexOptions.IgnoreCase));
+
+                        if (nameSearch != null)
+                            searchResults.AddRange(nameSearch);
+                        if (loginSearch != null)
+                            searchResults.AddRange(loginSearch);
+                        if (emailSearch != null)
+                            searchResults.AddRange(emailSearch);
+
+                        searchResults = searchResults.Select(b => b).Distinct().ToList();
+
+                        AllUsers.Clear();
+                        foreach (var searchResult in searchResults)
+                        {
+                            AllUsers.Add(new AdminUserForm()
+                            {
+                                Image = searchResult.Image,
+                                User = searchResult
+                            });
+                        }
+                    }
+                    else
+                    {
+                        ResetAllUsers();
+                    }
+                }));
+            }
+        }
+
     }
 }

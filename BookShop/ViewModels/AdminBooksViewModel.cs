@@ -10,11 +10,12 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace BookShop.ViewModels
 {
-    public class AdminBooksViewModel : ViewModel
+    public class AdminBooksViewModel : AdminPageViewModel
     {
         private AdminViewModel _main;
         private ObservableCollection<AdminBookForm> _allBooks;
@@ -47,8 +48,7 @@ namespace BookShop.ViewModels
             {
                 var bookModel = new AdminBookForm();
                 bookModel.Book = book;
-                book.Authors.ForEach(author => bookModel.Authors += author.Name + " " + author.Surname + ", ");
-                bookModel.Authors = bookModel.Authors.Substring(0, bookModel.Authors.Length - 2);
+                bookModel.Authors = AuthorsToString(book.Authors);
                 bookModel.Price = book.Product.Price;
                 bookModel.Category = book.Category.Title;
                 bookModel.Photos = new();
@@ -58,6 +58,13 @@ namespace BookShop.ViewModels
                 }
                 AllBooks.Add(bookModel);
             }
+        }
+        public string AuthorsToString(List<Author> authors)
+        {
+            string authorsString = "";
+            authors.ForEach(author => authorsString += author.Name + " " + author.Surname + ", ");
+            authorsString = authorsString.Substring(0, authorsString.Length - 2);
+            return authorsString;
         }
         public List<KeyValuePair<string, string>> ParseAuthors(string authorsString)
         {
@@ -88,7 +95,7 @@ namespace BookShop.ViewModels
                 return false;
             }
 
-            var bookCandidate = _main.db.Books.GetFirstOrDefault(b => b.Title == book.Book.Title);
+            var bookCandidate = _main.db.Books.GetFirstOrDefault(b => b.Title == book.Book.Title && b.Id != book.Book.Id);
             if (bookCandidate != null)
             {
                 _messageBoxService.ShowMessageBox(
@@ -189,6 +196,7 @@ namespace BookShop.ViewModels
             get => _newBookForm;
             set => Set(ref _newBookForm, value);
         }
+        public override LambdaCommand _searchCommand { get; set; }
         public LambdaCommand UpdateBookCommand
         {
             get
@@ -310,6 +318,50 @@ namespace BookShop.ViewModels
                 }));
             }
         }
+        public override LambdaCommand SearchCommand
+        {
+            get
+            {
+                return _searchCommand ??
+                (_searchCommand = new LambdaCommand((o) =>
+                {
+                    if (!String.IsNullOrEmpty(_main.SearchText))
+                    {
+                        List<Book> searchResults = new();
+                        var titleSearch = _main.db.Books.Get(b => Regex.IsMatch(b.Title, $"^.*{_main.SearchText}.*$", RegexOptions.IgnoreCase));
+                        var authorsSearch = _main.db.Books.Get(b => b.Authors.Any(a => Regex.IsMatch($"{a.Name} {a.Surname}", $"^.*{_main.SearchText}.*$", RegexOptions.IgnoreCase)));
+                        var categorySearch = _main.db.Books.Get(b => Regex.IsMatch(b.Category.Title, $"^.*{_main.SearchText}.*$", RegexOptions.IgnoreCase));
 
+                        if (titleSearch != null)
+                            searchResults.AddRange(titleSearch);
+                        if (authorsSearch != null)
+                            searchResults.AddRange(authorsSearch);
+                        if (categorySearch != null)
+                            searchResults.AddRange(categorySearch);
+
+                        searchResults = searchResults.Select(b => b).Distinct().ToList();
+
+                        AllBooks.Clear();
+                        foreach (var searchResult in searchResults) {
+                            ObservableCollection<Photo> photos = new();
+                            foreach (var photo in searchResult.Photos)
+                                photos.Add(photo);
+                            AllBooks.Add(new AdminBookForm()
+                            {
+                                Book = searchResult,
+                                Authors = AuthorsToString(searchResult.Authors),
+                                Category = searchResult.Category.Title,
+                                Photos = photos,
+                                Price = searchResult.Product.Price
+                            });
+                        }
+                    }
+                    else
+                    {
+                        ResetAllBooks();
+                    }
+                }));
+            }
+        }
     }
 }

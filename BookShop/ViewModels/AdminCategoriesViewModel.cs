@@ -5,14 +5,16 @@ using BookShop.ViewModels.Base;
 using BookShop.Views;
 using DataAccess;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Windows;
 
 namespace BookShop.ViewModels
 {
-    public class AdminCategoriesViewModel : ViewModel
+    public class AdminCategoriesViewModel : AdminPageViewModel
     {
         private AdminViewModel _main;
         private ObservableCollection<AdminCategoryForm> _allCategories;
@@ -89,6 +91,7 @@ namespace BookShop.ViewModels
             get => _newCategory;
             set => Set(ref _newCategory, value);
         }
+        public override LambdaCommand _searchCommand { get; set; }
         public LambdaCommand UpdateCategoryCommand
         {
             get
@@ -196,5 +199,40 @@ namespace BookShop.ViewModels
                 }));
             }
         }
+        public override LambdaCommand SearchCommand
+        {
+            get
+            {
+                return _searchCommand ??
+                (_searchCommand = new LambdaCommand((o) =>
+                {
+                    if (!String.IsNullOrEmpty(_main.SearchText))
+                    {
+                        List<Category> searchResults = new();
+                        var titleSearch = _main.db.Categories.Get(c => Regex.IsMatch(c.Title, $"^.*{_main.SearchText}.*$", RegexOptions.IgnoreCase));
+
+                        if (titleSearch != null)
+                            searchResults.AddRange(titleSearch);
+
+                        searchResults = searchResults.Select(b => b).Distinct().ToList();
+
+                        AllCategories.Clear();
+                        foreach (var searchResult in searchResults)
+                        {
+                            AllCategories.Add(new AdminCategoryForm()
+                            {
+                                Image = searchResult.Image,
+                                Category = searchResult
+                            });
+                        }
+                    }
+                    else
+                    {
+                        ResetAllCategories();
+                    }
+                }));
+            }
+        }
+
     }
 }

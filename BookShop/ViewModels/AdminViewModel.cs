@@ -1,5 +1,4 @@
 ﻿using BookShop.Infrastructure.Commands;
-using BookShop.Services;
 using BookShop.ViewModels.Base;
 using DataAccess;
 using System;
@@ -9,10 +8,12 @@ namespace BookShop.ViewModels
     public class AdminViewModel : ViewModel
     {
         private readonly UnitOfWork _unitOfWork;
-        private LambdaCommand _searchCommand;
-        public AdminBooksViewModel _adminBooksViewModel;
-        public AdminCategoriesViewModel _adminCategoriesViewModel;
-        public AdminUsersViewModel _adminUsersViewModel;
+        private AdminPageViewModel _selectedPage;
+        private LambdaCommand _selectPageCommand;
+        private int _selectedTabControlPageIndex;
+        private AdminBooksViewModel _adminBooksViewModel;
+        private AdminCategoriesViewModel _adminCategoriesViewModel;
+        private AdminUsersViewModel _adminUsersViewModel;
         private string _searchText;
 
         public AdminViewModel(UnitOfWork unitOfWork = null)
@@ -21,6 +22,7 @@ namespace BookShop.ViewModels
             AdminBooksViewModel = new AdminBooksViewModel(this);
             AdminCategoriesViewModel = new AdminCategoriesViewModel(this);
             AdminUsersViewModel = new AdminUsersViewModel(this);
+            _selectedPage = AdminBooksViewModel;
         }
 
         public Action CloseAction { get; set; }
@@ -38,21 +40,49 @@ namespace BookShop.ViewModels
             get => _adminUsersViewModel;
             set => Set(ref _adminUsersViewModel, value);
         }
-        public UnitOfWork db { get => _unitOfWork; }
         public LambdaCommand SearchCommand
+        {
+            get => new LambdaCommand((o) => _selectedPage.SearchCommand.Execute(o));
+        }
+        public LambdaCommand SelectPageCommand
         {
             get
             {
-                return _searchCommand ?? (_searchCommand = new LambdaCommand((o) =>
+                return _selectPageCommand ??
+                (_selectPageCommand = new LambdaCommand((o) =>
                 {
-
+                    var page = o as string;
+                    if(page != null)
+                    {
+                        switch (page)
+                        {
+                            case "Books":
+                                _selectedPage = AdminBooksViewModel;
+                                SelectedTabControlPageIndex = 0;
+                                break;
+                            case "Users":
+                                _selectedPage = AdminUsersViewModel;
+                                SelectedTabControlPageIndex = 1;
+                                break;
+                            case "Categories":
+                                _selectedPage = AdminCategoriesViewModel;
+                                SelectedTabControlPageIndex = 2;
+                                break;
+                        }
+                    }
                 }));
             }
         }
+        public UnitOfWork db { get => _unitOfWork; }
         public string SearchText
         {
             get => _searchText;
             set => Set(ref _searchText, value);
+        }
+        public int SelectedTabControlPageIndex
+        {
+            get => _selectedTabControlPageIndex;
+            set => Set(ref _selectedTabControlPageIndex, value);
         }
     }
 }
