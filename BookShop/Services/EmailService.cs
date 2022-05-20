@@ -32,7 +32,7 @@ namespace BookShop.Services
             SmtpPort = Convert.ToInt16(configuration["mailInfo:smtpPort"]);
 
             //создаем подключение
-            Client = new SmtpClient(SmtpHost);
+            Client = new SmtpClient(SmtpHost, SmtpPort);
             Client.EnableSsl = true;
             Client.DeliveryMethod = SmtpDeliveryMethod.Network;
             Client.UseDefaultCredentials = false;
@@ -46,8 +46,8 @@ namespace BookShop.Services
             MailAddress To = new MailAddress(to);
             MailMessage mess = new MailMessage(From, To);
             mess.Subject = subject;
-            mess.Body = body;
             mess.IsBodyHtml = isBodyHtml;
+            mess.Body = body;
 
             try
             {

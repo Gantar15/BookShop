@@ -6,6 +6,7 @@ using DataAccess;
 using BookShop.Models;
 using System.Collections.Generic;
 using BookShop.ViewModels.Common;
+using System;
 
 namespace BookShop.ViewModels
 {
@@ -60,11 +61,11 @@ namespace BookShop.ViewModels
                 var book = _main.db.Books.Get((int)orderProduct.Product.BookId);
                 productsHtmlTr += "<tr>" +
                                 $"<td>{book.Title}</td>" +
-                                $"<td>{orderProduct.Product.Price}</td>" +
+                                $"<td>{String.Format("{0:C2}", orderProduct.Product.Price)}</td>" +
                                 "</tr>";
             }
             string messageBody = $"<article>" +
-                                $"<h2>Уважаемый {currentOrder.Fio}</h2>" +
+                                $"<h2>Уважаемый {currentOrder.Fio}, ваш заказ: </h2>" +
                                 "<table margin=\"10,0,0,0\">" +
                                 "<thead><tr>" +
                                     "<th>название</td>" +
@@ -76,7 +77,7 @@ namespace BookShop.ViewModels
                                 "</table>" +
                                 "</article>";
 
-            return productsHtmlTr;
+            return messageBody;
         }
 
         public LambdaCommand OrderCommand
@@ -89,7 +90,7 @@ namespace BookShop.ViewModels
                     _messageBoxService.ShowMessageBox("Заказ", $"Ваш заказ успешно оформлен :3", MessageBoxButton.OK, MessageBoxImage.Information);
 
                     string messageBody = GetOrdersHtmlTable(currentOrder);
-                    //_emailService.SendMail(LoggedinUser.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
+                    _emailService.SendMail(LoggedinUser.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
 
                     _basket.ClearBasket();
                     _main.ChangeCommand.Execute("home");

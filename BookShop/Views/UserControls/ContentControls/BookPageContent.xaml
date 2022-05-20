@@ -107,6 +107,16 @@
                                 </StackPanel>
                                 <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
                                     <TextBlock FontSize="14" Foreground="Gray">
+                                        Авторы :
+                                    </TextBlock>
+                                    <TextBlock
+                                        Margin="10,0,0,0"
+                                        FontSize="14"
+                                        Foreground="Black"
+                                        Text="{Binding BookContext.Authors, Converter={StaticResource AuthorsConverter}}" />
+                                </StackPanel>
+                                <StackPanel Margin="0,2,0,0" Orientation="Horizontal">
+                                    <TextBlock FontSize="14" Foreground="Gray">
                                         Формат :
                                     </TextBlock>
                                     <TextBlock
