@@ -1,0 +1,407 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BookShop.Infrastructure.Commands.Base.Command">
+    <Position X="1.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Commands\Base\Command.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Infrastructure.Commands.LambdaCommand">
+    <Position X="3.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQCAAAAAAQAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Commands\LambdaCommand.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Infrastructure.Converters.AuthorsConverter">
+    <Position X="5.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Converters\AuthorsConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Infrastructure.Converters.InStockToColorConverter">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Converters\InStockToColorConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Infrastructure.Converters.InStockToStringConverter">
+    <Position X="11" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Converters\InStockToStringConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Infrastructure.Converters.MoneyConverter">
+    <Position X="9.25" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\Converters\MoneyConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Infrastructure.Dto.OrderItemsGroup">
+    <Position X="9.25" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAkAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAM=</HashCode>
+      <FileName>Infrastructure\Dto\OrderItemsGroup.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Infrastructure.ConfigurationFactory">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAEAAAAAAAIAAgAAAAAAAAAA=</HashCode>
+      <FileName>Infrastructure\ConfigurationFactory.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.Base.Model">
+    <Position X="4.25" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Base\Model.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Models.Validation.ValidateModel">
+    <Position X="6" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAADAAAAhIAAAAAAAgAAAAAAIAAQAAAABIAA=</HashCode>
+      <FileName>Models\Validation\ValidateModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Models.AdminBookForm">
+    <Position X="4" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAgAACAAQAABCBAAAAAAAACAABAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\AdminBookForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.AdminCategoryForm">
+    <Position X="5.75" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAAAAQBAAAAAAAAAACAA=</HashCode>
+      <FileName>Models\AdminCategoryForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.AdminUserForm">
+    <Position X="7.5" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAAAAAAAAAAAAAAAAAAAAAQJACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\AdminUserForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.BasketModel">
+    <Position X="9.25" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAQAAAAAAAAAAAAQAAAAAAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Models\BasketModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.BasketProductInfo">
+    <Position X="11" Y="19.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAABBAAAAAAQAAAAAAAAAAACAAAAEAAA=</HashCode>
+      <FileName>Models\BasketProductInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.LoginForm">
+    <Position X="10.25" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAQIAAAAAA=</HashCode>
+      <FileName>Models\LoginForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.OrderForm">
+    <Position X="12" Y="15" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAASAAAAIEAAABA=</HashCode>
+      <FileName>Models\OrderForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.ProfileForm">
+    <Position X="8.5" Y="15" Width="1.5" />
+    <InheritanceLine Type="BookShop.Models.Validation.ValidateModel" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="6.75" Y="13.75" />
+        <Point X="6.75" Y="13.375" />
+        <Point X="8.25" Y="13.375" />
+        <Point X="8.25" Y="18.925" />
+        <Point X="9.25" Y="18.925" />
+        <Point X="9.25" Y="18.675" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAACAAAAAAAAAAAAQAAAAAQBACAAAQIAAAAAE=</HashCode>
+      <FileName>Models\ProfileForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Models.RegisterForm">
+    <Position X="13.75" Y="15.25" Width="1.5" />
+    <InheritanceLine Type="BookShop.Models.Validation.ValidateModel" ManuallyRouted="true">
+      <Path>
+        <Point X="6.75" Y="13.75" />
+        <Point X="6.75" Y="13.388" />
+        <Point X="8.229" Y="13.388" />
+        <Point X="8.229" Y="18.915" />
+        <Point X="14.5" Y="18.915" />
+        <Point X="14.5" Y="18.54" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAACAAAAAAAAAAAAQAAAAAAAACAAAQIAAAAAE=</HashCode>
+      <FileName>Models\RegisterForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Services.EmailService">
+    <Position X="12" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAUAAAIAAAAAAAAAAAAAAAAAAAAAAgBAAAAAAAQ=</HashCode>
+      <FileName>Services\EmailService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Services.MessageBoxService">
+    <Position X="13.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\MessageBoxService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Services.UploadPicture">
+    <Position X="15.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Services\UploadPicture.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.Base.AdminPageViewModel">
+    <Position X="27.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAAAAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Base\AdminPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.Base.ViewModel">
+    <Position X="29" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAABABAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Base\ViewModel.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.ViewModels.Common.LoggedinUser">
+    <Position X="23" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAEAAAAAQAAAAAABAAAAAQAAAAAAA=</HashCode>
+      <FileName>ViewModels\Common\LoggedinUser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.Common.PasswordBehavior">
+    <Position X="24.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAFAAAAAAAIAAAAAAAAAAAABACAAAAAAAAAAQ=</HashCode>
+      <FileName>ViewModels\Common\PasswordBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.AdminBooksViewModel">
+    <Position X="26" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAgEEIAoBAgAAIAIBQAACAgARAIEBACAQCQAQAABA=</HashCode>
+      <FileName>ViewModels\AdminBooksViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.AdminCategoriesViewModel">
+    <Position X="27.75" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ASIAgDMAAIBAgAAAAAAIAAAAAgQIgEAAAAACBBEQAAA=</HashCode>
+      <FileName>ViewModels\AdminCategoriesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.AdminUsersViewModel">
+    <Position X="29.5" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAQBUAAQIAyAAAAAAIABAAAASJAEAIAKACAQAAgAA=</HashCode>
+      <FileName>ViewModels\AdminUsersViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.AdminViewModel">
+    <Position X="33.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAAAAAAQgQAAggQAAAAAAQAEYAAAgAAAIQIEABA=</HashCode>
+      <FileName>ViewModels\AdminViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.AuthViewModel">
+    <Position X="31.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAYEBAAkgAAAAAAAQAAAACAAAACAACQAAA=</HashCode>
+      <FileName>ViewModels\AuthViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.BasketPageContentViewModel">
+    <Position X="35.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAEABAUAAAAAxghAAIAAAAAAIAAAIAAAAAAiBAgAAAA=</HashCode>
+      <FileName>ViewModels\BasketPageContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.BookPageContentViewModel">
+    <Position X="37" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAACBAAACAAAAAAQAAAAAAAARAgACAgAAAAg=</HashCode>
+      <FileName>ViewModels\BookPageContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.CategoryPageContentViewModel">
+    <Position X="31.75" Y="2.75" Width="1.5" />
+    <InheritanceLine Type="BookShop.ViewModels.Base.ViewModel" ManuallyRouted="true">
+      <Path>
+        <Point X="29.75" Y="5.891" />
+        <Point X="29.75" Y="6.875" />
+        <Point X="32.5" Y="6.875" />
+        <Point X="32.5" Y="2.75" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AQAAAAQAAABAAAAAAABAAAAAAAABAAAAAgACBAAAAAg=</HashCode>
+      <FileName>ViewModels\CategoryPageContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.ContactsVeiwModel">
+    <Position X="33.5" Y="3" Width="1.5" />
+    <InheritanceLine Type="BookShop.ViewModels.Base.ViewModel" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="29.75" Y="5.891" />
+        <Point X="29.75" Y="6.853" />
+        <Point X="34.179" Y="6.853" />
+        <Point X="34.179" Y="3.997" />
+        <Point X="34.188" Y="3.997" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ContactsVeiwModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.DeliveryInfoVeiwModel">
+    <Position X="37" Y="2.75" Width="1.5" />
+    <InheritanceLine Type="BookShop.ViewModels.Base.ViewModel" ManuallyRouted="true">
+      <Path>
+        <Point X="29.75" Y="3.5" />
+        <Point X="29.75" Y="6.867" />
+        <Point X="37.75" Y="6.867" />
+        <Point X="37.75" Y="3.747" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\DeliveryInfoVeiwModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.HomeContentViewModel">
+    <Position X="38.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAQCIABgAAAABABEAAIAAAAACgAAAgACBEAAAAg=</HashCode>
+      <FileName>ViewModels\HomeContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.HomeViewModel">
+    <Position X="40.5" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BABApAUIEABwwBACggBAAQAAREAGEEABAkBCBAIAAAg=</HashCode>
+      <FileName>ViewModels\HomeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.OrderPageContentViewModel">
+    <Position X="42.25" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAEAAAAQAAgAgAAAAAAQAAACBAAAAAACAAgAAAA=</HashCode>
+      <FileName>ViewModels\OrderPageContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.SearchPageContentViewModel">
+    <Position X="35.25" Y="2.75" Width="1.5" />
+    <InheritanceLine Type="BookShop.ViewModels.Base.ViewModel" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="29.75" Y="5.891" />
+        <Point X="29.75" Y="6.888" />
+        <Point X="36" Y="6.888" />
+        <Point X="36" Y="5.848" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAABAAAAAAABAAAAAAAAAAAAAAgACBAAAAAg=</HashCode>
+      <FileName>ViewModels\SearchPageContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.ViewModels.UserPageContentViewModel">
+    <Position X="44" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAUAAIAAQAAAAAEICAAQAAQIAAAAAAACBAAAABE=</HashCode>
+      <FileName>ViewModels\UserPageContentViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.App">
+    <Position X="2" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BookShop.Views.Home">
+    <Position X="3.75" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\Home.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Views.AuthWindow">
+    <Position X="5.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Views\AuthWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Views.AdminWindow">
+    <Position X="7.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AdminWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Views.AddUserWindow">
+    <Position X="7.25" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddUserWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Views.AddCategoryWindow">
+    <Position X="3.75" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddCategoryWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BookShop.Views.AddBookWindow">
+    <Position X="2" Y="10" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\AddBookWindow.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

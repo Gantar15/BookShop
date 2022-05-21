@@ -2,6 +2,7 @@
 using System;
 using System.Net;
 using System.Net.Mail;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace BookShop.Services
@@ -39,7 +40,7 @@ namespace BookShop.Services
             Client.Credentials = new NetworkCredential(AdminMail, _adminPassword);
         }
 
-        public bool SendMail(string to, string subject, string body, bool isBodyHtml = false)
+        public async Task SendMail(string to, string subject, string body, bool isBodyHtml = false)
         {
             //Создаем сообщение
             MailAddress From = new MailAddress(AdminMail, "BookShop");
@@ -51,15 +52,12 @@ namespace BookShop.Services
 
             try
             {
-                Client.SendAsync(mess, null);
+                await Client.SendMailAsync(mess);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.InnerException.Message);
-                return false;
             }
-
-            return true;
         }
     }
 }

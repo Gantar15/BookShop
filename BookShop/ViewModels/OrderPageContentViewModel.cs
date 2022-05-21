@@ -7,6 +7,7 @@ using BookShop.Models;
 using System.Collections.Generic;
 using BookShop.ViewModels.Common;
 using System;
+using BookShop.Infrastructure;
 
 namespace BookShop.ViewModels
 {
@@ -15,6 +16,7 @@ namespace BookShop.ViewModels
         private HomeViewModel _main;
         private BasketPageContentViewModel _basket;
         private LambdaCommand _orderCommand;
+        private ConfigurationFactory _configurationFactory;
         private readonly MessageBoxService _messageBoxService;
         private readonly EmailService _emailService;
 
@@ -22,6 +24,7 @@ namespace BookShop.ViewModels
         {
             _messageBoxService = new MessageBoxService();
             _emailService = new EmailService();
+            _configurationFactory = new ConfigurationFactory();
             this._basket = _basket;
             this._main = _main;
         }
@@ -62,35 +65,56 @@ namespace BookShop.ViewModels
                 productsHtmlTr += "<tr>" +
                                 $"<td>{book.Title}</td>" +
                                 $"<td>{String.Format("{0:C2}", orderProduct.Product.Price)}</td>" +
+                                $"<td>{orderProduct.Count}</td>" +
                                 "</tr>";
             }
-            string messageBody = $"<article>" +
-                                $"<h2>Уважаемый {currentOrder.Fio}, ваш заказ: </h2>" +
-                                "<table margin=\"10,0,0,0\">" +
-                                "<thead><tr>" +
-                                    "<th>название</td>" +
-                                    "<th>цена</td>" +
-                                "</tr></thead>" +
-                                "<tbody>" +
-                                    productsHtmlTr +
-                                "</tbody>" +
-                                "</table>" +
-                                "</article>";
 
-            return messageBody;
+            return productsHtmlTr;
         }
 
         public LambdaCommand OrderCommand
         {
             get
             {
-                return _orderCommand ?? (_orderCommand = new LambdaCommand(o =>
+                return _orderCommand ?? (_orderCommand = new LambdaCommand(async o =>
                 {
+                    var configuration = _configurationFactory.GetConfiguration();
+                    string AdminMail = configuration["mailInfo:adminMail"];
+
                     var currentOrder = CreateOrder();
                     _messageBoxService.ShowMessageBox("Заказ", $"Ваш заказ успешно оформлен :3", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    string messageBody = GetOrdersHtmlTable(currentOrder);
-                    _emailService.SendMail(LoggedinUser.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageBody, true);
+                    string messageUserBody = $"<article>" +
+                    $"<h2>Уважаемый {currentOrder.Fio}, ваш заказ: </h2>" +
+                    "<table margin=\"10,0,0,0\">" +
+                    "<thead><tr>" +
+                        "<th>название</td>" +
+                        "<th>цена</td>" +
+                        "<th>количество</th>" +
+                    "</tr></thead>" +
+                    "<tbody>" +
+                        GetOrdersHtmlTable(currentOrder) +
+                    "</tbody>" +
+                    "</table>" +
+                    "</article>";
+
+                    string messageAdminBody = $"<article>" +
+                    $"<h2>Заказ на имя {currentOrder.Fio}</h2>" +
+                    $"<p>Адрес получателя {currentOrder.Address}</p>" +
+                    $"<p>Телефон получателя получателя {currentOrder.Phone}</p>" +
+                    "<table margin=\"10,0,0,0\">" +
+                    "<thead><tr>" +
+                        "<th>название</td>" +
+                        "<th>цена</td>" +
+                        "<th>количество</th>" +
+                    "</tr></thead>" +
+                    "<tbody>" +
+                        GetOrdersHtmlTable(currentOrder) +
+                    "</tbody>" +
+                    "</table>" +
+                    "</article>";
+                    await _emailService.SendMail(LoggedinUser.Email, $"{currentOrder.Fio}, ваш заказ успешно оформлен :3", messageUserBody, true);
+                    _emailService.SendMail(AdminMail, $"Оформлен заказ N{currentOrder.Id}", messageAdminBody, true);
 
                     _basket.ClearBasket();
                     _main.ChangeCommand.Execute("home");
